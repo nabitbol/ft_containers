@@ -1,0 +1,148 @@
+# ---------------------------------------------------------------------------- #
+#                                   variables                                  #
+# ---------------------------------------------------------------------------- #
+
+NAME			=	ft_container
+
+NAME1			=	std_container
+
+CXX				=	clang++
+
+CXXFLAGS		=	-Wall -Wextra -Werror -std=c++98
+
+LDLIBS			=
+
+SRC_DIR			=	src/
+
+INC_DIR			=	includes/
+
+FT_OBJ_DIR		=	obj_ft/
+
+STD_OBJ_DIR		=	obj_std/
+
+FT_OBJ			=	$(addprefix $(FT_OBJ_DIR), $(SRC_FILES:.cpp=.o))
+
+STD_OBJ			=	$(addprefix $(STD_OBJ_DIR), $(SRC_FILES:.cpp=.o))
+
+COUNT			=	0
+
+
+
+# ------------------------- Multiple lines variables ------------------------- #
+
+define BRAND_FT
+\n
+# ----------------------------- Creating $(NAME) ----------------------------- #
+\n
+endef
+
+define BRAND_STD
+\n
+# ----------------------------- Creating $(NAME1) ----------------------------- #
+\n
+endef
+
+define DONE
+
+\033[0;32m
+'########:::'#######::'##::: ##:'########:
+ ##.... ##:'##.... ##: ###:: ##: ##.....::
+ ##:::: ##: ##:::: ##: ####: ##: ##:::::::
+ ##:::: ##: ##:::: ##: ## ## ##: ######:::
+ ##:::: ##: ##:::: ##: ##. ####: ##...::::
+ ##:::: ##: ##:::: ##: ##:. ###: ##:::::::
+ ########::. #######:: ##::. ##: ########:
+........::::.......:::..::::..::........::
+\033[0m
+
+endef
+
+define CLEAN
+
+\033[0;34m
+:'######::'##:::::::'########::::'###::::'##::: ##:'########:'########::
+'##... ##: ##::::::: ##.....::::'## ##::: ###:: ##: ##.....:: ##.... ##:
+ ##:::..:: ##::::::: ##::::::::'##:. ##:: ####: ##: ##::::::: ##:::: ##:
+ ##::::::: ##::::::: ######:::'##:::. ##: ## ## ##: ######::: ##:::: ##:
+ ##::::::: ##::::::: ##...:::: #########: ##. ####: ##...:::: ##:::: ##:
+ ##::: ##: ##::::::: ##::::::: ##.... ##: ##:. ###: ##::::::: ##:::: ##:
+. ######:: ########: ########: ##:::: ##: ##::. ##: ########: ########::
+:......:::........::........::..:::::..::..::::..::........::........:::
+\033[0m
+
+endef
+
+# ---------------------------------------------------------------------------- #
+#                                    souces                                    #
+# ---------------------------------------------------------------------------- #
+
+SRC_FILES		= main.cpp
+
+# ---------------------------------------------------------------------------- #
+#                        dynamic variables using sources                       #
+# ---------------------------------------------------------------------------- #
+
+FILES_COUNT		:= $(words $(SRC_FILES))
+
+# ---------------------------------------------------------------------------- #
+#                                    roules                                    #
+# ---------------------------------------------------------------------------- #
+
+export DONE
+export BRAND_STD
+export BRAND_FT
+export CLEAN
+
+.DEFAULT_GOAL = help
+
+$(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(STD_OBJ_DIR)
+	@sed -i "s|ft|std|" $^
+	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS)
+	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
+	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+
+$(FT_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(FT_OBJ_DIR)
+	@sed -i "s|std|ft|" $^
+	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS)
+	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
+	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+
+$(NAME1): $(STD_OBJ)
+	@$(CXX) -o $(NAME1) $(STD_OBJ) $(CXXFLAGS)
+
+$(NAME): $(FT_OBJ)
+	@$(CXX) -o $(NAME) $(FT_OBJ) $(CXXFLAGS)
+
+print_brand_STD:
+	@echo "$${BRAND_STD}"
+
+print_brand_FT:
+	@echo "$${BRAND_FT}"
+
+print_done:
+	@echo "$${DONE}"
+
+print_clean:
+	@echo "$${CLEAN}"
+
+all: print_brand_STD $(NAME1) print_done  #print_brand_FT $(NAME) print_done ## Create the executable
+	
+
+# Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
+help:
+	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-10s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+
+clean: print_clean ## Delete all obj
+	@rm -rf $(STD_OBJ_DIR)
+	@rm -rf $(FT_OBJ_DIR)
+
+fclean: clean ## Delete all obj and the executable
+	@rm -f $(NAME1)
+	@rm -f $(NAME)
+
+re: fclean all ## Delete using fclean and recompile using all
+
+.PHONY: all clean fclean re
+
