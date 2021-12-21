@@ -26,6 +26,8 @@ STD_OBJ			=	$(addprefix $(STD_OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 COUNT			=	0
 
+COUNT1			=	0
+
 
 
 # ------------------------- Multiple lines variables ------------------------- #
@@ -93,21 +95,24 @@ export BRAND_STD
 export BRAND_FT
 export CLEAN
 
-.DEFAULT_GOAL = help
+
+.DEFAULT_GOAL = all
 
 $(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@echo "$${BRAND_STD}"
 	@mkdir -p $(STD_OBJ_DIR)
-	@sed -i "s|ft|std|" $^
 	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS)
-	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
-	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+	@$(eval COUNT1=$(shell echo $$(($(COUNT1)+1))))
+	@echo [$(COUNT1)/$(FILES_COUNT)] compiling $^ to $@
+	@echo "$${DONE}"
 
 $(FT_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@echo "$${BRAND_FT}"
 	@mkdir -p $(FT_OBJ_DIR)
-	@sed -i "s|std|ft|" $^
 	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS)
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+	@echo "$${DONE}"
 
 $(NAME1): $(STD_OBJ)
 	@$(CXX) -o $(NAME1) $(STD_OBJ) $(CXXFLAGS)
@@ -115,19 +120,10 @@ $(NAME1): $(STD_OBJ)
 $(NAME): $(FT_OBJ)
 	@$(CXX) -o $(NAME) $(FT_OBJ) $(CXXFLAGS)
 
-print_brand_STD:
-	@echo "$${BRAND_STD}"
-
-print_brand_FT:
-	@echo "$${BRAND_FT}"
-
-print_done:
-	@echo "$${DONE}"
-
 print_clean:
 	@echo "$${CLEAN}"
 
-all: print_brand_STD $(NAME1) print_done  #print_brand_FT $(NAME) print_done ## Create the executable
+all: $(NAME1) $(NAME) ## Create the executable
 	
 
 # Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
