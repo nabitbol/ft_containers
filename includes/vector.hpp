@@ -36,9 +36,9 @@ class vector {
 		vector(): size(0), ptr(NULL) {};
 
 		vector(size_type n, value_type value): size(n), ptr(NULL) {
-			ptr = allocator.allocate(n);
+			allocateMemory(n);
 			for (size_type i = 0; i < n; i++) {
-				allocator.construct((ptr + i), value);
+				saveData((ptr + i), value);
 			}
 		};
 
@@ -48,7 +48,20 @@ class vector {
 			allocator.deallocate(ptr, size);
 		};
 
+/* ---------------------------------- utils --------------------------------- */
+
+	private:
+
+			void	allocateMemory(size_type n) {
+				ptr = allocator.allocate(n);
+			};
+
+			void	saveData(value_type *ptr, value_type value) {
+				allocator.construct(ptr, value);
+			};
+
 	};
+
 }
 
 #endif
