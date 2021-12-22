@@ -40,10 +40,15 @@ class vector {
 			for (size_type i = 0; i < n; i++) {
 				allocator.construct((ptr + i), value);
 			}
-		}
+		};
+
+/* ------------------------------- destructor ------------------------------- */
+
+		~vector() {
+			allocator.deallocate(ptr, size);
+		};
 
 	};
-
 }
 
 #endif
