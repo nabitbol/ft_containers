@@ -14,7 +14,10 @@ int	main(void) {
 	//Call a fill constructor
 	::vector<int> b(4, 100);
 
-	//assignation
+	//Call copy constructor
+	::vector<int> c(b);
+
+	//Assignation
 	a = b;
 
 }

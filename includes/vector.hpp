@@ -42,6 +42,10 @@ class vector {
 			}
 		};
 
+		vector(const vector<value_type, allocator_type> &instance) {
+			*this = instance;
+		}
+
 /* ------------------------------- destructor ------------------------------- */
 
 		~vector() {
