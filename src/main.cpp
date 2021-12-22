@@ -1,10 +1,11 @@
-	#include <vector.hpp>
+#include <vector.hpp>
+#include <vector>
 
 int	main(void) {
 
 /* --------------------------------- vector --------------------------------- */
 
-	//Call a non parameter vector constructor
-	ft::vector<int> a();
+	//Call a non parameter(empty) vector constructor
+	ft::vector<int> a;
 
 }

@@ -33,7 +33,8 @@ class vector {
 	public:
 /* ------------------------------ constructors ------------------------------ */
 
-		vector(): ptr(NULL), size(0) {};
+		vector(): size(0), ptr(NULL) {};
+
 	};
 
 }
