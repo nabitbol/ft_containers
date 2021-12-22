@@ -48,27 +48,28 @@ class vector {
 			allocator.deallocate(ptr, size);
 		};
 
-/* -------------------------------- operator -------------------------------- */
+/* -------------------------------- operators ------------------------------- */
 
 		vector	&operator=(const vector<value_type, allocator_type> &instance) {
 			allocateMemory(instance.size);
 			size = instance.size;
 			for (size_type i = 0; i < size; i++) {
-				saveData((ptr + i), instance->ptr);
-			};
-		}
+				saveData((ptr + i), *(instance.ptr));
+			}
+			return (*this);
+		};
 
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
 
-			void	allocateMemory(size_type n) {
-				ptr = allocator.allocate(n);
-			};
+		void	allocateMemory(size_type n) {
+			ptr = allocator.allocate(n);
+		};
 
-			void	saveData(value_type *ptr, value_type value) {
-				allocator.construct(ptr, value);
-			};
+		void	saveData(value_type *ptr, value_type value) {
+			allocator.construct(ptr, value);
+		};
 
 	};
 
