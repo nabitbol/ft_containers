@@ -35,6 +35,13 @@ class vector {
 
 		vector(): size(0), ptr(NULL) {};
 
+		vector(size_type n, value_type value): size(n), ptr(NULL) {
+			ptr = allocator.allocate(n);
+			for (size_type i = 0; i < n; i++) {
+				allocator.construct((ptr + i), value);
+			}
+		}
+
 	};
 
 }
