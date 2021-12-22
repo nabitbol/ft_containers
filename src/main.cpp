@@ -1,7 +1,10 @@
-#include "vector.hpp"
+	#include <vector.hpp>
 
 int	main(void) {
-	std::string a("toto");
 
-	std::cout << a << std::endl;
+/* --------------------------------- vector --------------------------------- */
+
+	//Call a non parameter vector constructor
+	ft::vector<int> a();
+
 }
