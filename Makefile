@@ -101,7 +101,7 @@ export CLEAN
 $(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	@echo "$${BRAND_STD}"
 	@mkdir -p $(STD_OBJ_DIR)
-	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS)
+	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS) -DNAMESPACE="std"
 	@$(eval COUNT1=$(shell echo $$(($(COUNT1)+1))))
 	@echo [$(COUNT1)/$(FILES_COUNT)] compiling $^ to $@
 	@echo "$${DONE}"
@@ -109,7 +109,7 @@ $(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 $(FT_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	@echo "$${BRAND_FT}"
 	@mkdir -p $(FT_OBJ_DIR)
-	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS)
+	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS) -DNAMESPACE="ft"
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
 	@echo "$${DONE}"
