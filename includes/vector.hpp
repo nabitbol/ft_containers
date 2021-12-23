@@ -62,6 +62,10 @@ class vector {
 			return (*this);
 		};
 
+		value_type	&operator[](int index) const {
+			return (*(_ptr + index));
+		};
+
 /* -------------------------------- acessors -------------------------------- */
 
 		size_type	size() {
