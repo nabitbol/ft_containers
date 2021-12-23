@@ -4,6 +4,20 @@
 
 using namespace NAMESPACE;
 
+template < typename T >
+void	display(const T &instance, int index) {
+	std::cout << instance[index];
+}
+
+template < typename T >
+void	iter(const T &instance, size_t size, void function(const T &, int)) {
+	for (size_t i = 0; i < size; i++) {
+		function(instance, i);
+		std::cout << ' ';
+	}
+	std::cout << std::endl;
+}
+
 int	main(void) {
 
 /* --------------------------------- vector --------------------------------- */
@@ -46,6 +60,10 @@ int	main(void) {
 	std::cout << a.size() << std::endl;
 	std::cout << b.size() << std::endl;
 	std::cout << c.size() << std::endl;
+
+	std::cout << std::endl;
+
+	iter< ::vector<int> >(a, a.size(), &display);
 
 	std::cout << std::endl;
 
