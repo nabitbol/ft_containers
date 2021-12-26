@@ -22,8 +22,6 @@ OBJ				=	$(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 COUNT			=	0
 
-
-
 # ------------------------- Multiple lines variables ------------------------- #
 
 define BRAND
@@ -85,7 +83,6 @@ export DONE
 export BRAND
 export CLEAN
 
-
 .DEFAULT_GOAL = help
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
@@ -106,13 +103,8 @@ print_done:
 print_clean:
 	@echo "$${CLEAN}"
 
-del_log_file:
-	@if [ ./fails.log ] ; \
-	then \
-		rm -rf ./fails.log ; \
-	fi;
-
-all: del_log_file print_brand $(NAME) print_done ## Create the executable
+all: print_brand $(NAME) print_done ## Create the executable
+	@rm -rf faild.log
 
 # Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
 help:
@@ -121,7 +113,8 @@ help:
 test: re ## Generate tester and run it
 	@./$(NAME)
 
-clean: del_log_file print_clean ## Delete all obj
+clean: print_clean ## Delete all obj
+	@rm -rf faild.log
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean ## Delete all obj and the executable
