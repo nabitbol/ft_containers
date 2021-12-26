@@ -1,0 +1,10 @@
+
+# executable
+ft_containers_tester
+a.out
+
+#objects
+*.o
+
+#log files
+*.log

@@ -2,47 +2,33 @@
 #                                   variables                                  #
 # ---------------------------------------------------------------------------- #
 
-NAME			=	ft_container
-
-NAME1			=	std_container
+NAME			=	ft_containers_tester
 
 CXX				=	clang++
 
-CXXFLAGS		=	-Wall -Wextra -Werror -std=c++98
+CXXFLAGS		=	-Wall -Wextra -Werror 
 
 LDLIBS			=
 
-TEST_DIR		=	ft_containers_tester/
-
 SRC_DIR			=	src/
 
-INC_DIR			=	includes/
+ADD_INC_DIR		=	ft_container/includes/
 
-FT_OBJ_DIR		=	obj_ft/
+TEST_INC_DIR	=	./includes/
 
-STD_OBJ_DIR		=	obj_std/
+OBJ_DIR			=	obj/
 
-FT_OBJ			=	$(addprefix $(FT_OBJ_DIR), $(SRC_FILES:.cpp=.o))
-
-STD_OBJ			=	$(addprefix $(STD_OBJ_DIR), $(SRC_FILES:.cpp=.o))
+OBJ				=	$(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 COUNT			=	0
-
-COUNT1			=	0
 
 
 
 # ------------------------- Multiple lines variables ------------------------- #
 
-define BRAND_FT
+define BRAND
 \n
 # ----------------------------- Creating $(NAME) ----------------------------- #
-\n
-endef
-
-define BRAND_STD
-\n
-# ----------------------------- Creating $(NAME1) ----------------------------- #
 \n
 endef
 
@@ -80,7 +66,10 @@ endef
 #                                    souces                                    #
 # ---------------------------------------------------------------------------- #
 
-SRC_FILES		= main.cpp
+SRC_FILES		= main.cpp \
+			utils.cpp \
+			capacity.cpp \
+			register.class.cpp
 
 # ---------------------------------------------------------------------------- #
 #                        dynamic variables using sources                       #
@@ -93,59 +82,51 @@ FILES_COUNT		:= $(words $(SRC_FILES))
 # ---------------------------------------------------------------------------- #
 
 export DONE
-export BRAND_STD
-export BRAND_FT
+export BRAND
 export CLEAN
 
 
-.DEFAULT_GOAL = all
+.DEFAULT_GOAL = help
 
-$(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
-	@echo "$${BRAND_STD}"
-	@mkdir -p $(STD_OBJ_DIR)
-	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS) -DNAMESPACE="std"
-	@$(eval COUNT1=$(shell echo $$(($(COUNT1)+1))))
-	@echo [$(COUNT1)/$(FILES_COUNT)] compiling $^ to $@
-	@echo "$${DONE}"
-
-$(FT_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
-	@echo "$${BRAND_FT}"
-	@mkdir -p $(FT_OBJ_DIR)
-	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS) -DNAMESPACE="ft"
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	@mkdir -p $(OBJ_DIR)
+	@$(CXX) -c -o $@ $< -I $(TEST_INC_DIR) -I $(ADD_INC_DIR) $(CXXFLAGS)
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+
+$(NAME): $(OBJ)
+	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+
+print_brand:
+	@echo "$${BRAND}"
+
+print_done:
 	@echo "$${DONE}"
-
-$(NAME1): $(STD_OBJ)
-	@$(CXX) -o $(NAME1) $(STD_OBJ) $(CXXFLAGS)
-
-$(NAME): $(FT_OBJ)
-	@$(CXX) -o $(NAME) $(FT_OBJ) $(CXXFLAGS)
 
 print_clean:
 	@echo "$${CLEAN}"
 
-all: $(NAME1) $(NAME) ## Create the executable
-	
+del_log_file:
+	@if [ ./fails.log ] ; \
+	then \
+		rm -rf ./fails.log ; \
+	fi;
+
+all: del_log_file print_brand $(NAME) print_done ## Create the executable
 
 # Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-10s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-test:	## Run tests
-	@make -C $(TEST_DIR) test
+test: re ## Generate tester and run it
+	@./$(NAME)
 
-clean: print_clean ## Delete all obj
-	@make -C $(TEST_DIR) clean
-	@rm -rf $(STD_OBJ_DIR)
-	@rm -rf $(FT_OBJ_DIR)
+clean: del_log_file print_clean ## Delete all obj
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean ## Delete all obj and the executable
-	@make -C $(TEST_DIR) fclean
-	@rm -f $(NAME1)
 	@rm -f $(NAME)
 
 re: fclean all ## Delete using fclean and recompile using all
 
 .PHONY: all clean fclean re
-

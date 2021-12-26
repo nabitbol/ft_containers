@@ -1,0 +1,66 @@
+#ifndef		FT_CONTAINERS_HPP
+# define	FT_CONTAINERS_HPP
+
+
+/* -------------------------------------------------------------------------- */
+/*                                your includes                               */
+/* -------------------------------------------------------------------------- */
+
+# include "../../includes/vector.hpp"
+
+/* -------------------------------------------------------------------------- */
+/*                               tester includes                              */
+/* -------------------------------------------------------------------------- */
+
+# include "./error_test_defines.hpp"
+# include <vector>
+# include <iostream>
+# include <sstream>
+# include <fstream>
+
+/* --------------------------------- typedef -------------------------------- */
+
+typedef	void	(*functionPtr)(void);
+
+/* -------------------------------------------------------------------------- */
+/*                               class regsiter                               */
+/* -------------------------------------------------------------------------- */
+
+class Register {
+
+ private:
+	std::vector<functionPtr> _testFunctions;
+	std::vector<std::string> _testErrorMsg;
+
+ public:
+	Register();
+	~Register();
+	void	pushTestFunction(const std::string &str, const functionPtr &function);
+	void	runAllTests();
+
+};
+
+/* ---------------------------------- utils --------------------------------- */
+
+
+template <typename T>
+std::stringstream		exec(const T &instance, std::stringstream function(const T &)) {
+	return (function(instance));
+}
+
+void	displayCompareResult(const std::stringstream &result1, const std::stringstream &result2, const std::string &test);
+
+/* -------------------------------------------------------------------------- */
+/*                                   vector                                   */
+/* -------------------------------------------------------------------------- */
+
+/* ----------------------------- capacity tests ----------------------------- */
+
+void	displayCapacity();
+
+void	testSize();
+void	testMaxSize();
+void	testCapacity();
+
+
+#endif
