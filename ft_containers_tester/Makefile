@@ -104,7 +104,6 @@ print_clean:
 	@echo "$${CLEAN}"
 
 all: print_brand $(NAME) print_done ## Create the executable
-	@rm -rf faild.log
 
 # Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
 help:
