@@ -30,8 +30,6 @@ COUNT			=	0
 
 COUNT1			=	0
 
-
-
 # ------------------------- Multiple lines variables ------------------------- #
 
 define BRAND_FT
@@ -97,7 +95,6 @@ export BRAND_STD
 export BRAND_FT
 export CLEAN
 
-
 .DEFAULT_GOAL = all
 
 $(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
@@ -126,22 +123,21 @@ print_clean:
 	@echo "$${CLEAN}"
 
 all: $(NAME1) $(NAME) ## Create the executable
-	
 
 # Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
 help:
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-10s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 test:	## Run tests
-	@make -C $(TEST_DIR) test
+	@make -sC $(TEST_DIR) test
 
 clean: print_clean ## Delete all obj
-	@make -C $(TEST_DIR) clean
+	@make -sC $(TEST_DIR) clean
 	@rm -rf $(STD_OBJ_DIR)
 	@rm -rf $(FT_OBJ_DIR)
 
 fclean: clean ## Delete all obj and the executable
-	@make -C $(TEST_DIR) fclean
+	@make -sC $(TEST_DIR) fclean
 	@rm -f $(NAME1)
 	@rm -f $(NAME)
 
