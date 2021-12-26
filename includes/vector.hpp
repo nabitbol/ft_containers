@@ -28,15 +28,15 @@ class vector {
 	private :
 		allocator_type			_allocator;
 		size_type				_size;
-		size_type				_cpacity;
+		size_type				_capacity;
 		value_type				*_ptr;
 
 	public:
 /* ------------------------------ constructors ------------------------------ */
 
-		explicit vector(): _size(0), _ptr(NULL) {};
+		explicit vector(): _allocator(A()), _size(0), _capacity(0),  _ptr(NULL) {};
 
-		explicit vector(size_type n, value_type value): _size(n), _ptr(NULL) {
+		explicit vector(size_type n, value_type value): _allocator(A()), _size(n), _capacity(n), _ptr(NULL) {
 			_ptr = allocateMemory(n);
 			for (size_type i = 0; i < n; i++) {
 				saveData((_ptr + i), value);
@@ -56,8 +56,12 @@ class vector {
 /* -------------------------------- operators ------------------------------- */
 
 		vector	&operator=(const vector<value_type, allocator_type> &instance) {
-			_ptr = allocateMemory(instance._size);
+			_allocator = instance._allocator;
 			_size = instance._size;
+			_capacity = instance._capacity;
+			if (_ptr == NULL)
+				deallocateMemory(_ptr, _size);
+			_ptr = allocateMemory(_capacity);
 			copyData(_ptr, instance._ptr, _size);
 			return (*this);
 		};
@@ -68,50 +72,41 @@ class vector {
 
 /* -------------------------------- acessors -------------------------------- */
 
-		size_type	size() {
+		size_type	size() const {
 			return (_size);
 		};
 
-		size_type	max_size() {
+		size_type	max_size() const {
 			return (_allocator.max_size());
+		};
+
+		size_type	capacity() const {
+			return (_capacity);
 		};
 
 		void		resize(size_type n, value_type value) {
 			value_type	*tmp = NULL;
+			size_type	newCapacity = 0;
 
-			tmp = allocateMemory(n);
-			if (_size > n)
-				copyData(tmp, _ptr, n);
-			if (_size < n) {
-				copyData(tmp, _ptr, _size);
-				for (size_type j = _size; j < n; j++) {
-					saveData((tmp + j), value);
+			if (_size >= n) {
+				for (size_type i = n; i < _size; i++) {
+				deleteData(_ptr, i);
 				}
+			} else if (_size < n && (newCapacity = getNewCapacity(n)) != _capacity) {
+				tmp = allocateMemory(newCapacity);
+				copyData(tmp, _ptr, _size);
+				saveDataChunk(tmp, value, _size, n);
+				deallocateMemory(_ptr, _size);
+				_ptr = tmp;
+				_capacity = newCapacity;
+			} else {
+				saveDataChunk(_ptr, value, _size, n);
 			}
-			deallocateMemory(_ptr, _size);
-			_ptr = allocateMemory(n);
-			copyData(_ptr, tmp, n);
-			deallocateMemory(tmp, _size);
 			_size = n;
 		};
 
 		void		resize(size_type n) {
-			value_type	*tmp = NULL;
-
-			tmp = _allocator.allocate(n);
-			if (_size > n)
-				copyData(tmp, _ptr, n);
-			if (_size < n) {
-				copyData(tmp, _ptr, _size);
-				for (size_type j = _size; j < n; j++) {
-					saveData((tmp + j), 0);
-				}
-			}
-			deallocateMemory(_ptr, _size);
-			_ptr = allocateMemory(n);
-			copyData(_ptr, tmp, n);
-			deallocateMemory(tmp, _size);
-			_size = n;
+			resize(n, 0);
 		};
 
 /* ---------------------------------- utils --------------------------------- */
@@ -126,15 +121,35 @@ class vector {
 			_allocator.deallocate(ptr, size);
 		};
 
+		void	deleteData(value_type *ptr, size_type index) {
+			_allocator.destroy((ptr + index));
+		}
+
 		void	saveData(value_type *ptr, value_type value) {
 			_allocator.construct(ptr, value);
 		};
+
+		void	saveDataChunk(value_type *ptr, value_type value, size_type start, size_type end) {
+			for (size_type j = start; j < end; j++) {
+				saveData((ptr + j), value);
+			}
+		}
 
 		void	copyData(value_type *copyPtr, value_type *ptr, size_type size) {
 			for (size_type i = 0; i < size; i++) {
 				saveData((copyPtr + i), *(ptr + i));
 			}
 		}
+
+		size_type	getNewCapacity(size_type n) {
+			if (n > _capacity && n < (_capacity * 2)) {
+				return (_capacity * 2);
+			} else if (n > _capacity && n >= (_capacity * 2)) {
+				return (n);
+			} else {
+				return (_capacity);
+			}
+		};
 
 	};
 
