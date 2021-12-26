@@ -57,4 +57,5 @@ void	Register::runAllTests() {
 		child(_testErrorMsg[index], _testFunctions[index]);
 		index++;
 	}
+	std::cout <<"\n" << std::endl;
 }
