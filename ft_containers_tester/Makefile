@@ -12,6 +12,8 @@ LDLIBS			=
 
 SRC_DIR			=	src/
 
+LOG_FILE		=	fails.log
+
 ADD_INC_DIR		=	ft_container/includes/
 
 TEST_INC_DIR	=	./includes/
@@ -113,7 +115,7 @@ test: re ## Generate tester and run it
 	@./$(NAME)
 
 clean: print_clean ## Delete all obj
-	@rm -rf faild.log
+	@rm -rf $(LOG_FILE)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean ## Delete all obj and the executable
