@@ -16,4 +16,16 @@
 #define  TEST_CAPACITY  "/* ------------------------------ Test Capacity ----------------------------- */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.capcity();\n"
 
+#define  TEST_RESIZE1  "/* ------------------------------ Test Resize1 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.resize(5, 600);\n"
+
+#define  TEST_RESIZE2  "/* ------------------------------ Test Resize2 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.resize(10, 7000);\n"
+
+#define  TEST_RESIZE3  "/* ------------------------------ Test Resize3 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.resize(9);\n"
+
+#define  TEST_RESIZE4  "/* ------------------------------ Test Resize4 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.resize(3);\n"
+
 #endif

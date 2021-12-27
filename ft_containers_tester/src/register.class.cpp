@@ -1,7 +1,10 @@
 #include "ft_containers_tester.hpp"
 #include <sys/wait.h>
 #include <unistd.h>
-# include <fcntl.h>
+#include <cstdio>
+#include <fcntl.h>
+
+#define FILENAME "fails.log"
 
 void	displayCrash(const std::string &str, int fd, int status) {
 	dup2(fd, STDERR_FILENO);
@@ -20,7 +23,7 @@ void	displayCrash(const std::string &str, int fd, int status) {
 void	child(const std::string &str, functionPtr function) {
 	int	fd = 0;
 	int	status = 0;
-	fd = open("fails.log", O_CREAT | O_APPEND | O_WRONLY, 0777);
+	fd = open(FILENAME, O_CREAT | O_APPEND | O_WRONLY, 0777);
 
 	if (fd == -1)
 		std::cerr << "error: fail to load .log file" << std::endl;
@@ -53,6 +56,7 @@ void	Register::pushTestFunction(const std::string &str, const functionPtr &funct
 
 void	Register::runAllTests() {
 	int index = 0;
+	remove(FILENAME);
 	for (std::vector<functionPtr>::iterator i = _testFunctions.begin(); i != _testFunctions.end(); ++i) {
 		child(_testErrorMsg[index], _testFunctions[index]);
 		index++;

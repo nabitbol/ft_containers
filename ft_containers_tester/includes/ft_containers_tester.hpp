@@ -50,6 +50,19 @@ std::stringstream		exec(const T &instance, std::stringstream function(const T &)
 
 void	displayCompareResult(const std::stringstream &result1, const std::stringstream &result2, const std::string &test);
 
+template < typename T>
+void	save(const T &instance, std::stringstream &tmp, int index) {
+	tmp << instance[index];
+	tmp << " ";
+}
+
+template < typename T>
+void	iterate(const T &instance, std::stringstream &tmp, size_t size, void function(const T &, std::stringstream &, int)) {
+	for (size_t i = 0; i < size; i++) {
+		function(instance, tmp, i);
+	}
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                   vector                                   */
 /* -------------------------------------------------------------------------- */
@@ -61,6 +74,10 @@ void	displayCapacity();
 void	testSize();
 void	testMaxSize();
 void	testCapacity();
+void	testResize1();
+void	testResize2();
+void	testResize3();
+void	testResize4();
 
 
 #endif

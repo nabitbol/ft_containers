@@ -40,6 +40,10 @@ int	main(void) {
 	list.pushTestFunction(TEST_SIZE ,testSize);
 	list.pushTestFunction(TEST_MAX_SIZE, testMaxSize);
 	list.pushTestFunction(TEST_CAPACITY, testCapacity);
+	list.pushTestFunction(TEST_RESIZE1, testResize1);
+	list.pushTestFunction(TEST_RESIZE2, testResize2);
+	list.pushTestFunction(TEST_RESIZE3, testResize3);
+	list.pushTestFunction(TEST_RESIZE4, testResize4);
 	list.runAllTests();
 	return (0);
 }
