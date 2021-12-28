@@ -44,7 +44,8 @@ int	main(void) {
 	list.pushTestFunction(TEST_RESIZE2, testResize2);
 	list.pushTestFunction(TEST_RESIZE3, testResize3);
 	list.pushTestFunction(TEST_RESIZE4, testResize4);
-	list.pushTestFunction(TEST_EMPTY, testEmpty);
+	list.pushTestFunction(TEST_EMPTY1, testEmpty1);
+	list.pushTestFunction(TEST_EMPTY2, testEmpty2);
 	list.runAllTests();
 	return (0);
 }

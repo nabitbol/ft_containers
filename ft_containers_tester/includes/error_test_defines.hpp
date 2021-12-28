@@ -28,7 +28,10 @@
 #define  TEST_RESIZE4  "/* ------------------------------ Test Resize4 ------------------------------ */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.resize(3);\n"
 
-#define  TEST_EMPTY  "/* ------------------------------- Test Empty ------------------------------- */\n\n" \
-					"std::vector<int> instance();\ninstance.empty();\n"
+#define  TEST_EMPTY1  "/* ------------------------------- Test Empty1 ------------------------------ */\n\n" \
+					"std::vector<int> instance;\ninstance.empty();\n"
+
+#define  TEST_EMPTY2  "/* ------------------------------- Test Empty2 ------------------------------ */\n\n" \
+					"std::vector<int> instance(30, 2);\ninstance.empty();\n"
 
 #endif

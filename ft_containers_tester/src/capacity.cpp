@@ -28,7 +28,6 @@ void	testSize() {
 
 /* --------------------------- max_size functions --------------------------- */
 
-
 template <typename T>
 std::stringstream		getMaxSize(const T &instance) {
 	std::stringstream tmp;
@@ -72,7 +71,6 @@ void	testCapacity() {
 }
 
 /* ---------------------------- resize functions ---------------------------- */
-
 
 /*
 ** test1
@@ -160,4 +158,45 @@ void	testResize4() {
 	result2 = exec(b, getResize);
 
 	displayCompareResult(result1, result2, TEST_RESIZE4);
+}
+
+/* ----------------------------- empty functions ---------------------------- */
+
+template <typename T>
+std::stringstream		getEmpty(const T &instance) {
+	std::stringstream tmp;
+	tmp << instance.empty();
+	return (tmp);
+}
+
+/*
+** test1
+*/
+void	testEmpty1() {
+	ft::vector<int> a;
+	std::vector<int> b;
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getEmpty);
+	result2 = exec(b, getEmpty);
+
+	displayCompareResult(result1, result2, TEST_EMPTY1);
+}
+
+/*
+** test2
+*/
+void	testEmpty2() {
+	ft::vector<int> a(30, 2);
+	std::vector<int> b(30, 2);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getEmpty);
+	result2 = exec(b, getEmpty);
+
+	displayCompareResult(result1, result2, TEST_EMPTY2);
 }
