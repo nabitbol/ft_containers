@@ -84,6 +84,12 @@ class vector {
 			return (_capacity);
 		};
 
+		bool		empty() const {
+			if (_size != 0)
+				return (true);
+			return (false);
+		}
+
 		void		resize(size_type n, value_type value) {
 			value_type	*tmp = NULL;
 			size_type	newCapacity = 0;
