@@ -74,10 +74,11 @@ void	testCapacity() {
 /* ---------------------------- resize functions ---------------------------- */
 
 
-/* --------------------------------- test 1 --------------------------------- */
-
+/*
+** test1
+*/
 template <typename T>
-std::stringstream		getResize1(T &instance) {
+std::stringstream		getResize(T &instance) {
 	std::stringstream tmp;
 	tmp << " size: ";
 	tmp << instance.size();
@@ -98,27 +99,15 @@ void	testResize1() {
 	a.resize(5, 400);
 	b.resize(5, 400);
 
-	result1 = exec(a, getResize1);
-	result2 = exec(b, getResize1);
+	result1 = exec(a, getResize);
+	result2 = exec(b, getResize);
 
 	displayCompareResult(result1, result2, TEST_RESIZE1);
 }
 
-/* ---------------------------------- test2 --------------------------------- */
-
-template <typename T>
-std::stringstream		getResize2(T &instance) {
-	std::stringstream tmp;
-	tmp << " size: ";
-	tmp << instance.size();
-	tmp << " capacity: ";
-	tmp << instance.capacity();
-	tmp << " content: ";
-	iterate(instance, tmp, instance.size(), save);
-	return (tmp);
-}
-
-
+/*
+** test2
+*/
 void	testResize2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
@@ -129,26 +118,15 @@ void	testResize2() {
 	a.resize(10, 7000);
 	b.resize(10, 7000);
 
-	result1 = exec(a, getResize2);
-	result2 = exec(b, getResize2);
+	result1 = exec(a, getResize);
+	result2 = exec(b, getResize);
 
 	displayCompareResult(result1, result2, TEST_RESIZE2);
 }
 
-/* --------------------------------- test 3 --------------------------------- */
-
-template <typename T>
-std::stringstream		getResize3(T &instance) {
-	std::stringstream tmp;
-	tmp << " size: ";
-	tmp << instance.size();
-	tmp << " capacity: ";
-	tmp << instance.capacity();
-	tmp << " content: ";
-	iterate(instance, tmp, instance.size(), save);
-	return (tmp);
-}
-
+/*
+** test3
+*/
 void	testResize3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
@@ -159,24 +137,15 @@ void	testResize3() {
 	a.resize(9);
 	b.resize(9);
 
-	result1 = exec(a, getResize3);
-	result2 = exec(b, getResize3);
+	result1 = exec(a, getResize);
+	result2 = exec(b, getResize);
 
 	displayCompareResult(result1, result2, TEST_RESIZE3);
 }
-/* --------------------------------- test 4 --------------------------------- */
 
-template <typename T>
-std::stringstream		getResize4(T &instance) {
-	std::stringstream tmp;
-	tmp << " size: ";
-	tmp << instance.size();
-	tmp << " capacity: ";
-	tmp << instance.capacity();
-	tmp << " content: ";
-	iterate(instance, tmp, instance.size(), save);
-	return (tmp);
-}
+/*
+** test4
+*/
 void	testResize4() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
@@ -187,8 +156,8 @@ void	testResize4() {
 	a.resize(3);
 	b.resize(3);
 
-	result1 = exec(a, getResize4);
-	result2 = exec(b, getResize4);
+	result1 = exec(a, getResize);
+	result2 = exec(b, getResize);
 
 	displayCompareResult(result1, result2, TEST_RESIZE4);
 }
