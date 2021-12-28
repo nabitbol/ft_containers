@@ -85,7 +85,6 @@ class vector {
 		};
 
 		void		resize(size_type n, value_type value) {
-			value_type	*tmp = NULL;
 			size_type	newCapacity = 0;
 
 			if (_size >= n) {
@@ -93,11 +92,8 @@ class vector {
 				deleteData(_ptr, i);
 				}
 			} else if (_size < n && (newCapacity = getNewCapacity(n)) != _capacity) {
-				tmp = allocateMemory(newCapacity);
-				copyData(tmp, _ptr, _size);
-				saveDataChunk(tmp, value, _size, n);
-				deallocateMemory(_ptr, _size);
-				_ptr = tmp;
+				reallocate(&_ptr, _size, newCapacity);
+				saveDataChunk(_ptr, value, _size, n);
 				_capacity = newCapacity;
 			} else {
 				saveDataChunk(_ptr, value, _size, n);
@@ -115,6 +111,12 @@ class vector {
 			return (true);
 		}
 
+		void reserve (size_type n) {
+			if (n > _capacity) {
+				reallocate(&_ptr, _size, n);
+				_capacity = n;
+			}
+		};
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
@@ -155,6 +157,15 @@ class vector {
 			} else {
 				return (_capacity);
 			}
+		};
+
+		void reallocate(value_type **ptr, size_type size, size_type newCapacity) {
+			value_type	*tmp = NULL;
+
+			tmp = allocateMemory(newCapacity);
+			copyData(tmp, *ptr, size);
+			deallocateMemory(*ptr, size);
+			*ptr = tmp;
 		};
 
 	};
