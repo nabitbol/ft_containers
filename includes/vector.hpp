@@ -145,8 +145,16 @@ class vector {
 			 return (*_ptr);
 		 };
 
+		reference front() const {
+			 return (*_ptr);
+		 };
+
 		 reference back() {
-			 return (*(_ptr + _size));
+			 return (*(_ptr + (_size - 1)));
+		 };
+
+		reference back() const {
+			 return (*(_ptr + (_size - 1)));
 		 };
 
 /* ---------------------------------- utils --------------------------------- */
