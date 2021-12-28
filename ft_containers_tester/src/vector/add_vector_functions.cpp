@@ -26,6 +26,8 @@ void	addElementAcessFunctions(Register *list) {
 	list->pushTestFunction(TEST_AT1 ,testAt1);
 	list->pushTestFunction(TEST_AT2,testAt2);
 	list->pushTestFunction(TEST_AT3,testAt3);
+	list->pushTestFunction(TEST_FRONT,testFront);
+	list->pushTestFunction(TEST_BACK,testBack);
 }
 
 void	addVectorFunctions(Register *list) {

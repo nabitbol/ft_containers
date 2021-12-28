@@ -85,3 +85,60 @@ void	testAt3() {
 
 	displayCompareResult(result1, result2, TEST_AT3);
 }
+
+/* ----------------------------- front functions ---------------------------- */
+
+template <typename T>
+std::stringstream		getFront(const T &instance) {
+	std::stringstream tmp;
+	tmp << instance.front();
+	return (tmp);
+}
+
+void	testFront() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	for (unsigned i=0; i<a.size(); i++)
+		a.at(i)=i;
+
+	for (unsigned i=0; i<b.size(); i++)
+		b.at(i)=i;
+
+	result1 = exec(a, getFront);
+	result2 = exec(b, getFront);
+
+	displayCompareResult(result1, result2, TEST_FRONT);
+}
+
+/* ----------------------------- back functions ----------------------------- */
+
+template <typename T>
+std::stringstream		getBack(const T &instance) {
+	std::stringstream tmp;
+	tmp << instance.back();
+	return (tmp);
+}
+
+void	testBack() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	for (unsigned i=0; i<a.size(); i++)
+		a.at(i)=i;
+
+	for (unsigned i=0; i<b.size(); i++)
+		b.at(i)=i;
+
+	result1 = exec(a, getBack);
+	result2 = exec(b, getBack);
+
+	displayCompareResult(result1, result2, TEST_BACK);
+}
+

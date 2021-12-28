@@ -49,4 +49,10 @@
 #define  TEST_AT3 "/* --------------------------------- Test At3 ------------------------------- */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.at(5);\n"
 
+#define  TEST_FRONT "/* ------------------------------- Test Front ------------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<a.size(); i++)\ninstance.front();\n"
+
+#define  TEST_BACK "/* -------------------------------- Test Back -------------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<a.size(); i++)\ninstance.back();\n"
+
 #endif
