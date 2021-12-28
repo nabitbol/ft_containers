@@ -118,6 +118,18 @@ class vector {
 			}
 		};
 
+		reference at (size_type n) {
+			if (n > _size || n < 0) 
+				throw std::out_of_range("ArrayList<T>::at() : index is out of range");
+			return (*(_ptr + n));
+		};
+
+		const_reference at (size_type n) const {
+			if (n > _size || n < 0) 
+				throw std::out_of_range("ArrayList<T>::at() : index is out of range");
+			return (*(_ptr + n));
+		};
+
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
