@@ -84,12 +84,6 @@ class vector {
 			return (_capacity);
 		};
 
-		bool		empty() const {
-			if (_size != 0)
-				return (false);
-			return (true);
-		}
-
 		void		resize(size_type n, value_type value) {
 			value_type	*tmp = NULL;
 			size_type	newCapacity = 0;
@@ -114,6 +108,12 @@ class vector {
 		void		resize(size_type n) {
 			resize(n, 0);
 		};
+
+		bool		empty() const {
+			if (_size != 0)
+				return (false);
+			return (true);
+		}
 
 /* ---------------------------------- utils --------------------------------- */
 
