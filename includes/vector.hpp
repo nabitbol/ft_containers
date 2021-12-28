@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <string>
+#include <sstream>
 #include <iostream>
 
 namespace	ft {
@@ -119,16 +120,34 @@ class vector {
 		};
 
 		reference at (size_type n) {
-			if (n > _size || n < 0) 
-				throw std::out_of_range("ArrayList<T>::at() : index is out of range");
+			if (n > _size || n < 0)  {
+				std::stringstream tmp;
+				tmp << "vector::_M_range_check: __n (which is " << n;
+				tmp << ") >= this->size() (which is ";
+				tmp << _size << ")";
+				throw std::out_of_range(tmp.str());
+			}
 			return (*(_ptr + n));
 		};
 
 		const_reference at (size_type n) const {
-			if (n > _size || n < 0) 
-				throw std::out_of_range("ArrayList<T>::at() : index is out of range");
+			if (n > _size || n < 0) {
+				std::stringstream tmp;
+				tmp << "vector::_M_range_check: __n (which is " << n;
+				tmp << ") >= this->size() (which is ";
+				tmp << _size << ")";
+				throw std::out_of_range(tmp.str());
+			}
 			return (*(_ptr + n));
 		};
+
+		 reference front() {
+			 return (*_ptr);
+		 };
+
+		 reference back() {
+			 return (*(_ptr + _size));
+		 };
 
 /* ---------------------------------- utils --------------------------------- */
 
