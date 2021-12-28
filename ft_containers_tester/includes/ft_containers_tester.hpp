@@ -91,5 +91,6 @@ void	displayElementAcess();
 
 void	testAt1();
 void	testAt2();
+void	testAt3();
 
 #endif

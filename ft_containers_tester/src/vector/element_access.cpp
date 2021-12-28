@@ -58,3 +58,30 @@ void	testAt2() {
 
 	displayCompareResult(result1, result2, TEST_AT2);
 }
+
+/*
+** test3
+*/
+template <typename T>
+std::stringstream		getAtOutOfRange(const T &instance) {
+	std::stringstream tmp;
+	try {
+		instance.at(5);
+	} catch (std::out_of_range &e) {
+		tmp << e.what();
+	}
+	return (tmp);
+}
+
+void	testAt3() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getAtOutOfRange);
+	result2 = exec(b, getAtOutOfRange);
+
+	displayCompareResult(result1, result2, TEST_AT3);
+}

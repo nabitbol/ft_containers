@@ -44,6 +44,9 @@
 					"std::vector<int> instance(4, 100);\ninstance.at(3);\n"
 
 #define  TEST_AT2 "/* --------------------------------- Test At2 ------------------------------- */\n\n" \
-					"std::vector<int> instance(4, 100);\ninstance.at(3);\n"
+					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<a.size(); i++)\na.at(i)=i;\n"
+
+#define  TEST_AT3 "/* --------------------------------- Test At3 ------------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.at(5);\n"
 
 #endif
