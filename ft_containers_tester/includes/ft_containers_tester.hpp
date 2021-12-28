@@ -78,6 +78,7 @@ void	testResize1();
 void	testResize2();
 void	testResize3();
 void	testResize4();
+void	testEmpty();
 
 
 #endif
