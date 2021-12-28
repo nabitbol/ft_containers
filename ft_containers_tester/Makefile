@@ -12,6 +12,8 @@ LDLIBS			=
 
 SRC_DIR			=	src/
 
+VECTOR_SRC_DIR	=	src/vector/
+
 LOG_FILE		=	fails.log
 
 ADD_INC_DIR		=	ft_container/includes/
@@ -20,7 +22,11 @@ TEST_INC_DIR	=	./includes/
 
 OBJ_DIR			=	obj/
 
+VECTOR_OBJ_DIR	=	obj_vector/
+
 OBJ				=	$(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
+
+VECTOR_OBJ		=	$(addprefix $(VECTOR_OBJ_DIR), $(VECTOR_SRC_FILES:.cpp=.o))
 
 COUNT			=	0
 
@@ -68,14 +74,17 @@ endef
 
 SRC_FILES		= main.cpp \
 			utils.cpp \
-			capacity.cpp \
 			register.class.cpp
+
+VECTOR_SRC_FILES = add_vector_functions.cpp  \
+				capacity.cpp \
+				element_access.cpp
 
 # ---------------------------------------------------------------------------- #
 #                        dynamic variables using sources                       #
 # ---------------------------------------------------------------------------- #
 
-FILES_COUNT		:= $(words $(SRC_FILES))
+FILES_COUNT		:= $(words $(SRC_FILES) $(VECTOR_SRC_FILES))
 
 # ---------------------------------------------------------------------------- #
 #                                    roules                                    #
@@ -93,8 +102,14 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
 
-$(NAME): $(OBJ)
-	@$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+$(VECTOR_OBJ_DIR)%.o: $(VECTOR_SRC_DIR)%.cpp
+	@mkdir -p $(VECTOR_OBJ_DIR)
+	@$(CXX) -c -o $@ $< -I $(TEST_INC_DIR) -I $(ADD_INC_DIR) $(CXXFLAGS)
+	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
+	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+
+$(NAME): $(OBJ) $(VECTOR_OBJ)
+	@$(CXX) -o $(NAME) $(OBJ) $(VECTOR_OBJ) $(CXXFLAGS)
 
 print_brand:
 	@echo "$${BRAND}"
@@ -117,6 +132,7 @@ test: re ## Generate tester and run it
 clean: print_clean ## Delete all obj
 	@rm -rf $(LOG_FILE)
 	@rm -rf $(OBJ_DIR)
+	@rm -rf $(VECTOR_OBJ_DIR)
 
 fclean: clean ## Delete all obj and the executable
 	@rm -f $(NAME)

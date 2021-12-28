@@ -67,6 +67,8 @@ void	iterate(const T &instance, std::stringstream &tmp, size_t size, void functi
 /*                                   vector                                   */
 /* -------------------------------------------------------------------------- */
 
+void	addVectorFunctions(Register *list);
+
 /* ----------------------------- capacity tests ----------------------------- */
 
 void	displayCapacity();
@@ -83,5 +85,10 @@ void	testEmpty2();
 void	testReserve1();
 void	testReserve2();
 
+/* --------------------------- Element acess tests -------------------------- */
+
+void	displayElementAcess();
+
+void	testAt();
 
 #endif

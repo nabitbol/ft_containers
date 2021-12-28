@@ -87,7 +87,6 @@ void	testCapacity() {
 /*
 ** test1
 */
-
 void	testResize1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);

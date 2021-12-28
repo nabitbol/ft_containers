@@ -40,4 +40,7 @@
 #define  TEST_RESERVE2 "/* ------------------------------ Test Reserve2 ----------------------------- */\n\n" \
 					"std::vector<int> instance(10, 40);\ninstance.reserve(8);\n"
 
+#define  TEST_AT "/* --------------------------------- Test At -------------------------------- */\n\n" \
+					"std::vector<int> instance(10, 40);\ninstance.reserve(8);\n"
+
 #endif
