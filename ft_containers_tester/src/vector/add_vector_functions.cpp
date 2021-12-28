@@ -23,7 +23,8 @@ void	addCapacityFunctions(Register *list) {
 
 void	addElementAcessFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayElementAcess);
-	list->pushTestFunction(TEST_AT ,testAt);
+	list->pushTestFunction(TEST_AT1 ,testAt1);
+	list->pushTestFunction(TEST_AT2,testAt2);
 }
 
 void	addVectorFunctions(Register *list) {

@@ -89,6 +89,7 @@ void	testReserve2();
 
 void	displayElementAcess();
 
-void	testAt();
+void	testAt1();
+void	testAt2();
 
 #endif
