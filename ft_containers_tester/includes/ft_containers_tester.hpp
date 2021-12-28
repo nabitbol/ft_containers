@@ -80,6 +80,8 @@ void	testResize3();
 void	testResize4();
 void	testEmpty1();
 void	testEmpty2();
+void	testReserve1();
+void	testReserve2();
 
 
 #endif

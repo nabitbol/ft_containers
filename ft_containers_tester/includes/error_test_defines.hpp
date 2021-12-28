@@ -34,4 +34,10 @@
 #define  TEST_EMPTY2  "/* ------------------------------- Test Empty2 ------------------------------ */\n\n" \
 					"std::vector<int> instance(30, 2);\ninstance.empty();\n"
 
+#define  TEST_RESERVE1 "/* ------------------------------ Test Reserve1 ----------------------------- */\n\n" \
+					"std::vector<int> instance(10, 40);\ninstance.reserve(100);\n"
+
+#define  TEST_RESERVE2 "/* ------------------------------ Test Reserve2 ----------------------------- */\n\n" \
+					"std::vector<int> instance(10, 40);\ninstance.reserve(8);\n"
+
 #endif

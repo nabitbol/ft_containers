@@ -4,6 +4,18 @@ void	displayCapacity() {
 	std::cout << "[Capacity]: ";
 }
 
+template <typename T>
+std::stringstream		getVectorCapacitiess(T &instance) {
+	std::stringstream tmp;
+	tmp << " size: ";
+	tmp << instance.size();
+	tmp << " capacity: ";
+	tmp << instance.capacity();
+	tmp << " content: ";
+	iterate(instance, tmp, instance.size(), save);
+	return (tmp);
+}
+
 /* ----------------------------- size functions ----------------------------- */
 
 template <typename T>
@@ -75,17 +87,6 @@ void	testCapacity() {
 /*
 ** test1
 */
-template <typename T>
-std::stringstream		getResize(T &instance) {
-	std::stringstream tmp;
-	tmp << " size: ";
-	tmp << instance.size();
-	tmp << " capacity: ";
-	tmp << instance.capacity();
-	tmp << " content: ";
-	iterate(instance, tmp, instance.size(), save);
-	return (tmp);
-}
 
 void	testResize1() {
 	ft::vector<int> a(4, 100);
@@ -97,8 +98,8 @@ void	testResize1() {
 	a.resize(5, 400);
 	b.resize(5, 400);
 
-	result1 = exec(a, getResize);
-	result2 = exec(b, getResize);
+	result1 = exec(a, getVectorCapacitiess);
+	result2 = exec(b, getVectorCapacitiess);
 
 	displayCompareResult(result1, result2, TEST_RESIZE1);
 }
@@ -116,8 +117,8 @@ void	testResize2() {
 	a.resize(10, 7000);
 	b.resize(10, 7000);
 
-	result1 = exec(a, getResize);
-	result2 = exec(b, getResize);
+	result1 = exec(a, getVectorCapacitiess);
+	result2 = exec(b, getVectorCapacitiess);
 
 	displayCompareResult(result1, result2, TEST_RESIZE2);
 }
@@ -135,8 +136,8 @@ void	testResize3() {
 	a.resize(9);
 	b.resize(9);
 
-	result1 = exec(a, getResize);
-	result2 = exec(b, getResize);
+	result1 = exec(a, getVectorCapacitiess);
+	result2 = exec(b, getVectorCapacitiess);
 
 	displayCompareResult(result1, result2, TEST_RESIZE3);
 }
@@ -154,8 +155,8 @@ void	testResize4() {
 	a.resize(3);
 	b.resize(3);
 
-	result1 = exec(a, getResize);
-	result2 = exec(b, getResize);
+	result1 = exec(a, getVectorCapacitiess);
+	result2 = exec(b, getVectorCapacitiess);
 
 	displayCompareResult(result1, result2, TEST_RESIZE4);
 }
@@ -199,4 +200,44 @@ void	testEmpty2() {
 	result2 = exec(b, getEmpty);
 
 	displayCompareResult(result1, result2, TEST_EMPTY2);
+}
+
+/* ---------------------------- reserve functions --------------------------- */
+
+/*
+** test1
+*/
+void	testReserve1() {
+	ft::vector<int> a(10, 40);
+	std::vector<int> b(10, 40);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	a.reserve(100);
+	b.reserve(100);
+
+	result1 = exec(a, getVectorCapacitiess);
+	result2 = exec(b, getVectorCapacitiess);
+
+	displayCompareResult(result1, result2, TEST_RESERVE1);
+}
+
+/*
+** test2
+*/
+void	testReserve2() {
+	ft::vector<int> a(10, 40);
+	std::vector<int> b(10, 40);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	a.reserve(8);
+	b.reserve(8);
+
+	result1 = exec(a, getVectorCapacitiess);
+	result2 = exec(b, getVectorCapacitiess);
+
+	displayCompareResult(result1, result2, TEST_RESERVE2);
 }
