@@ -86,8 +86,8 @@ class vector {
 
 		bool		empty() const {
 			if (_size != 0)
-				return (true);
-			return (false);
+				return (false);
+			return (true);
 		}
 
 		void		resize(size_type n, value_type value) {
