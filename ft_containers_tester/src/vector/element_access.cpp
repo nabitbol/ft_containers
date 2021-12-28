@@ -12,6 +12,22 @@ std::stringstream		getVectorContent(T &instance) {
 	return (tmp);
 }
 
+/* -------------------------- operator [] functions ------------------------- */
+
+void	testOperatorAcess() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorContent);
+	result2 = exec(b, getVectorContent);
+
+	displayCompareResult(result1, result2, TEST_OPERATOR_ACESS);
+}
+
+
 /* ------------------------------ At functions ------------------------------ */
 
 /*

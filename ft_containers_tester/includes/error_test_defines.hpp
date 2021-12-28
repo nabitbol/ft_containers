@@ -40,19 +40,22 @@
 #define  TEST_RESERVE2 "/* ------------------------------ Test Reserve2 ----------------------------- */\n\n" \
 					"std::vector<int> instance(10, 40);\ninstance.reserve(8);\n"
 
+#define  TEST_OPERATOR_ACESS "/* --------------------------------- Test [] -------------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nfor(unsigned i=0; i < instance.size(); i++);\ninstance[index];\n"
+
 #define  TEST_AT1 "/* --------------------------------- Test At1 ------------------------------- */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.at(3);\n"
 
 #define  TEST_AT2 "/* --------------------------------- Test At2 ------------------------------- */\n\n" \
-					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<a.size(); i++)\na.at(i)=i;\n"
+					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<instance.size(); i++)\na.at(i)=i;\n"
 
 #define  TEST_AT3 "/* --------------------------------- Test At3 ------------------------------- */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.at(5);\n"
 
 #define  TEST_FRONT "/* ------------------------------- Test Front ------------------------------- */\n\n" \
-					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<a.size(); i++)\ninstance.front();\n"
+					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<instance.size(); i++)\ninstance.front();\n"
 
 #define  TEST_BACK "/* -------------------------------- Test Back -------------------------------- */\n\n" \
-					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<a.size(); i++)\ninstance.back();\n"
+					"std::vector<int> instance(4, 100);\nfor (unsigned i=0; i<instance.size(); i++)\ninstance.back();\n"
 
 #endif

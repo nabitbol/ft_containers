@@ -94,5 +94,6 @@ void	testAt2();
 void	testAt3();
 void	testFront();
 void	testBack();
+void	testOperatorAcess();
 
 #endif
