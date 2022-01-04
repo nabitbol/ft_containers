@@ -5,6 +5,8 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+#include "iterators.hpp"
+#include "type_traits.hpp"
 #include <memory>
 #include <string>
 #include <sstream>
@@ -18,13 +20,17 @@ class vector {
 	public:
 /* ----------------------------- type definition ---------------------------- */
 
-	typedef	T											value_type;
-	typedef	A											allocator_type;
-	typedef	std::size_t									size_type;
-	typedef	typename allocator_type::reference			reference;
-	typedef	typename allocator_type::const_reference	const_reference;
-	typedef	typename allocator_type::pointer			pointer;
-	typedef	typename allocator_type::const_pointer		const_pointer;
+	typedef	T																				value_type;
+	typedef	A																				allocator_type;
+	typedef	std::size_t																		size_type;
+	typedef	typename ft::vectorIterator<value_type>											iterator;
+	typedef	typename ft::vectorIterator<const value_type>									const_iterator;
+	typedef	typename ft::reverse_iterator<iterator>											reverse_iterator;
+	typedef	typename ft::reverse_iterator<const iterator>									const_reverse_iterator;
+	typedef	typename allocator_type::reference												reference;
+	typedef	typename allocator_type::const_reference										const_reference;
+	typedef	typename allocator_type::pointer												pointer;
+	typedef	typename allocator_type::const_pointer											const_pointer;
 
 	private :
 		allocator_type			_allocator;
@@ -32,7 +38,7 @@ class vector {
 		size_type				_capacity;
 		value_type				*_ptr;
 
-	public:
+	public: 
 /* ------------------------------ constructors ------------------------------ */
 
 		explicit vector(): _allocator(A()), _size(0), _capacity(0),  _ptr(NULL) {};
@@ -44,7 +50,7 @@ class vector {
 			}
 		};
 
-		explicit vector(const vector<value_type, allocator_type> &instance) {
+		vector(const vector<value_type, allocator_type> &instance) {
 			*this = instance;
 		}
 
@@ -69,6 +75,42 @@ class vector {
 
 		value_type	&operator[](int index) const {
 			return (*(_ptr + index));
+		};
+
+/* -------------------------------- iterators ------------------------------- */
+
+		iterator begin() {
+			return (iterator(_ptr));
+		};
+
+		const_iterator begin() const {
+			return (const_iterator(_ptr));
+		};
+
+		iterator end() {
+			return (iterator(_ptr + _size));
+		};
+
+		const_iterator end() const {
+			return (const_iterator(_ptr + _size));
+		};
+
+/* ---------------------------- reverse iterator ---------------------------- */
+
+		reverse_iterator rbegin() {
+			return (reverse_iterator(_ptr));
+		};
+
+		const_reverse_iterator rbegin() const {
+			return (const_reverse_iterator(_ptr));
+		};
+
+		reverse_iterator rend() {
+			return (reverse_iterator(_ptr + _size));
+		};
+
+		const_reverse_iterator rend() const {
+			return (const_reverse_iterator(_ptr + _size));
 		};
 
 /* -------------------------------- acessors -------------------------------- */
