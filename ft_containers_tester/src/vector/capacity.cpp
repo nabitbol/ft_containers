@@ -1,6 +1,7 @@
 #include "ft_containers_tester.hpp"
 
 void	displayCapacity() {
+	std::cout << "\n" << std::endl;
 	std::cout << "[Capacity]: ";
 }
 

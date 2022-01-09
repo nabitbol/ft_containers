@@ -77,6 +77,7 @@ SRC_FILES		= main.cpp \
 			register.class.cpp
 
 VECTOR_SRC_FILES = add_vector_functions.cpp  \
+				iterators.cpp \
 				capacity.cpp \
 				element_access.cpp
 

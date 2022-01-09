@@ -1,7 +1,6 @@
 #ifndef		FT_CONTAINERS_HPP
 # define	FT_CONTAINERS_HPP
 
-
 /* -------------------------------------------------------------------------- */
 /*                                your includes                               */
 /* -------------------------------------------------------------------------- */
@@ -68,6 +67,39 @@ void	iterate(const T &instance, std::stringstream &tmp, size_t size, void functi
 /* -------------------------------------------------------------------------- */
 
 void	addVectorFunctions(Register *list);
+
+/* ----------------------------- iterators tests ---------------------------- */
+
+void	displayIterators();
+
+void	testBegin();
+void	testEnd();
+void	testRbegin();
+void	testConstRbegin();
+void	testRend();
+void	testConstRend();
+void	testAddition1();
+void	testAddition2();
+void	testAddition3();
+void	testSubstarction1();
+void	testSubstarction2();
+void	testPostIncrementation();
+void	testPreIncrementation();
+void	testPostDecrementation1();
+void	testPostDecrementation2();
+void	testComparaison1();
+void	testComparaison2();
+void	testComparaison3();
+void	testComparaison4();
+void	testComparaison5();
+void	testComparaison6();
+void	testComparaison7();
+void	testComparaison8();
+void	testComparaison9();
+void	testComparaison10();
+void	testDerefence();
+void	testMultiPass();
+
 
 /* ----------------------------- capacity tests ----------------------------- */
 

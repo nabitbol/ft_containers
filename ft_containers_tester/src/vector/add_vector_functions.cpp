@@ -6,6 +6,36 @@ void	displayVector() {
 	std::cout << std::endl;
 }
 
+void	addIteratorsFunctions(Register *list) {
+	list->pushTestFunction(NO_MESG, displayIterators);
+	list->pushTestFunction(TEST_BEGIN,testBegin);
+	list->pushTestFunction(TEST_END,testEnd);
+	list->pushTestFunction(TEST_RBEGIN,testRbegin);
+	list->pushTestFunction(TEST_CONST_RBEGIN,testConstRbegin);
+	list->pushTestFunction(TEST_CONST_REND,testConstRend);
+	list->pushTestFunction(TEST_ITERATOR_ADDIION1,testAddition1);
+	list->pushTestFunction(TEST_ITERATOR_ADDIION2,testAddition2);
+	list->pushTestFunction(TEST_ITERATOR_ADDIION3,testAddition3);
+	list->pushTestFunction(TEST_ITERATOR_SUBSTRATCION1,testSubstarction1);
+	list->pushTestFunction(TEST_ITERATOR_SUBSTRATCION2,testSubstarction2);
+	list->pushTestFunction(TEST_INCREMENTATION1,testPreIncrementation);
+	list->pushTestFunction(TEST_INCREMENTATION2,testPostIncrementation);
+	list->pushTestFunction(TEST_DECREMENTATION1,testPostDecrementation1);
+	list->pushTestFunction(TEST_DECREMENTATION2,testPostDecrementation2);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON1,testComparaison1);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON2,testComparaison2);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON3,testComparaison3);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON4,testComparaison4);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON5,testComparaison5);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON6,testComparaison6);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON7,testComparaison7);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON8,testComparaison8);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON9,testComparaison9);
+	list->pushTestFunction(TEST_ITERATOR_COMPARISON10,testComparaison10);
+	list->pushTestFunction(TEST_ITERATOR_DEREFERENCE,testDerefence);
+	list->pushTestFunction(TEST_ITERATOR_MULTI_PASS,testMultiPass);
+}
+
 void	addCapacityFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayCapacity);
 	list->pushTestFunction(TEST_SIZE ,testSize);
@@ -33,6 +63,7 @@ void	addElementAcessFunctions(Register *list) {
 
 void	addVectorFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayVector);
+	addIteratorsFunctions(list);
 	addCapacityFunctions(list);
 	addElementAcessFunctions(list);
 }
