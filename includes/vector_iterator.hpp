@@ -38,7 +38,7 @@ class vectorIterator : public iterator<ft::random_access_iterator_tag,
 		*this = instance;
 	};
 
-	~vectorIterator() {};
+	virtual ~vectorIterator() {};
 
 /* ------------------------- implicit convertibility ------------------------ */
 
@@ -51,7 +51,6 @@ class vectorIterator : public iterator<ft::random_access_iterator_tag,
 	};
 
 /* -------------------------------- operators ------------------------------- */
-
 
 	vectorIterator	&operator=(const vectorIterator<value_type> &instance) {
 		element = instance.element;
@@ -74,6 +73,22 @@ class vectorIterator : public iterator<ft::random_access_iterator_tag,
 		return (false);
 	};
 
+	bool operator>(const vectorIterator instance) const {
+		return (element > instance.element);
+	};
+
+	bool operator>=(const vectorIterator instance) const {
+		return (element >= instance.element);
+	};
+
+	bool operator<(const vectorIterator instance) const {
+		return (element < instance.element);
+	};
+
+	bool operator<=(const vectorIterator instance) const {
+		return (element <= instance.element);
+	};
+
 	/*
 	** substraction/addition
 	*/
@@ -92,6 +107,14 @@ class vectorIterator : public iterator<ft::random_access_iterator_tag,
 
 	vectorIterator operator-(const difference_type &instance) const {
 		return(element - instance);
+	};
+
+	void operator+=(const typename ft::vectorIterator<T>::difference_type value) {
+		element = (element + value);
+	};
+
+	void operator-=(const typename ft::vectorIterator<T>::difference_type value) {
+		element = (element - value);
 	};
 
 	/*
@@ -130,6 +153,10 @@ class vectorIterator : public iterator<ft::random_access_iterator_tag,
 
 	Pointer		operator->(void) const {
 		return (element);
+	};
+
+	value_type	operator[](int index) const{
+		return (*(element + index));
 	};
 
 };
