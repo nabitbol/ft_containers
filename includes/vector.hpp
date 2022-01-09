@@ -5,7 +5,8 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include "iterators.hpp"
+#include "vector_iterator.hpp"
+#include "iterators_utils.hpp"
 #include "type_traits.hpp"
 #include <memory>
 #include <string>
@@ -98,19 +99,19 @@ class vector {
 /* ---------------------------- reverse iterator ---------------------------- */
 
 		reverse_iterator rbegin() {
-			return (reverse_iterator(_ptr));
+			return (reverse_iterator(_ptr + (_size - 1)));
 		};
 
 		const_reverse_iterator rbegin() const {
-			return (const_reverse_iterator(_ptr));
+			return (const_reverse_iterator(_ptr + (_size - 1)));
 		};
 
 		reverse_iterator rend() {
-			return (reverse_iterator(_ptr + _size));
+			return (reverse_iterator(_ptr - 1));
 		};
 
 		const_reverse_iterator rend() const {
-			return (const_reverse_iterator(_ptr + _size));
+			return (const_reverse_iterator(_ptr - 1));
 		};
 
 /* -------------------------------- acessors -------------------------------- */
