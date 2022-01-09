@@ -27,7 +27,7 @@ class vector {
 	typedef	typename ft::vectorIterator<value_type>											iterator;
 	typedef	typename ft::vectorIterator<const value_type>									const_iterator;
 	typedef	typename ft::reverse_iterator<iterator>											reverse_iterator;
-	typedef	typename ft::reverse_iterator<const iterator>									const_reverse_iterator;
+	typedef	typename ft::reverse_iterator<const_iterator>									const_reverse_iterator;
 	typedef	typename allocator_type::reference												reference;
 	typedef	typename allocator_type::const_reference										const_reference;
 	typedef	typename allocator_type::pointer												pointer;

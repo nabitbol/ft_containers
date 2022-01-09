@@ -166,11 +166,6 @@ ft::vectorIterator<T> operator+(typename ft::vectorIterator<T>::difference_type 
     return (&(*instance) + value);
 };
 
-template<typename T>
-ft::vectorIterator<T> operator-(typename ft::vectorIterator<T>::difference_type value, ft::vectorIterator<T> &instance) {
-    return (&(*instance) - value);
-};
-
 };
 
 #endif

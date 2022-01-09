@@ -114,16 +114,6 @@ class reverse_iterator {
 		return (element);
 	};
 
-/* ------------------------- implicit convertibility ------------------------ */
-
-	/*
-	** link to the implicit convertible method : https://www.fluentcpp.com/2018/01/05/making-strong-types-implicitly-convertible/
-	*/
-
-	operator	reverse_iterator<const value_type>() const {
-		return element;
-	};
-
 /* -------------------------------- operators ------------------------------- */
 
 	/*
