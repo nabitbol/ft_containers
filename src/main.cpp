@@ -56,6 +56,7 @@ int	main(void) {
 
 	std::cout << std::endl;
 
+	::vector<int> ft_vector(b.begin(), b.end());
 	iter< ::vector<int> >(c, c.size(), &display);
 
 	//Call resize

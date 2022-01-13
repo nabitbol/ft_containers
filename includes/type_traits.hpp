@@ -32,12 +32,6 @@ namespace ft {
 	struct is_integral<char> {static const bool value = true;};
 
 	template<>
-	struct is_integral<char16_t> {static const bool value = true;};
-
-	template<>
-	struct is_integral<char32_t> {static const bool value = true;};
-
-	template<>
 	struct is_integral<wchar_t> {static const bool value = true;};
 
 	template<>
@@ -74,13 +68,7 @@ namespace ft {
 	struct is_integral<const int> {static const bool value = true;};
 
 	template<>
-	struct is_integral<const char> {static const bool value = true;};
-
-	template<>
-	struct is_integral<const char16_t> {static const bool value = true;};
-
-	template<>
-	struct is_integral<const char32_t> {static const bool value = true;};
+	struct is_integral<const char> {static const bool value = true;}; 
 
 	template<>
 	struct is_integral<const wchar_t> {static const bool value = true;};

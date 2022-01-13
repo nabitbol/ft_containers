@@ -30,7 +30,7 @@ class vectorIterator : public iterator<ft::random_access_iterator_tag,
 
  /* ------------------------------ constructors ------------------------------ */
 
-	vectorIterator(): element(NULL) {};
+	vectorIterator(): element() {};
 
 	vectorIterator(pointer element): element(element) {};
 
