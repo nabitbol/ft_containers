@@ -224,6 +224,26 @@ template <class Iterator>
 				return(rev_it + n);
 			};
 
+/* -------------------------------- functions ------------------------------- */
+
+template <class InputIterator, class Distance>
+	void advance (InputIterator& it, Distance n) {
+		it += n;
+	};
+
+template<class InputIterator>
+	typename iterator_traits<InputIterator>::difference_type
+	distance (InputIterator first, InputIterator last) {
+		std::size_t index;
+
+		index = 0;
+		while (first != last) {
+			index++;
+			first++;
+		};
+		return (index);
+	};
+
 };
 
 #endif

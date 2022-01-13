@@ -51,6 +51,23 @@ class vector {
 			}
 		};
 
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last,
+				const allocator_type& alloc = allocator_type(),
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL): _allocator(alloc) {
+			int index;
+
+			index = 0;
+			_capacity = ft::distance(first, last);
+			_ptr = allocateMemory(_capacity);
+			while(first != last) {
+				saveData((_ptr + index), (*first));
+				index++;
+				first++;
+			}
+			_size = index;
+		};
+
 		vector(const vector<value_type, allocator_type> &instance) {
 			*this = instance;
 		}
