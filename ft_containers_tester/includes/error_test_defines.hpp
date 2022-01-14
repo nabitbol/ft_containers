@@ -8,7 +8,7 @@
 /* -------------------------------------------------------------------------- */
 
 #define  TEST_CONSTRUCTOR1 "/* ---------------------------- Test Constructor1 --------------------------- */\n\n" \
-					"std::vector<int> instance();\ninstance;\n"
+					"std::vector<int> instance;\n"
 
 #define  TEST_CONSTRUCTOR2 "/* ---------------------------- Test Constructor2 --------------------------- */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance[1];\n"
