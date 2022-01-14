@@ -5,18 +5,6 @@ void	displayCapacity() {
 	std::cout << "[Capacity]: ";
 }
 
-template <typename T>
-std::stringstream		getVectorCapacitiess(T &instance) {
-	std::stringstream tmp;
-	tmp << " size: ";
-	tmp << instance.size();
-	tmp << " capacity: ";
-	tmp << instance.capacity();
-	tmp << " content: ";
-	iterate(instance, tmp, instance.size(), save);
-	return (tmp);
-}
-
 /* ----------------------------- size functions ----------------------------- */
 
 template <typename T>

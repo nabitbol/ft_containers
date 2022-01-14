@@ -68,6 +68,29 @@ void	iterate(const T &instance, std::stringstream &tmp, size_t size, void functi
 
 void	addVectorFunctions(Register *list);
 
+/* ---------------------------------- utils --------------------------------- */
+
+template <typename T>
+std::stringstream		getVectorCapacitiess(T &instance) {
+	std::stringstream tmp;
+	tmp << " size: ";
+	tmp << instance.size();
+	tmp << " capacity: ";
+	tmp << instance.capacity();
+	tmp << " content: ";
+	iterate(instance, tmp, instance.size(), save);
+	return (tmp);
+}
+
+/* ---------------------------- constrcutor tests --------------------------- */
+
+void	displayConstructor();
+
+void	testEmptyParamConstructor();
+void	testValueConstructor();
+void	testCopyConstructor();
+void	testIteratorConstructor();
+
 /* ----------------------------- iterators tests ---------------------------- */
 
 void	displayIterators();

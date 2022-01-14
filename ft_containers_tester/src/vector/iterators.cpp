@@ -1,8 +1,7 @@
 #include "ft_containers_tester.hpp"
 
-#include "ft_containers_tester.hpp"
-
 void	displayIterators() {
+	std::cout << "\n" << std::endl;
 	std::cout << "[Iterators]: ";
 }
 

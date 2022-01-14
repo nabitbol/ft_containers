@@ -6,6 +6,14 @@ void	displayVector() {
 	std::cout << std::endl;
 }
 
+void	addConstrcutor(Register *list) {
+	list->pushTestFunction(NO_MESG, displayConstructor);
+	list->pushTestFunction(TEST_CONSTRUCTOR1, testEmptyParamConstructor);
+	list->pushTestFunction(TEST_CONSTRUCTOR2, testValueConstructor);
+	list->pushTestFunction(TEST_CONSTRUCTOR3, testCopyConstructor);
+	list->pushTestFunction(TEST_CONSTRUCTOR4, testIteratorConstructor);
+}
+
 void	addIteratorsFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayIterators);
 	list->pushTestFunction(TEST_BEGIN,testBegin);
@@ -63,6 +71,7 @@ void	addElementAcessFunctions(Register *list) {
 
 void	addVectorFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayVector);
+	addConstrcutor(list);
 	addIteratorsFunctions(list);
 	addCapacityFunctions(list);
 	addElementAcessFunctions(list);

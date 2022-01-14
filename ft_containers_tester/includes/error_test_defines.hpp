@@ -7,6 +7,21 @@
 /*                                   Vector                                   */
 /* -------------------------------------------------------------------------- */
 
+#define  TEST_CONSTRUCTOR1 "/* ---------------------------- Test Constructor1 --------------------------- */\n\n" \
+					"std::vector<int> instance();\ninstance;\n"
+
+#define  TEST_CONSTRUCTOR2 "/* ---------------------------- Test Constructor2 --------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance[1];\n"
+
+#define  TEST_CONSTRUCTOR3 "/* ---------------------------- Test Constructor3 --------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nstd::vector<int> instanceCopy(instance);\ninstanceCopy[1];\n"
+
+#define  TEST_CONSTRUCTOR4 "/* ---------------------------- Test Constructor4 --------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.resize(5, 90);\nstd::vector<int>::iterator it = instance.begin();\n" \
+					"std::vector<int>::iterator it2 = instance.end();\nit = it2;\nit2++;\n*it;\n*it2;\n" \
+					"std::vector<int> newInstance(instance.begin(), it);\n" \
+					"for (int i = 0; i < newInstance.size(); i++) { newInstance[i] };\n"
+
 #define  TEST_SIZE 	"/* ---------------------------- Test Vector Size ---------------------------- */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.size();\n"
 
@@ -154,6 +169,6 @@
 
 #define  TEST_ITERATOR_MULTI_PASS "/* ------------------------ Test Iterator Multi Pass ------------------------ */\n\n" \
 					"std::vector<int> instance(4, 100);\ninstance.resize(5, 90);\nstd::vector<int>::iterator it = instance.begin();\n" \
-					"std::vector<int>::iterator it2 = instance.end();\nit = it2;\nit2++;\n*it *it2\n;"
+					"std::vector<int>::iterator it2 = instance.end();\nit = it2;\nit2++;\n*it;\n*it2;\n"
 
 #endif
