@@ -86,3 +86,69 @@ void	testAssign4() {
 
 	displayCompareResult(result1, result2, TEST_ASSIGN4);
 }
+
+/* --------------------------- push_back functions -------------------------- */
+
+void	testPushBack() {
+	ft::vector<int> a;
+	std::vector<int> b;
+
+	a.push_back(20);
+	a.push_back(30);
+
+	b.push_back(20);
+	b.push_back(30);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_ASSIGN4);
+}
+
+/* --------------------------- pop_back functions --------------------------- */
+
+void	testPopBack1() {
+	ft::vector<int> a;
+	std::vector<int> b;
+
+	a.push_back(20);
+	a.push_back(30);
+
+	b.push_back(20);
+	b.push_back(30);
+
+	while (!a.empty()) {
+		a.pop_back();
+	}
+
+	while (!b.empty()) {
+		b.pop_back();
+	}
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_ASSIGN4);
+}
+
+void	testPopBack2() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	a.pop_back();
+	b.pop_back();
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_ASSIGN4);
+}

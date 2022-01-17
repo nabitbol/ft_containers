@@ -159,5 +159,8 @@ void	testAssign1();
 void	testAssign2();
 void	testAssign3();
 void	testAssign4();
+void	testPushBack();
+void	testPopBack1();
+void	testPopBack2();
 
 #endif
