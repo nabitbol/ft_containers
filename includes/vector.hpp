@@ -252,6 +252,24 @@ class vector {
 			_size = n;
 		};
 
+		void push_back (const value_type& val) {
+			size_type newCapacity = {0};
+			
+			if ((newCapacity = getNewCapacity(_size + 1)) != _capacity) {
+				reallocate(&_ptr, _size, newCapacity);
+				_capacity = newCapacity;
+			}
+			saveData((_ptr + _size), val);
+			_size = _size + 1;
+		};
+
+		void pop_back() {
+			if (_size > 0) {
+				deleteData(_ptr, _size);
+				_size -= 1;
+			}
+		};
+
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
