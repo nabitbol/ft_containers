@@ -171,4 +171,17 @@
 					"std::vector<int> instance(4, 100);\ninstance.resize(5, 90);\nstd::vector<int>::iterator it = instance.begin();\n" \
 					"std::vector<int>::iterator it2 = instance.end();\nit = it2;\nit2++;\n*it;\n*it2;\n"
 
+#define  TEST_ASSIGN1 "/* ------------------------------ Test Assign1 ------------------------------ */\n\n" \
+					"std::vector<int> instance;\ninstance.assign(7, 100);\n"
+
+#define  TEST_ASSIGN2 "/* ------------------------------ Test Assign2 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4,100);\ninstance.assign(3, 200);\n"
+
+#define  TEST_ASSIGN3 "/* ------------------------------ Test Assign3 ------------------------------ */\n\n" \
+					"std::vector<int> instance;\ninstance.assign(7, 200);\nstd::vector<int> instance2;\n" \
+					"std::vector<int>::iterator it = instance.begin() + 1;\ninstance2.assign(it, instance.end() - 1)\n"
+
+#define  TEST_ASSIGN4 "/* ------------------------------ Test Assign4 ------------------------------ */\n\n" \
+					"std::vector<int> instance;\nint myints[] = {1776,7,4};\ninstance.assign(40, myints[1]);\ninstance.resize(20,20)\n"
+
 #endif

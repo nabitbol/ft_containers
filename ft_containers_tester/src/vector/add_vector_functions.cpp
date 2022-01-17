@@ -71,6 +71,10 @@ void	addElementAcessFunctions(Register *list) {
 
 void	addModifiers(Register *list) {
 	list->pushTestFunction(NO_MESG, displayModifiers);
+	list->pushTestFunction(TEST_ASSIGN1, testAssign1);
+	list->pushTestFunction(TEST_ASSIGN2, testAssign2);
+	list->pushTestFunction(TEST_ASSIGN3, testAssign3);
+	list->pushTestFunction(TEST_ASSIGN4, testAssign4);
 }
 
 void	addVectorFunctions(Register *list) {
@@ -79,4 +83,5 @@ void	addVectorFunctions(Register *list) {
 	addIteratorsFunctions(list);
 	addCapacityFunctions(list);
 	addElementAcessFunctions(list);
+	addModifiers(list);
 }

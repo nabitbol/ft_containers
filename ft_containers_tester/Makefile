@@ -80,7 +80,8 @@ VECTOR_SRC_FILES = add_vector_functions.cpp  \
 				constructor.cpp \
 				iterators.cpp \
 				capacity.cpp \
-				element_access.cpp
+				element_access.cpp \
+				modifiers.cpp
 
 # ---------------------------------------------------------------------------- #
 #                        dynamic variables using sources                       #
