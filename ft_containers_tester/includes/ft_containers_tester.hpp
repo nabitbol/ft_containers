@@ -151,4 +151,8 @@ void	testFront();
 void	testBack();
 void	testOperatorAcess();
 
+/* ----------------------------- Modifiers tests ---------------------------- */
+
+void	displayModifiers();
+
 #endif

@@ -69,6 +69,10 @@ void	addElementAcessFunctions(Register *list) {
 	list->pushTestFunction(TEST_BACK,testBack);
 }
 
+void	addModifiers(Register *list) {
+	list->pushTestFunction(NO_MESG, displayModifiers);
+}
+
 void	addVectorFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayVector);
 	addConstrcutor(list);
