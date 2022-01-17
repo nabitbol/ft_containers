@@ -152,3 +152,24 @@ void	testPopBack2() {
 
 	displayCompareResult(result1, result2, TEST_ASSIGN4);
 }
+
+/* ----------------------------- insert fuctions ---------------------------- */
+
+void	testInsert1() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	ft::vector<int>::iterator itf = a.begin() + 1;
+	std::vector<int>::iterator its = b.begin() + 1;
+
+	a.insert(itf, 47);
+	b.insert(its, 47);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_ASSIGN4);
+}

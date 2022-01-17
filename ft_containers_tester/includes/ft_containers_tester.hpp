@@ -162,5 +162,6 @@ void	testAssign4();
 void	testPushBack();
 void	testPopBack1();
 void	testPopBack2();
+void	testInsert1();
 
 #endif

@@ -78,6 +78,7 @@ void	addModifiers(Register *list) {
 	list->pushTestFunction(TEST_ASSIGN4, testPushBack);
 	list->pushTestFunction(TEST_ASSIGN4, testPopBack1);
 	list->pushTestFunction(TEST_ASSIGN4, testPopBack2);
+	list->pushTestFunction(TEST_ASSIGN4, testInsert1);
 }
 
 void	addVectorFunctions(Register *list) {
