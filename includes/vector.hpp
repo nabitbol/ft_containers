@@ -263,11 +263,39 @@ class vector {
 			_size = _size + 1;
 		};
 
-		void pop_back() {
+		void pop_back () {
 			if (_size > 0) {
 				deleteData(_ptr, _size);
 				_size -= 1;
 			}
+		};
+
+		iterator insert (iterator position, const value_type& val) {
+			size_type	span = {0};
+			size_type	newCapacity = {0};
+			iterator	last = this->end();
+			value_type	*tmp = NULL;
+			int			pos = {0};
+
+			span = ft::distance(position, last);
+			pos = _size - span;
+			if ((newCapacity = getNewCapacity(_size + 1)) != _capacity) {
+				tmp = allocateMemory(newCapacity);
+				copyData(tmp, _ptr, pos);
+				saveData((tmp + pos), val);
+				copyData((tmp + pos + 1), (_ptr + pos), _size);
+				deallocateMemory(_ptr, _size);
+				_ptr = tmp;
+				_capacity = newCapacity;
+			} else {
+				for (int i = _size + 1; i > pos; i--) {
+					saveData((_ptr + i), *(_ptr + i - 1));
+					deleteData(_ptr, i - 1);
+				} 
+				saveData((_ptr + pos), val);
+			}
+			_size += 1;
+			return (this->begin());
 		};
 
 /* ---------------------------------- utils --------------------------------- */
