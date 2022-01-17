@@ -24,6 +24,7 @@ class vector {
 	typedef	T																				value_type;
 	typedef	A																				allocator_type;
 	typedef	std::size_t																		size_type;
+	typedef	std::ptrdiff_t																	difference_type;
 	typedef	typename ft::vectorIterator<value_type>											iterator;
 	typedef	typename ft::vectorIterator<const value_type>									const_iterator;
 	typedef	typename ft::reverse_iterator<iterator>											reverse_iterator;
@@ -214,6 +215,42 @@ class vector {
 		reference back() const {
 			 return (*(_ptr + (_size - 1)));
 		 };
+
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last,
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
+			size_type		newCapacity = {0};
+			size_type		span = {0};
+			int				index = {0};
+
+			span = ft::distance(first, last);
+			for (size_type i = 0; i <= _size; i++) {
+				deleteData(_ptr, i);
+			}
+			if ((newCapacity = getNewCapacity(span)) != _capacity) {
+				reallocate(&_ptr, _size, newCapacity);
+				_capacity = newCapacity;
+			}
+			for (InputIterator it = first; it < last; it++) {
+				saveData((_ptr + index), *it);
+				index++;
+			}
+			_size = span;
+		};
+
+		void assign (size_type n, const value_type& val) {
+			size_type newCapacity = {0};
+
+			for (size_type i = 0; i <= _size; i++) {
+				deleteData(_ptr, i);
+			}
+			if ((newCapacity = getNewCapacity(n)) != _capacity) {
+				reallocate(&_ptr, _size, newCapacity);
+				_capacity = newCapacity;
+			}
+			saveDataChunk(_ptr, val, 0, n);
+			_size = n;
+		};
 
 /* ---------------------------------- utils --------------------------------- */
 
