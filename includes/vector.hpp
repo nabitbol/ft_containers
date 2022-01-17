@@ -167,9 +167,7 @@ class vector {
 		};
 
 		bool		empty() const {
-			if (_size != 0)
-				return (false);
-			return (true);
+			return (_size == 0);
 		}
 
 		void reserve (size_type n) {
