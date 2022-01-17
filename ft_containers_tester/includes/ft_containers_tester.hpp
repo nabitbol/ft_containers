@@ -71,7 +71,7 @@ void	addVectorFunctions(Register *list);
 /* ---------------------------------- utils --------------------------------- */
 
 template <typename T>
-std::stringstream		getVectorCapacitiess(T &instance) {
+std::stringstream		getVectorCapacities(T &instance) {
 	std::stringstream tmp;
 	tmp << " size: ";
 	tmp << instance.size();
@@ -154,5 +154,10 @@ void	testOperatorAcess();
 /* ----------------------------- Modifiers tests ---------------------------- */
 
 void	displayModifiers();
+
+void	testAssign1();
+void	testAssign2();
+void	testAssign3();
+void	testAssign4();
 
 #endif

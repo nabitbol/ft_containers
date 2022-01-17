@@ -13,8 +13,8 @@ void	testEmptyParamConstructor() {
 	std::stringstream	result1;
 	std::stringstream	result2;
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_CONSTRUCTOR1);
 }

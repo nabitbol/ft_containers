@@ -86,8 +86,8 @@ void	testResize1() {
 	a.resize(5, 400);
 	b.resize(5, 400);
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_RESIZE1);
 }
@@ -105,8 +105,8 @@ void	testResize2() {
 	a.resize(10, 7000);
 	b.resize(10, 7000);
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_RESIZE2);
 }
@@ -124,8 +124,8 @@ void	testResize3() {
 	a.resize(9);
 	b.resize(9);
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_RESIZE3);
 }
@@ -143,8 +143,8 @@ void	testResize4() {
 	a.resize(3);
 	b.resize(3);
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_RESIZE4);
 }
@@ -205,8 +205,8 @@ void	testReserve1() {
 	a.reserve(100);
 	b.reserve(100);
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_RESERVE1);
 }
@@ -224,8 +224,8 @@ void	testReserve2() {
 	a.reserve(8);
 	b.reserve(8);
 
-	result1 = exec(a, getVectorCapacitiess);
-	result2 = exec(b, getVectorCapacitiess);
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
 
 	displayCompareResult(result1, result2, TEST_RESERVE2);
 }
