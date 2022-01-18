@@ -43,12 +43,13 @@ class vector {
 	public: 
 /* ------------------------------ constructors ------------------------------ */
 
-		explicit vector(): _allocator(A()), _size(0), _capacity(0),  _ptr(NULL) {};
+		explicit vector (const allocator_type& alloc = allocator_type()): _allocator(alloc), _size(0), _capacity(0),  _ptr(NULL) {};
 
-		explicit vector(size_type n, value_type value): _allocator(A()), _size(n), _capacity(n), _ptr(NULL) {
+		explicit vector (size_type n, const value_type& val = value_type(),
+		const allocator_type& alloc = allocator_type()) : _allocator(alloc), _size(n), _capacity(n), _ptr(NULL) {
 			_ptr = allocateMemory(n);
 			for (size_type i = 0; i < n; i++) {
-				saveData((_ptr + i), value);
+				saveData((_ptr + i), val);
 			}
 		};
 
