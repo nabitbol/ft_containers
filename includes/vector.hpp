@@ -271,6 +271,11 @@ class vector {
 		};
 
 		iterator insert (iterator position, const value_type& val) {
+			insert(position, 1, val);
+			return (this->begin());
+		};
+
+		 void insert (iterator position, size_type n, const value_type& val) {
 			size_type	span = {0};
 			size_type	newCapacity = {0};
 			iterator	last = this->end();
@@ -279,23 +284,58 @@ class vector {
 
 			span = ft::distance(position, last);
 			pos = _size - span;
-			if ((newCapacity = getNewCapacity(_size + 1)) != _capacity) {
+			if ((newCapacity = getNewCapacity(_size + n)) != _capacity) {
 				tmp = allocateMemory(newCapacity);
 				copyData(tmp, _ptr, pos);
-				saveData((tmp + pos), val);
-				copyData((tmp + pos + 1), (_ptr + pos), _size);
+				saveDataChunk(tmp, val, pos, (pos + n));
+				copyData((tmp + pos + n), (_ptr + pos), _size);
 				deallocateMemory(_ptr, _size);
 				_ptr = tmp;
 				_capacity = newCapacity;
 			} else {
-				for (int i = _size + 1; i > pos; i--) {
-					saveData((_ptr + i), *(_ptr + i - 1));
-					deleteData(_ptr, i - 1);
+				for (unsigned long int i = _size + n; i > (pos + n); i--) {
+					saveData((_ptr + i), *(_ptr + i - n));
+					deleteData(_ptr, i - n);
 				} 
-				saveData((_ptr + pos), val);
+				saveDataChunk(_ptr, val, pos, (pos + n));
 			}
-			_size += 1;
-			return (this->begin());
+			_size += n;
+		 };
+
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last,
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) {
+			size_type	iterator_span = {0};
+			size_type	span = {0};
+			size_type	newCapacity = {0};
+			value_type	*tmp = NULL;
+			int			pos = {0};
+
+			iterator_span = ft::distance(first, last); 
+			span = ft::distance(position, this->end()); 
+			pos = _size - span;
+			if ((newCapacity = getNewCapacity(_size + iterator_span)) != _capacity) {
+				tmp = allocateMemory(newCapacity);
+				copyData(tmp, _ptr, pos);
+				for (size_type i = pos; i <= (pos + iterator_span); i++) {
+					saveData((tmp + i), *first);
+					first++;
+				}
+				copyData((tmp + pos + iterator_span), (_ptr + pos), _size);
+				deallocateMemory(_ptr, _size);
+				_ptr = tmp;
+				_capacity = newCapacity;
+			} else {
+				for (unsigned long int i = _size + iterator_span; i > (pos + iterator_span); i--) {
+					saveData((_ptr + i), *(_ptr + i - iterator_span));
+					deleteData(_ptr, i - iterator_span);
+				} 
+				for (size_type i = pos; i <= (pos + iterator_span); i++) {
+					saveData((_ptr + i), *first);
+					first++;
+				}
+			}
+			_size += iterator_span;
 		};
 
 /* ---------------------------------- utils --------------------------------- */
