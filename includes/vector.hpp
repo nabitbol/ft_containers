@@ -290,7 +290,7 @@ class vector {
 				_ptr = tmp;
 				_capacity = newCapacity;
 			} else {
-				for (unsigned long int i = _size + n; i > (pos + n); i--) {
+				for (unsigned long int i = _size + n; i >= (pos + n); i--) {
 					saveData((_ptr + i), *(_ptr + i - n));
 					deleteData(_ptr, i - n);
 				} 
