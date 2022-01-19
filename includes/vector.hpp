@@ -269,7 +269,7 @@ class vector {
 
 		iterator insert (iterator position, const value_type& val) {
 			insert(position, 1, val);
-			return (this->begin());
+			return (position);
 		};
 
 		 void insert (iterator position, size_type n, const value_type& val) {
@@ -450,6 +450,47 @@ class vector {
 
 	};
 
+	template <class T, class Alloc>
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		if (lhs.size() == rhs.size()) {
+			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())); 
+		}
+		return (false);
+	};
+
+	template <class T, class Alloc>
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(lhs == rhs));
+	};
+
+	template <class T, class Alloc>
+	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	};
+
+	template <class T, class Alloc>
+	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		if (lhs == rhs)
+			return	(true);
+		return (lhs < rhs);
+	};
+
+	template <class T, class Alloc>
+	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(lhs < rhs));
+	};
+
+	template <class T, class Alloc>	
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		if (lhs == rhs)
+			return	(true);
+		return (!(lhs < rhs));
+	};
+
+	template <class T, class Alloc>
+	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
+		x.swap(y);
+	};
 }
 
 #endif
