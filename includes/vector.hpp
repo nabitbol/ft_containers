@@ -387,6 +387,10 @@ class vector {
 			_size = 0;
 		};
 
+		allocator_type get_allocator() const {
+			return (this->_allocator);
+		};
+
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
