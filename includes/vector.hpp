@@ -225,9 +225,7 @@ class vector {
 			int				index = {0};
 
 			span = ft::distance(first, last);
-			for (size_type i = 0; i <= _size; i++) {
-				deleteData(_ptr, i);
-			}
+			deleteDataChunk(_ptr, 0, _size);
 			if ((newCapacity = getNewCapacity(span)) != _capacity) {
 				reallocate(&_ptr, _size, newCapacity);
 				_capacity = newCapacity;
@@ -242,9 +240,7 @@ class vector {
 		void assign (size_type n, const value_type& val) {
 			size_type newCapacity = {0};
 
-			for (size_type i = 0; i <= _size; i++) {
-				deleteData(_ptr, i);
-			}
+			deleteDataChunk(_ptr, 0, _size);
 			if ((newCapacity = getNewCapacity(n)) != _capacity) {
 				reallocate(&_ptr, _size, newCapacity);
 				_capacity = newCapacity;
