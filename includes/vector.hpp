@@ -382,6 +382,11 @@ class vector {
 			x._ptr = tmpPtr;
 		};
 
+		void clear() {
+			deleteDataChunk(_ptr, 0, _size);
+			_size = 0;
+		};
+
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
