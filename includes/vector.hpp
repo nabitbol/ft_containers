@@ -360,6 +360,28 @@ class vector {
 			return (iterator(_ptr + pos));
 		};
 
+		void swap (vector& x) {
+			allocator_type			tmpAllocator;
+			size_type				tmpCapacity;
+			size_type				tmpSize;
+			value_type				*tmpPtr;
+
+			tmpAllocator = this->_allocator;
+			tmpCapacity = this->_capacity;
+			tmpSize = this->_size;
+			tmpPtr = this->_ptr;
+
+			this->_allocator = x._allocator;
+			this->_capacity = x._capacity;
+			this->_size = x._size;
+			this->_ptr = x._ptr;
+
+			x._allocator = tmpAllocator;
+			x._capacity = tmpCapacity;
+			x._size = tmpSize;
+			x._ptr = tmpPtr;
+		};
+
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
