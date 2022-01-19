@@ -339,6 +339,31 @@ class vector {
 			_size += iterator_span;
 		};
 
+		iterator erase (iterator position) {
+			return (erase(position, (position + 1)));
+		};
+
+		iterator erase (iterator first, iterator last) {
+			size_type	iterator_span = {0};
+			size_type	span = {0};
+			int			pos = {0};
+
+			iterator_span = ft::distance(first, last); 
+			span = ft::distance(first, this->end()); 
+			pos = _size - span;
+			deleteDataChunk(_ptr, pos, (pos + iterator_span));
+			for (unsigned long int i = pos; i < (pos + iterator_span); i++) {
+				saveData((_ptr + i), *(_ptr + i + iterator_span));
+			}
+			for (unsigned long int i = (pos + iterator_span); i < (_size - iterator_span); i++) {
+					deleteData(_ptr, i);
+					saveData((_ptr + i), *(_ptr + i + 1));
+			}
+			deleteDataChunk(_ptr, (_size - iterator_span), _size);
+			_size -= iterator_span;
+			return (iterator(_ptr + pos));
+		};
+
 /* ---------------------------------- utils --------------------------------- */
 
 	private:
@@ -353,6 +378,12 @@ class vector {
 
 		void	deleteData(value_type *ptr, size_type index) {
 			_allocator.destroy((ptr + index));
+		}
+
+		void	deleteDataChunk(value_type *ptr, size_type start, size_type end) {
+			for (size_type j = start; j < end; j++) {
+				deleteData(ptr, j);
+			}
 		}
 
 		void	saveData(value_type *ptr, value_type value) {
