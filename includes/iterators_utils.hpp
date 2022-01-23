@@ -196,7 +196,7 @@ class reverse_iterator {
 	};
 
 	reference	operator[](int index) const {
-		return (*(element - index));
+		return (element[-index - 1]);
 	};
 
 };
