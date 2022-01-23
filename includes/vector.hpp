@@ -118,19 +118,19 @@ class vector {
 /* ---------------------------- reverse iterator ---------------------------- */
 
 		reverse_iterator rbegin() {
-			return (reverse_iterator(_ptr + (_size - 1)));
+			return (reverse_iterator(this->end()));
 		};
 
 		const_reverse_iterator rbegin() const {
-			return (const_reverse_iterator(_ptr + (_size - 1)));
+			return (const_reverse_iterator(this->end()));
 		};
 
 		reverse_iterator rend() {
-			return (reverse_iterator(_ptr - 1));
+			return (reverse_iterator(this->begin()));
 		};
 
 		const_reverse_iterator rend() const {
-			return (const_reverse_iterator(_ptr - 1));
+			return (const_reverse_iterator(this->begin()));
 		};
 
 /* -------------------------------- acessors -------------------------------- */
@@ -230,7 +230,7 @@ class vector {
 				reallocate(&_ptr, _size, newCapacity);
 				_capacity = newCapacity;
 			}
-			for (InputIterator it = first; it < last; it++) {
+			for (InputIterator it = first; it != last; it++) {
 				saveData((_ptr + index), *it);
 				index++;
 			}
@@ -342,7 +342,7 @@ class vector {
 		iterator erase (iterator first, iterator last) {
 			size_type	iterator_span = {0};
 			size_type	span = {0};
-			int			pos = {0};
+			size_type	pos = {0};
 
 			iterator_span = ft::distance(first, last); 
 			span = ft::distance(first, this->end()); 
@@ -353,7 +353,7 @@ class vector {
 			}
 			for (unsigned long int i = (pos + iterator_span); i < (_size - iterator_span); i++) {
 					deleteData(_ptr, i);
-					saveData((_ptr + i), *(_ptr + i + 1));
+					saveData((_ptr + i), *(_ptr + i + iterator_span));
 			}
 			deleteDataChunk(_ptr, (_size - iterator_span), _size);
 			_size -= iterator_span;
@@ -450,6 +450,8 @@ class vector {
 
 	};
 
+/* -------------------------- non-member attributs -------------------------- */
+
 	template <class T, class Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
 		if (lhs.size() == rhs.size()) {
@@ -465,7 +467,9 @@ class vector {
 
 	template <class T, class Alloc>
 	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		if (lhs != rhs)
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		return (false);
 	};
 
 	template <class T, class Alloc>
@@ -477,7 +481,9 @@ class vector {
 
 	template <class T, class Alloc>
 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		return (!(lhs < rhs));
+		if (lhs != rhs)
+			return (!(lhs < rhs));
+		return (false);
 	};
 
 	template <class T, class Alloc>	

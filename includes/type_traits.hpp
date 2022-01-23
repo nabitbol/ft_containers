@@ -15,10 +15,10 @@ namespace ft {
 	{
 		for (; first1 != last1; ++first1, ++first2) {
 			if (!(*first1 == *first2)) {
-				return false;
+				return (false);
 			}
 		}
-		return true;
+		return (true);
 	};
 
 	template<class InputIt1, class InputIt2, class BinaryPredicate>
@@ -27,10 +27,10 @@ namespace ft {
 	{
 		for (; first1 != last1; ++first1, ++first2) {
 			if (!p(*first1, *first2)) {
-				return false;
+				return (false);
 			}
 		}
-		return true;
+		return (true);
 	}
 
 /* ------------------------- lexicographical compare ------------------------ */

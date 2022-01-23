@@ -22,7 +22,7 @@ namespace ft {
 		typedef typename Container::const_reference	const_reference;
 
 	protected:
-	
+
 		container_type	container;
 
 	public:
@@ -55,6 +55,25 @@ namespace ft {
 		void pop() {
 			this->container.pop_back();
 		};
+
+		template <class TOp, class ContainerOp >
+		friend bool operator== (const stack<TOp,ContainerOp >& lhs, const stack<TOp,ContainerOp >& rhs); 
+
+		template <class TOp, class ContainerOp >
+		friend bool operator!= (const stack<TOp,ContainerOp >& lhs, const stack<TOp,ContainerOp >& rhs);
+
+		template <class TOp, class ContainerOp >
+		friend bool operator<  (const stack<TOp,ContainerOp >& lhs, const stack<TOp,ContainerOp >& rhs);
+
+		template <class TOp, class ContainerOp >
+		friend bool operator<= (const stack<TOp,ContainerOp >& lhs, const stack<TOp,ContainerOp >& rhs);
+
+		template <class TOp, class ContainerOp >
+		friend bool operator>  (const stack<TOp,ContainerOp >& lhs, const stack<TOp,ContainerOp >& rhs);
+
+		template <class TOp, class ContainerOp >
+		friend bool operator>=  (const stack<TOp,ContainerOp >& lhs, const stack<TOp,ContainerOp >& rhs);
+
 	};
 
 /* -------------------------- non-member attributs -------------------------- */
@@ -88,6 +107,7 @@ namespace ft {
 	bool operator>=  (const stack<T,Container>& lhs, const stack<T,Container>& rhs) {
 		return(lhs.container >= rhs.container);
 	};
+
 
 }
 
