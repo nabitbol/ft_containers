@@ -6,6 +6,7 @@
 # define ITERATORS_UTILS_HPP
 
 #include <memory>
+#include "dependency.hpp"
 
 namespace ft {
 
