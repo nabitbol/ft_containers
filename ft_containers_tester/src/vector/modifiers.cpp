@@ -89,7 +89,7 @@ void	testAssign4() {
 
 /* --------------------------- push_back functions -------------------------- */
 
-void	testPushBack() {
+void	testPushBack1() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -105,7 +105,7 @@ void	testPushBack() {
 	result1 = exec(a, getVectorCapacities);
 	result2 = exec(b, getVectorCapacities);
 
-	displayCompareResult(result1, result2, TEST_ASSIGN4);
+	displayCompareResult(result1, result2, TEST_PUSH_BACK1);
 }
 
 /* --------------------------- pop_back functions --------------------------- */
@@ -134,7 +134,7 @@ void	testPopBack1() {
 	result1 = exec(a, getVectorCapacities);
 	result2 = exec(b, getVectorCapacities);
 
-	displayCompareResult(result1, result2, TEST_ASSIGN4);
+	displayCompareResult(result1, result2, TEST_POP_BACK1);
 }
 
 void	testPopBack2() {
@@ -150,7 +150,7 @@ void	testPopBack2() {
 	result1 = exec(a, getVectorCapacities);
 	result2 = exec(b, getVectorCapacities);
 
-	displayCompareResult(result1, result2, TEST_ASSIGN4);
+	displayCompareResult(result1, result2, TEST_POP_BACK2);
 }
 
 /* ----------------------------- insert fuctions ---------------------------- */
@@ -171,5 +171,304 @@ void	testInsert1() {
 	result1 = exec(a, getVectorCapacities);
 	result2 = exec(b, getVectorCapacities);
 
+	displayCompareResult(result1, result2, TEST_INSERT1);
+}
+
+void	testInsert2() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	ft::vector<int>::iterator itf = a.end();
+	std::vector<int>::iterator its = b.end();
+
+	a.insert(itf, 22);
+	b.insert(its, 22);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_INSERT2);
+}
+
+
+void	testInsert3() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	ft::vector<int>::iterator itf = a.begin() + 1;
+	std::vector<int>::iterator its = b.begin() + 1;
+
+	a.insert(itf, 2, 30);
+	b.insert(its, 2, 30);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_INSERT3);
+}
+
+void	testInsert4() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	a.reserve(8);
+	b.reserve(8);
+
+	ft::vector<int>::iterator itf = a.begin() + 1;
+	std::vector<int>::iterator its = b.begin() + 1;
+
+	a.insert(itf, 2, 30);
+	b.insert(its, 2, 30);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_INSERT4);
+}
+
+void	testInsert5() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	a.reserve(8);
+	b.reserve(8);
+
+	ft::vector<int>::iterator itf = a.begin() + 2;
+	std::vector<int>::iterator its = b.begin() + 2;
+
+	a.insert(itf, a.begin(), a.end());
+	b.insert(its, b.begin(), b.end());
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
 	displayCompareResult(result1, result2, TEST_ASSIGN4);
+}
+
+/* ---------------------------- erase functionsx ---------------------------- */
+
+void	testErase1() {
+	ft::vector<int> a(4);
+	std::vector<int> b(4);
+
+	a.push_back(100);
+	a.push_back(28);
+	a.push_back(30);
+	a.push_back(49);
+
+	b.push_back(100);
+	b.push_back(28);
+	b.push_back(30);
+	b.push_back(49);
+
+	ft::vector<int>::iterator itf = a.begin() + 2;
+	std::vector<int>::iterator its = b.begin() + 2;
+
+	a.erase(itf);
+	b.erase(its);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_ERASE1);
+}
+
+void	testErase2() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	a.push_back(400);
+	b.push_back(400);
+
+	ft::vector<int>::iterator itf = a.begin();
+	std::vector<int>::iterator its = b.begin();
+
+	ft::vector<int>::iterator itf2 = a.erase(itf);
+	std::vector<int>::iterator its2 = b.erase(its);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	result1 << " return value: " << *itf2;
+	result2 << " return value: " << *its2;
+
+	displayCompareResult(result1, result2, TEST_ERASE2);
+}
+
+void	testErase3() {
+	ft::vector<int> a(4, 100);
+	std::vector<int> b(4, 100);
+
+	a.push_back(400);
+	a.push_back(64);
+	a.push_back(40);
+	a.push_back(29);
+
+	b.push_back(400);
+	b.push_back(64);
+	b.push_back(40);
+	b.push_back(29);
+
+	ft::vector<int>::iterator itf = a.begin();
+	std::vector<int>::iterator its = b.begin();
+
+	ft::vector<int>::iterator itf2 = a.erase(itf, (itf + 4));
+	std::vector<int>::iterator its2 = b.erase(its, (its + 4));
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	result1 << " return value: " << *itf2;
+	result2 << " return value: " << *its2;
+
+	displayCompareResult(result1, result2, TEST_ERASE3);
+}
+
+/* ----------------------------- swap functions ----------------------------- */
+
+void	testSwap1() {
+	ft::vector<int> a(3, 100);
+	std::vector<int> b(3, 100);
+
+	ft::vector<int> c;
+	std::vector<int> d;
+
+	c.push_back(400);
+	c.push_back(64);
+	c.push_back(40);
+	c.push_back(29);
+
+	d.push_back(400);
+	d.push_back(64);
+	d.push_back(40);
+	d.push_back(29);
+
+
+	a.swap(c);
+	b.swap(d);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_SWAP1);
+}
+
+void	testSwap2() {
+	ft::vector<int> a(3, 100);
+	std::vector<int> b(3, 100);
+
+	ft::vector<int> c;
+	std::vector<int> d;
+
+	a.swap(c);
+	b.swap(d);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_SWAP2);
+}
+
+void	testSwap3() {
+	ft::vector<int> a(3, 100);
+	std::vector<int> b(3, 100);
+
+	ft::vector<int> c;
+	std::vector<int> d;
+
+	c.push_back(400);
+	c.push_back(64);
+
+	d.push_back(400);
+	d.push_back(64);
+
+	a.swap(c);
+	b.swap(d);
+
+	ft::vector<int>::iterator itf = a.begin();
+	std::vector<int>::iterator its = b.begin();
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	result1 << " return value: " << *itf;
+	result2 << " return value: " << *its;
+
+	displayCompareResult(result1, result2, TEST_SWAP3);
+}
+
+/* ----------------------------- clear functions ---------------------------- */
+
+void	testClear1() {
+	ft::vector<int> a(3, 100);
+	std::vector<int> b(3, 100);
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	a.clear();
+	b.clear();
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_CLEAR1);
+}
+
+void	testClear2() {
+	ft::vector<int> a(3, 100);
+	std::vector<int> b(3, 100);
+
+	ft::vector<int> c;
+	std::vector<int> d;
+
+	c.push_back(400);
+	c.push_back(64);
+
+	d.push_back(400);
+	d.push_back(64);
+
+	a.swap(c);
+	b.swap(d);
+
+	a.clear();
+	b.clear();
+
+	std::stringstream	result1;
+	std::stringstream	result2;
+
+	result1 = exec(a, getVectorCapacities);
+	result2 = exec(b, getVectorCapacities);
+
+	displayCompareResult(result1, result2, TEST_CLEAR2);
 }

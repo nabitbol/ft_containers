@@ -159,9 +159,22 @@ void	testAssign1();
 void	testAssign2();
 void	testAssign3();
 void	testAssign4();
-void	testPushBack();
+void	testPushBack1();
 void	testPopBack1();
 void	testPopBack2();
 void	testInsert1();
+void	testInsert2();
+void	testInsert3();
+void	testInsert4();
+void	testInsert5();
+void	testErase1();
+void	testErase2();
+void	testErase3();
+void	testSwap1();
+void	testSwap2();
+void	testSwap3();
+void	testClear1();
+void	testClear2();
+
 
 #endif

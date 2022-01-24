@@ -184,4 +184,74 @@
 #define  TEST_ASSIGN4 "/* ------------------------------ Test Assign4 ------------------------------ */\n\n" \
 					"std::vector<int> instance;\nint myints[] = {1776,7,4};\ninstance.assign(40, myints[1]);\ninstance.resize(20,20)\n"
 
+#define  TEST_PUSH_BACK1 "/* ----------------------------- Test Push_back1 ---------------------------- */\n\n" \
+					"std::vector<int> instance;\nnstance.push_back(20);\nnstance.push_back(30);\n"
+
+#define  TEST_POP_BACK1 "/* ----------------------------- Test Pop_back1 ----------------------------- */\n\n" \
+					"std::vector<int> instance;\nnstance.push_back(20);\nnstance.push_back(30);\n" \
+					"while(!insatnce.empty)\n;	instance.pop_back();\n"
+
+#define  TEST_POP_BACK2 "/* ----------------------------- Test Pop_back2 ----------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.pop_back();\n"
+
+#define  TEST_INSERT1 "/* ------------------------------ Test Insert1 ----------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nstd::vector<int>::iterator it = instance.begin() + 1;\n" \
+					"instance.insert(it, 47);\n"
+
+#define  TEST_INSERT2 "/* ------------------------------ Test Insert2 ----------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nstd::vector<int>::iterator it = instance.end();\n" \
+					"instance.insert(it, 22);\n"
+
+#define  TEST_INSERT3 "/* ------------------------------ Test Insert3 ----------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\nstd::vector<int>::iterator it = instance.begin() + 1;\n" \
+					"instance.insert(it, 2, 30);\n"
+
+#define  TEST_INSERT4 "/* ------------------------------ Test Insert4 ----------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.reserve(8);\nstd::vector<int>::iterator it = instance.begin() + 1;\n" \
+					"instance.insert(it, 2, 30);\n"
+
+#define  TEST_INSERT5 "/* ------------------------------ Test Insert5 ----------------------------- */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.reserve(8);\nstd::vector<int>::iterator it = instance.begin() + 2;\n" \
+					"instance.insert(it, instance.begin(), instance.end());\n"
+
+#define  TEST_ERASE1 "/* ------------------------------- Test Erase1 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4);\ninstance.push_back(100);\ninstance.push_back(28);\n" \
+					"instance.push_back(30);\nnstance.push_back(49);\nstd::vector<int>::iterator it = instance.begin() + 2;\n" \
+					"instance.erase(it);\n"
+
+#define  TEST_ERASE2 "/* ------------------------------- Test Erase2 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.push_back(400);\n" \
+					"std::vector<int>::iterator it = instance.begin();\n" \
+					"std::vector<int>::iterator it2 = instance.erase(it);\n"
+
+#define  TEST_ERASE3 "/* ------------------------------- Test Erase3 ------------------------------ */\n\n" \
+					"std::vector<int> instance(4, 100);\ninstance.push_back(400);\n" \
+					"instance.push_back(40);\ninstance.push_back(64);\ninstance.push_back(29);\n" \
+					"std::vector<int>::iterator it = instance.begin();\n" \
+					"std::vector<int>::iterator it2 = instance.erase(it, (it + 4));\n"
+
+#define  TEST_SWAP1 "/* ------------------------------- Test Swap1 ------------------------------- */\n\n" \
+					"std::vector<int> instance(3, 100);\nstd::vector<int> instance2;\n" \
+					"instance2.push_back(400);\ninstance2(64)\n;" \
+					"instance2.push_back(40);\ninstance2(29)\n;" \
+					"instance.swap(instance2);\n"
+
+#define  TEST_SWAP2 "/* ------------------------------- Test Swap2 ------------------------------- */\n\n" \
+					"std::vector<int> instance(3, 100);\nstd::vector<int> instance2;\n" \
+					"instance.swap(instance2);\n"
+
+#define  TEST_SWAP3 "/* ------------------------------- Test Swap3 ------------------------------- */\n\n" \
+					"std::vector<int> instance(3, 100);\nstd::vector<int> instance2;\n" \
+					"instance2.push_back(400);\ninstance2(64)\n;" \
+					"instance.swap(instance2);\n"
+
+#define  TEST_CLEAR1 "/* ------------------------------- Test Swap3 ------------------------------- */\n\n" \
+					"std::vector<int> instance(3, 100);\ninstance.clear();\n"
+
+#define  TEST_CLEAR2 "/* ------------------------------- Test Swap1 ------------------------------- */\n\n" \
+					"std::vector<int> instance(3, 100);\nstd::vector<int> instance2;\n" \
+					"instance2.push_back(400);\ninstance2(64)\n;" \
+					"instance2.push_back(40);\ninstance2(29)\n;" \
+					"instance.swap(instance2);\ninstance.clear()'\n"
+
 #endif

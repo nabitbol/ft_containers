@@ -75,10 +75,22 @@ void	addModifiers(Register *list) {
 	list->pushTestFunction(TEST_ASSIGN2, testAssign2);
 	list->pushTestFunction(TEST_ASSIGN3, testAssign3);
 	list->pushTestFunction(TEST_ASSIGN4, testAssign4);
-	list->pushTestFunction(TEST_ASSIGN4, testPushBack);
-	list->pushTestFunction(TEST_ASSIGN4, testPopBack1);
-	list->pushTestFunction(TEST_ASSIGN4, testPopBack2);
-	list->pushTestFunction(TEST_ASSIGN4, testInsert1);
+	list->pushTestFunction(TEST_PUSH_BACK1, testPushBack1);
+	list->pushTestFunction(TEST_POP_BACK1, testPopBack1);
+	list->pushTestFunction(TEST_POP_BACK2, testPopBack2);
+	list->pushTestFunction(TEST_INSERT1, testInsert1);
+	list->pushTestFunction(TEST_INSERT2, testInsert2);
+	list->pushTestFunction(TEST_INSERT3, testInsert3);
+	list->pushTestFunction(TEST_INSERT4, testInsert4);
+	list->pushTestFunction(TEST_INSERT5, testInsert5);
+	list->pushTestFunction(TEST_ERASE1, testErase1);
+	list->pushTestFunction(TEST_ERASE2, testErase2);
+	list->pushTestFunction(TEST_ERASE3, testErase3);
+	list->pushTestFunction(TEST_SWAP1, testSwap1);
+	list->pushTestFunction(TEST_SWAP2, testSwap2);
+	list->pushTestFunction(TEST_SWAP3, testSwap3);
+	list->pushTestFunction(TEST_CLEAR1, testClear1);
+	list->pushTestFunction(TEST_CLEAR2, testClear2);
 }
 
 void	addVectorFunctions(Register *list) {
