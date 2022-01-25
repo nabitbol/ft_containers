@@ -13,12 +13,6 @@ void	displayBanner(void) {
 	std::cout << std::endl;
 }
 
-void	displayStack() {
-	std::cout << std::endl;
-	std::cout << "/* ------------------------------ Stack tests ------------------------------- */" << std::endl;
-	std::cout << std::endl;
-}
-
 void	displayMap() {
 	std::cout << std::endl;
 	std::cout << "/* ------------------------------= Map tests ==------------------------------ */" << std::endl;
@@ -32,6 +26,8 @@ int	main(int ac, char **av) {
 
 		if ((ac == 1) || (strcmp(av[1], "vector") == 0))
 			addVectorFunctions(&list);
+		if ((ac == 1) || (strcmp(av[1], "stack") == 0))
+			addStackFunctions(&list);
 		list.runAllTests();
 	} else {
 		std::cout << "Error: Too many arguments" << std::endl;

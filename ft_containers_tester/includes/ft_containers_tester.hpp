@@ -8,6 +8,7 @@
 /* -------------------------------------------------------------------------- */
 
 # include "../../includes/vector.hpp"
+# include "../../includes/stack.hpp"
 
 /* -------------------------------------------------------------------------- */
 /*                               tester includes                              */
@@ -15,6 +16,7 @@
 
 # include <cstring>
 # include <vector>
+# include <stack>
 # include <iostream>
 # include <sstream>
 # include <fstream>
@@ -63,6 +65,8 @@ void	iterate(const T &instance, std::stringstream &tmp, size_t size, void functi
 		function(instance, tmp, i);
 	}
 }
+
+void	jumpNextLine();
 
 /* -------------------------------------------------------------------------- */
 /*                                   vector                                   */
@@ -204,5 +208,15 @@ void	testComparison1();
 void	testComparison2();
 void	testComparison3();
 void	testSwap4();
+
+/* -------------------------------------------------------------------------- */
+/*                                    Stack                                   */
+/* -------------------------------------------------------------------------- */
+
+void	addStackFunctions(Register *list);
+
+/* --------------------------- Constructors tests --------------------------- */
+
+void	testEmptyConstructor();
 
 #endif

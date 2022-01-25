@@ -19,3 +19,7 @@ void	displayCompareResult(const std::stringstream &result1, const std::stringstr
 		displayError(tmp1, tmp2, test);
 	}
 }
+
+void	jumpNextLine() {
+	std::cout << "\n" << std::flush;
+}

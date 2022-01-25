@@ -14,6 +14,8 @@ SRC_DIR			=	src/
 
 VECTOR_SRC_DIR	=	src/vector/
 
+STACK_SRC_DIR		=	src/stack/
+
 LOG_FILE		=	fails.log
 
 ADD_INC_DIR		=	ft_container/includes/
@@ -24,9 +26,13 @@ OBJ_DIR			=	obj/
 
 VECTOR_OBJ_DIR	=	obj_vector/
 
+STACK_OBJ_DIR	=	obj_stack/
+
 OBJ				=	$(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 VECTOR_OBJ		=	$(addprefix $(VECTOR_OBJ_DIR), $(VECTOR_SRC_FILES:.cpp=.o))
+
+STACK_OBJ		=	$(addprefix $(STACK_OBJ_DIR), $(STACK_SRC_FILES:.cpp=.o))
 
 COUNT			=	0
 
@@ -84,11 +90,14 @@ VECTOR_SRC_FILES = add_vector_functions.cpp  \
 				modifiers.cpp \
 				non_members.cpp
 
+STACK_SRC_FILES = add_stack_functions.cpp \
+				constructor.cpp \
+
 # ---------------------------------------------------------------------------- #
 #                        dynamic variables using sources                       #
 # ---------------------------------------------------------------------------- #
 
-FILES_COUNT		:= $(words $(SRC_FILES) $(VECTOR_SRC_FILES))
+FILES_COUNT		:= $(words $(SRC_FILES) $(VECTOR_SRC_FILES) $(STACK_SRC_FILES))
 
 # ---------------------------------------------------------------------------- #
 #                                    roules                                    #
@@ -112,8 +121,14 @@ $(VECTOR_OBJ_DIR)%.o: $(VECTOR_SRC_DIR)%.cpp
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
 
-$(NAME): $(OBJ) $(VECTOR_OBJ)
-	@$(CXX) -o $(NAME) $(OBJ) $(VECTOR_OBJ) $(CXXFLAGS)
+$(STACK_OBJ_DIR)%.o: $(STACK_SRC_DIR)%.cpp
+	@mkdir -p $(STACK_OBJ_DIR)
+	@$(CXX) -c -o $@ $< -I $(TEST_INC_DIR) -I $(ADD_INC_DIR) $(CXXFLAGS)
+	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
+	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
+
+$(NAME): $(OBJ) $(VECTOR_OBJ) $(STACK_OBJ)
+	@$(CXX) -o $(NAME) $(OBJ) $(VECTOR_OBJ) $(STACK_OBJ) $(CXXFLAGS)
 
 print_brand:
 	@echo "$${BRAND}"

@@ -110,4 +110,5 @@ void	addVectorFunctions(Register *list) {
 	addElementAcessFunctions(list);
 	addModifiers(list);
 	addNonMembers(list);
+	list->pushTestFunction(NO_MESG, jumpNextLine);
 }
