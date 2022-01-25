@@ -20,7 +20,7 @@ void	testAssign1() {
 	result1 = exec(a, getVectorCapacities);
 	result2 = exec(b, getVectorCapacities);
 
-	displayCompareResult(result1, result2, TEST_ASSIGN1);
+	displayCompareResult(result1, result2, TEST_COMPARISON1);
 }
 
 void	testAssign2() {
@@ -36,7 +36,7 @@ void	testAssign2() {
 	result1 = exec(a, getVectorCapacities);
 	result2 = exec(b, getVectorCapacities);
 
-	displayCompareResult(result1, result2, TEST_ASSIGN2);
+	displayCompareResult(result1, result2, TEST_COMPARISON2);
 }
 
 void	testAssign3() {
@@ -64,7 +64,7 @@ void	testAssign3() {
 	result1 = exec(c, getVectorCapacities);
 	result2 = exec(d, getVectorCapacities);
 
-	displayCompareResult(result1, result2, TEST_ASSIGN3);
+	displayCompareResult(result1, result2, TEST_COMPARISON3);
 }
 
 void	testAssign4() {
