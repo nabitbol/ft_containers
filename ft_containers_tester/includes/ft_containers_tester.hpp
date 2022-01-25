@@ -12,6 +12,7 @@
 /* -------------------------------------------------------------------------- */
 
 # include "./error_test_defines.hpp"
+# include <cstring>
 # include <vector>
 # include <iostream>
 # include <sstream>

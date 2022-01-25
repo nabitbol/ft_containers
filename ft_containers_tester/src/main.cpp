@@ -25,11 +25,16 @@ void	displayMap() {
 	std::cout << std::endl;
 }
 
-int	main(void) {
-	displayBanner();
-	Register list;
+int	main(int ac, char **av) {
+	if (ac < 3) {
+		displayBanner();
+		Register list;
 
-	addVectorFunctions(&list);
-	list.runAllTests();
+		if ((ac == 1) || (strcmp(av[1], "vector") == 0))
+			addVectorFunctions(&list);
+		list.runAllTests();
+	} else {
+		std::cout << "Error: Too many arguments" << std::endl;
+	}
 	return (0);
 }
