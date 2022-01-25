@@ -1,6 +1,8 @@
 #ifndef		FT_CONTAINERS_HPP
 # define	FT_CONTAINERS_HPP
 
+#define  NO_MESG	""
+
 /* -------------------------------------------------------------------------- */
 /*                                your includes                               */
 /* -------------------------------------------------------------------------- */
@@ -11,7 +13,6 @@
 /*                               tester includes                              */
 /* -------------------------------------------------------------------------- */
 
-# include "./error_test_defines.hpp"
 # include <cstring>
 # include <vector>
 # include <iostream>

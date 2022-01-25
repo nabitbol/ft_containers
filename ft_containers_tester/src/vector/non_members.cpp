@@ -1,4 +1,5 @@
 #include "ft_containers_tester.hpp"
+#include "error_test_defines_vector.hpp"
 
 void	displayNonMembers() {
 	std::cout << "\n" << std::endl;

@@ -1,11 +1,5 @@
-#ifndef		ERROR_TEST_DEFINE_HPP
-# define	ERROR_TEST_DEFINE_HPP
-
-#define  NO_MESG	""
-
-/* -------------------------------------------------------------------------- */
-/*                                   Vector                                   */
-/* -------------------------------------------------------------------------- */
+#ifndef		ERROR_TEST_DEFINE_VECTOR_HPP
+# define	ERROR_TEST_DEFINE_VECTOR_HPP
 
 #define  TEST_CONSTRUCTOR1 "/* ---------------------------- Test Constructor1 --------------------------- */\n\n" \
 					"std::vector<int> instance;\n"
