@@ -93,6 +93,14 @@ void	addModifiers(Register *list) {
 	list->pushTestFunction(TEST_CLEAR2, testClear2);
 }
 
+void	addNonMembers(Register *list) {
+	list->pushTestFunction(NO_MESG, displayNonMembers);
+	list->pushTestFunction(TEST_COMPARISON1, testComparaison1);
+	list->pushTestFunction(TEST_COMPARISON2, testComparaison2);
+	list->pushTestFunction(TEST_COMPARISON3, testComparaison3);
+	list->pushTestFunction(TEST_SWAP4, testSwap4);
+}
+
 void	addVectorFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayVector);
 	addConstrcutor(list);
@@ -100,4 +108,5 @@ void	addVectorFunctions(Register *list) {
 	addCapacityFunctions(list);
 	addElementAcessFunctions(list);
 	addModifiers(list);
+	addNonMembers(list);
 }

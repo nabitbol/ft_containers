@@ -252,6 +252,26 @@
 					"std::vector<int> instance(3, 100);\nstd::vector<int> instance2;\n" \
 					"instance2.push_back(400);\ninstance2(64)\n;" \
 					"instance2.push_back(40);\ninstance2(29)\n;" \
-					"instance.swap(instance2);\ninstance.clear()'\n"
+					"instance.swap(instance2);\ninstance.clear();\n"
+
+#define  TEST_COMPARISON1 "/* ---------------------------- Test Comparison1 ---------------------------- */\n\n" \
+					"std::vector<int> instance(7, 100);\nstd::vector<int> instance2(7, 100);\n" \
+					"instance == instance2;\ninstance != instance2;\ninstance > instance2;\n" \
+					"instance >= instance2;\ninstance < instance2;\ninstance <= instance2;\n"
+
+#define  TEST_COMPARISON2 "/* ---------------------------- Test Comparison2 ---------------------------- */\n\n" \
+					"std::vector<int> instance(1, 100);\nstd::vector<int> instance2(7, 100);\n" \
+					"instance == instance2;\ninstance != instance2;\ninstance > instance2;\n" \
+					"instance >= instance2;\ninstance < instance2;\ninstance <= instance2;\n"
+
+#define  TEST_COMPARISON3 "/* ---------------------------- Test Comparison3 ---------------------------- */\n\n" \
+					"std::vector<int> instance(7, 50);\nstd::vector<int> instance2(7, 100);\n" \
+					"instance == instance2;\ninstance != instance2;\ninstance > instance2;\n" \
+					"instance >= instance2;\ninstance < instance2;\ninstance <= instance2;\n"
+
+#define  TEST_SWAP4 "/* ------------------------------- Test Swap4 ------------------------------- */\n\n" \
+					"std::vector<int> instance(3, 100);\nstd::vector<int> instance2;\n" \
+					"instance2.push_back(400);\ninstance2(64)\n;" \
+					"swap(instance, instance2);\n"
 
 #endif

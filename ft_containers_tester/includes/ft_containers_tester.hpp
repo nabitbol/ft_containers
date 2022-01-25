@@ -82,6 +82,24 @@ std::stringstream		getVectorCapacities(T &instance) {
 	return (tmp);
 }
 
+template <typename T>
+std::stringstream		getCVectorComparison(T &instance, T &instance2) {
+	std::stringstream tmp;
+	tmp << " ==: ";
+	tmp << (instance == instance2);
+	tmp << " !=: ";
+	tmp << (instance != instance2);
+	tmp << " >: ";
+	tmp << (instance > instance2);
+	tmp << " >=: ";
+	tmp << (instance >= instance2);
+	tmp << " <: ";
+	tmp << (instance < instance2);
+	tmp << " <=: ";
+	tmp << (instance <= instance2);
+	return (tmp);
+}
+
 /* ---------------------------- constrcutor tests --------------------------- */
 
 void	displayConstructor();
@@ -176,5 +194,13 @@ void	testSwap3();
 void	testClear1();
 void	testClear2();
 
+/* ---------------------------- Non members tests --------------------------- */
+
+void	displayNonMembers();
+
+void	testComparison1();
+void	testComparison2();
+void	testComparison3();
+void	testSwap4();
 
 #endif
