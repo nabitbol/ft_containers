@@ -3,7 +3,7 @@
 
 void	vector::displayModifiers() {
 	std::cout << "\n" << std::endl;
-	std::cout << "[Modifiers]: ";
+	displayTitle("[Modifiers]: ");
 }
 
 /* ---------------------------- assign functions ---------------------------- */

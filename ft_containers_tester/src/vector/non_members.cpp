@@ -3,7 +3,7 @@
 
 void	vector::displayNonMembers() {
 	std::cout << "\n" << std::endl;
-	std::cout << "[Non-members]: ";
+	displayTitle("[Non-members]: ");
 }
 
 /* ---------------------- relation operators functions ---------------------- */

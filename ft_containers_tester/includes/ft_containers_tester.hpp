@@ -1,7 +1,9 @@
 #ifndef		FT_CONTAINERS_HPP
 # define	FT_CONTAINERS_HPP
 
-#define  NO_MESG	""
+#define	NO_MESG	""
+
+#define	SETW	20
 
 /* -------------------------------------------------------------------------- */
 /*                                your includes                               */
@@ -9,6 +11,7 @@
 
 # include "../../includes/vector.hpp"
 # include "../../includes/stack.hpp"
+# include "../../includes/pair.hpp"
 
 /* -------------------------------------------------------------------------- */
 /*                               tester includes                              */
@@ -20,6 +23,7 @@
 # include <iostream>
 # include <sstream>
 # include <fstream>
+# include <iomanip>
 
 /* --------------------------------- typedef -------------------------------- */
 
@@ -67,6 +71,7 @@ void	iterate(const T &instance, std::stringstream &tmp, size_t size, void functi
 }
 
 void	jumpNextLine();
+void	displayTitle(std::string title);
 
 /* -------------------------------------------------------------------------- */
 /*                                   vector                                   */
@@ -106,8 +111,10 @@ std::stringstream		getCVectorComparison(T &instance, T &instance2) {
 	return (tmp);
 }
 
-/* ---------------------------- constrcutor tests --------------------------- */
+	/* ---------------------------- Constrcutor tests --------------------------- */
 namespace vector {
+
+	void	addConstructor(Register *list);
 
 	void	displayConstructor();
 
@@ -116,7 +123,7 @@ namespace vector {
 	void	testCopyConstructor();
 	void	testIteratorConstructor();
 
-	/* ----------------------------- iterators tests ---------------------------- */
+	/* ----------------------------- Iterators tests ---------------------------- */
 
 	void	displayIterators();
 
@@ -149,7 +156,7 @@ namespace vector {
 	void	testMultiPass();
 
 
-	/* ----------------------------- capacity tests ----------------------------- */
+	/* ----------------------------- Capacity tests ----------------------------- */
 
 	void	displayCapacity();
 
@@ -217,13 +224,13 @@ namespace vector {
 /* -------------------------------------------------------------------------- */
 
 
-void	addStackFunctions(Register *list);
+	void	addStackFunctions(Register *list);
 
 namespace stack {
 
-/* --------------------------- Constructors tests --------------------------- */
+	/* --------------------------- Constructors tests --------------------------- */
 
-void	testEmptyParamConstructor();
+	void	testEmptyParamConstructor();
 
 }
 

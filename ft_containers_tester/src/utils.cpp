@@ -23,3 +23,7 @@ void	displayCompareResult(const std::stringstream &result1, const std::stringstr
 void	jumpNextLine() {
 	std::cout << "\n" << std::flush;
 }
+
+void	displayTitle(std::string title) {
+	std::cout.width(SETW);  std::cout << std::left << title;
+}

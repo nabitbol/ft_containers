@@ -3,7 +3,7 @@
 
 void	vector::displayIterators() {
 	std::cout << "\n" << std::endl;
-	std::cout << "[Iterators]: ";
+	displayTitle("[Iterators]: ");
 }
 
 /* ----------------------------- begin functions ---------------------------- */

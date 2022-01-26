@@ -2,7 +2,7 @@
 #include "error_test_defines_vector.hpp"
 
 void	vector::displayConstructor() {
-	std::cout << "[Constructor]: ";
+	displayTitle("[Constructor]: ");
 }
 
 /* --------------------------- constructor funtions -------------------------- */

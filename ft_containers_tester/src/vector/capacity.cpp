@@ -3,7 +3,7 @@
 
 void	vector::displayCapacity() {
 	std::cout << "\n" << std::endl;
-	std::cout << "[Capacity]: ";
+	displayTitle("[Capacity]: ");
 }
 
 /* ----------------------------- size functions ----------------------------- */

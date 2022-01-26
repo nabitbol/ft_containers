@@ -7,7 +7,7 @@ void	displayVector() {
 	std::cout << std::endl;
 }
 
-void	addConstrcutor(Register *list) {
+void	vector::addConstructor(Register *list) {
 	list->pushTestFunction(NO_MESG, vector::displayConstructor);
 	list->pushTestFunction(TEST_CONSTRUCTOR1, vector::testEmptyParamConstructor);
 	list->pushTestFunction(TEST_CONSTRUCTOR2, vector::testValueConstructor);
@@ -104,7 +104,7 @@ void	addNonMembers(Register *list) {
 
 void	addVectorFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayVector);
-	addConstrcutor(list);
+	vector::addConstructor(list);
 	addIteratorsFunctions(list);
 	addCapacityFunctions(list);
 	addElementAcessFunctions(list);

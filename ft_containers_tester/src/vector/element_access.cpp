@@ -3,7 +3,7 @@
 
 void	vector::displayElementAcess() {
 	std::cout << "\n" << std::endl;
-	std::cout << "[Element Access]: ";
+	displayTitle("[Element Access]: ");
 }
 
 template <typename T>
