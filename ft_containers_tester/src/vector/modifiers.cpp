@@ -1,14 +1,14 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	displayModifiers() {
+void	vector::displayModifiers() {
 	std::cout << "\n" << std::endl;
 	std::cout << "[Modifiers]: ";
 }
 
 /* ---------------------------- assign functions ---------------------------- */
 
-void	testAssign1() {
+void	vector::testAssign1() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -24,7 +24,7 @@ void	testAssign1() {
 	displayCompareResult(result1, result2, TEST_COMPARISON1);
 }
 
-void	testAssign2() {
+void	vector::testAssign2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -40,7 +40,7 @@ void	testAssign2() {
 	displayCompareResult(result1, result2, TEST_COMPARISON2);
 }
 
-void	testAssign3() {
+void	vector::testAssign3() {
 	ft::vector<int> a;
 	ft::vector<int> c;
 	std::vector<int> b;
@@ -68,7 +68,7 @@ void	testAssign3() {
 	displayCompareResult(result1, result2, TEST_COMPARISON3);
 }
 
-void	testAssign4() {
+void	vector::testAssign4() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -90,7 +90,7 @@ void	testAssign4() {
 
 /* --------------------------- push_back functions -------------------------- */
 
-void	testPushBack1() {
+void	vector::testPushBack1() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -111,7 +111,7 @@ void	testPushBack1() {
 
 /* --------------------------- pop_back functions --------------------------- */
 
-void	testPopBack1() {
+void	vector::testPopBack1() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -138,7 +138,7 @@ void	testPopBack1() {
 	displayCompareResult(result1, result2, TEST_POP_BACK1);
 }
 
-void	testPopBack2() {
+void	vector::testPopBack2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -156,7 +156,7 @@ void	testPopBack2() {
 
 /* ----------------------------- insert fuctions ---------------------------- */
 
-void	testInsert1() {
+void	vector::testInsert1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -175,7 +175,7 @@ void	testInsert1() {
 	displayCompareResult(result1, result2, TEST_INSERT1);
 }
 
-void	testInsert2() {
+void	vector::testInsert2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -195,7 +195,7 @@ void	testInsert2() {
 }
 
 
-void	testInsert3() {
+void	vector::testInsert3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -214,7 +214,7 @@ void	testInsert3() {
 	displayCompareResult(result1, result2, TEST_INSERT3);
 }
 
-void	testInsert4() {
+void	vector::testInsert4() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -236,7 +236,7 @@ void	testInsert4() {
 	displayCompareResult(result1, result2, TEST_INSERT4);
 }
 
-void	testInsert5() {
+void	vector::testInsert5() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -260,7 +260,7 @@ void	testInsert5() {
 
 /* ---------------------------- erase functionsx ---------------------------- */
 
-void	testErase1() {
+void	vector::testErase1() {
 	ft::vector<int> a(4);
 	std::vector<int> b(4);
 
@@ -289,7 +289,7 @@ void	testErase1() {
 	displayCompareResult(result1, result2, TEST_ERASE1);
 }
 
-void	testErase2() {
+void	vector::testErase2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -314,7 +314,7 @@ void	testErase2() {
 	displayCompareResult(result1, result2, TEST_ERASE2);
 }
 
-void	testErase3() {
+void	vector::testErase3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -348,7 +348,7 @@ void	testErase3() {
 
 /* ----------------------------- swap functions ----------------------------- */
 
-void	testSwap1() {
+void	vector::testSwap1() {
 	ft::vector<int> a(3, 100);
 	std::vector<int> b(3, 100);
 
@@ -378,7 +378,7 @@ void	testSwap1() {
 	displayCompareResult(result1, result2, TEST_SWAP1);
 }
 
-void	testSwap2() {
+void	vector::testSwap2() {
 	ft::vector<int> a(3, 100);
 	std::vector<int> b(3, 100);
 
@@ -397,7 +397,7 @@ void	testSwap2() {
 	displayCompareResult(result1, result2, TEST_SWAP2);
 }
 
-void	testSwap3() {
+void	vector::testSwap3() {
 	ft::vector<int> a(3, 100);
 	std::vector<int> b(3, 100);
 
@@ -430,7 +430,7 @@ void	testSwap3() {
 
 /* ----------------------------- clear functions ---------------------------- */
 
-void	testClear1() {
+void	vector::testClear1() {
 	ft::vector<int> a(3, 100);
 	std::vector<int> b(3, 100);
 
@@ -446,7 +446,7 @@ void	testClear1() {
 	displayCompareResult(result1, result2, TEST_CLEAR1);
 }
 
-void	testClear2() {
+void	vector::testClear2() {
 	ft::vector<int> a(3, 100);
 	std::vector<int> b(3, 100);
 

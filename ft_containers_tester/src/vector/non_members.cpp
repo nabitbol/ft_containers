@@ -1,14 +1,14 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	displayNonMembers() {
+void	vector::displayNonMembers() {
 	std::cout << "\n" << std::endl;
 	std::cout << "[Non-members]: ";
 }
 
 /* ---------------------- relation operators functions ---------------------- */
 
-void	testComparison1() {
+void	vector::testComparison1() {
 	ft::vector<int> a(7, 100);
 	std::vector<int> b(7, 100);
 
@@ -24,7 +24,7 @@ void	testComparison1() {
 	displayCompareResult(result1, result2, TEST_ASSIGN1);
 }
 
-void	testComparison2() {
+void	vector::testComparison2() {
 	ft::vector<int> a(1, 100);
 	std::vector<int> b(1, 100);
 
@@ -40,7 +40,7 @@ void	testComparison2() {
 	displayCompareResult(result1, result2, TEST_ASSIGN1);
 }
 
-void	testComparison3() {
+void	vector::testComparison3() {
 	ft::vector<int> a(7, 50);
 	std::vector<int> b(7, 50);
 
@@ -58,7 +58,7 @@ void	testComparison3() {
 
 /* ----------------------------- swap functions ----------------------------- */
 
-void	testSwap4() {
+void	vector::testSwap4() {
 	ft::vector<int> a(3, 100);
 	std::vector<int> b(3, 100);
 

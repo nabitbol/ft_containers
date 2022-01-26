@@ -1,7 +1,7 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	displayCapacity() {
+void	vector::displayCapacity() {
 	std::cout << "\n" << std::endl;
 	std::cout << "[Capacity]: ";
 }
@@ -15,7 +15,7 @@ std::stringstream		getSize(const T &instance) {
 	return (tmp);
 }
 
-void	testSize() {
+void	vector::testSize() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -37,7 +37,7 @@ std::stringstream		getMaxSize(const T &instance) {
 	return (tmp);
 }
 
-void	testMaxSize() {
+void	vector::testMaxSize() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -59,7 +59,7 @@ std::stringstream		getCapacity(const T &instance) {
 	return (tmp);
 }
 
-void	testCapacity() {
+void	vector::testCapacity() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -77,7 +77,7 @@ void	testCapacity() {
 /*
 ** test1
 */
-void	testResize1() {
+void	vector::testResize1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -96,7 +96,7 @@ void	testResize1() {
 /*
 ** test2
 */
-void	testResize2() {
+void	vector::testResize2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -115,7 +115,7 @@ void	testResize2() {
 /*
 ** test3
 */
-void	testResize3() {
+void	vector::testResize3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -134,7 +134,7 @@ void	testResize3() {
 /*
 ** test4
 */
-void	testResize4() {
+void	vector::testResize4() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -162,7 +162,7 @@ std::stringstream		getEmpty(const T &instance) {
 /*
 ** test1
 */
-void	testEmpty1() {
+void	vector::testEmpty1() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -178,7 +178,7 @@ void	testEmpty1() {
 /*
 ** test2
 */
-void	testEmpty2() {
+void	vector::testEmpty2() {
 	ft::vector<int> a(30, 2);
 	std::vector<int> b(30, 2);
 
@@ -196,7 +196,7 @@ void	testEmpty2() {
 /*
 ** test1
 */
-void	testReserve1() {
+void	vector::testReserve1() {
 	ft::vector<int> a(10, 40);
 	std::vector<int> b(10, 40);
 
@@ -215,7 +215,7 @@ void	testReserve1() {
 /*
 ** test2
 */
-void	testReserve2() {
+void	vector::testReserve2() {
 	ft::vector<int> a(10, 40);
 	std::vector<int> b(10, 40);
 

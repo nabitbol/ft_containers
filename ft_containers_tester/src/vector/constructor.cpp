@@ -1,13 +1,13 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	displayConstructor() {
+void	vector::displayConstructor() {
 	std::cout << "[Constructor]: ";
 }
 
-/* --------------------------- constructo funtions -------------------------- */
+/* --------------------------- constructor funtions -------------------------- */
 
-void	testEmptyParamConstructor() {
+void	vector::testEmptyParamConstructor() {
 	ft::vector<int> a;
 	std::vector<int> b;
 
@@ -20,7 +20,7 @@ void	testEmptyParamConstructor() {
 	displayCompareResult(result1, result2, TEST_CONSTRUCTOR1);
 }
 
-void	testValueConstructor() {
+void	vector::testValueConstructor() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -33,7 +33,7 @@ void	testValueConstructor() {
 	displayCompareResult(result1, result2, TEST_CONSTRUCTOR2);
 }
 
-void	testCopyConstructor() {
+void	vector::testCopyConstructor() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -49,7 +49,7 @@ void	testCopyConstructor() {
 	displayCompareResult(result1, result2, TEST_CONSTRUCTOR3);
 }
 
-void	testIteratorConstructor() {
+void	vector::testIteratorConstructor() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 

@@ -1,14 +1,14 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	displayIterators() {
+void	vector::displayIterators() {
 	std::cout << "\n" << std::endl;
 	std::cout << "[Iterators]: ";
 }
 
 /* ----------------------------- begin functions ---------------------------- */
 
-void	testBegin() {
+void	vector::testBegin() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -26,7 +26,7 @@ void	testBegin() {
 
 /* ------------------------------ end functions ----------------------------- */
 
-void	testEnd() {
+void	vector::testEnd() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -44,7 +44,7 @@ void	testEnd() {
 
 /* ---------------------------- rbegin functions ---------------------------- */
 
-void	testRbegin() {
+void	vector::testRbegin() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -63,7 +63,7 @@ void	testRbegin() {
 	displayCompareResult(result1, result2, TEST_RBEGIN);
 }
 
-void	testConstRbegin() {
+void	vector::testConstRbegin() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -84,7 +84,7 @@ void	testConstRbegin() {
 
 /* ----------------------------- rend functions ----------------------------- */
 
-void	testRend() {
+void	vector::testRend() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -103,7 +103,7 @@ void	testRend() {
 	displayCompareResult(result1, result2, TEST_REND);
 }
 
-void	testConstRend() {
+void	vector::testConstRend() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -124,7 +124,7 @@ void	testConstRend() {
 
 /* --------------------------- addtions functions --------------------------- */
 
-void	testAddition1() {
+void	vector::testAddition1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -148,7 +148,7 @@ void	testAddition1() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_ADDIION1);
 }
 
-void	testAddition2() {
+void	vector::testAddition2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -172,7 +172,7 @@ void	testAddition2() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_ADDIION2);
 }
 
-void	testAddition3() {
+void	vector::testAddition3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -196,7 +196,7 @@ void	testAddition3() {
 
 /* ------------------------- substraction functions ------------------------- */
 
-void	testSubstarction1() {
+void	vector::testSubstarction1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -220,7 +220,7 @@ void	testSubstarction1() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_SUBSTRATCION1);
 }
 
-void	testSubstarction2() {
+void	vector::testSubstarction2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -241,7 +241,7 @@ void	testSubstarction2() {
 
 /* ------------------------ incrementation functions ------------------------ */
 
-void	testPostIncrementation() {
+void	vector::testPostIncrementation() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -260,7 +260,7 @@ void	testPostIncrementation() {
 	displayCompareResult(result1, result2, TEST_INCREMENTATION1);
 }
 
-void	testPreIncrementation() {
+void	vector::testPreIncrementation() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -281,7 +281,7 @@ void	testPreIncrementation() {
 
 /* ------------------------ decrementations functions ----------------------- */
 
-void	testPostDecrementation1() {
+void	vector::testPostDecrementation1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -300,7 +300,7 @@ void	testPostDecrementation1() {
 	displayCompareResult(result1, result2, TEST_DECREMENTATION1);
 }
 
-void	testPostDecrementation2() {
+void	vector::testPostDecrementation2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -321,7 +321,7 @@ void	testPostDecrementation2() {
 
 /* -------------------------- comparison functions -------------------------- */
 
-void	testComparaison1() {
+void	vector::testComparaison1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -342,7 +342,7 @@ void	testComparaison1() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON1);
 }
 
-void	testComparaison2() {
+void	vector::testComparaison2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -363,7 +363,7 @@ void	testComparaison2() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON2);
 }
 
-void	testComparaison3() {
+void	vector::testComparaison3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -384,7 +384,7 @@ void	testComparaison3() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON3);
 }
 
-void	testComparaison4() {
+void	vector::testComparaison4() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -405,7 +405,7 @@ void	testComparaison4() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON4);
 }
 
-void	testComparaison5() {
+void	vector::testComparaison5() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -426,7 +426,7 @@ void	testComparaison5() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON5);
 }
 
-void	testComparaison6() {
+void	vector::testComparaison6() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -447,7 +447,7 @@ void	testComparaison6() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON6);
 }
 
-void	testComparaison7() {
+void	vector::testComparaison7() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -468,7 +468,7 @@ void	testComparaison7() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON7);
 }
 
-void	testComparaison8() {
+void	vector::testComparaison8() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -489,7 +489,7 @@ void	testComparaison8() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON8);
 }
 
-void	testComparaison9() {
+void	vector::testComparaison9() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -510,7 +510,7 @@ void	testComparaison9() {
 	displayCompareResult(result1, result2, TEST_ITERATOR_COMPARISON9);
 }
 
-void	testComparaison10() {
+void	vector::testComparaison10() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -533,7 +533,7 @@ void	testComparaison10() {
 
 /* ------------------------- dereference functions -------------------------- */
 
-void	testDerefence() {
+void	vector::testDerefence() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -554,7 +554,7 @@ void	testDerefence() {
 
 /* -------------------------- multi pass functions -------------------------- */
 
-void	testMultiPass() {
+void	vector::testMultiPass() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 

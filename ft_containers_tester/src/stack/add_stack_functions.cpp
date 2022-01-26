@@ -7,8 +7,8 @@ void	displayStack() {
 }
 
 void	addConstructor(Register *list) {
-	list->pushTestFunction(NO_MESG, displayConstructor);
-	list->pushTestFunction(NO_MESG, testEmptyConstructor);
+	list->pushTestFunction(NO_MESG, vector::displayConstructor);
+	list->pushTestFunction(NO_MESG, stack::testEmptyParamConstructor);
 }
 
 void	addStackFunctions(Register *list) {

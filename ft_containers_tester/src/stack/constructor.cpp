@@ -1,7 +1,9 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	testEmptyConstructor() {
+/* --------------------------- constructor funtions -------------------------- */
+
+void	stack::testEmptyParamConstructor() {
 	ft::stack<int> a;
 	std::stack<int> b;
 

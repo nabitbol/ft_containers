@@ -107,116 +107,124 @@ std::stringstream		getCVectorComparison(T &instance, T &instance2) {
 }
 
 /* ---------------------------- constrcutor tests --------------------------- */
+namespace vector {
 
-void	displayConstructor();
+	void	displayConstructor();
 
-void	testEmptyParamConstructor();
-void	testValueConstructor();
-void	testCopyConstructor();
-void	testIteratorConstructor();
+	void	testEmptyParamConstructor();
+	void	testValueConstructor();
+	void	testCopyConstructor();
+	void	testIteratorConstructor();
 
-/* ----------------------------- iterators tests ---------------------------- */
+	/* ----------------------------- iterators tests ---------------------------- */
 
-void	displayIterators();
+	void	displayIterators();
 
-void	testBegin();
-void	testEnd();
-void	testRbegin();
-void	testConstRbegin();
-void	testRend();
-void	testConstRend();
-void	testAddition1();
-void	testAddition2();
-void	testAddition3();
-void	testSubstarction1();
-void	testSubstarction2();
-void	testPostIncrementation();
-void	testPreIncrementation();
-void	testPostDecrementation1();
-void	testPostDecrementation2();
-void	testComparaison1();
-void	testComparaison2();
-void	testComparaison3();
-void	testComparaison4();
-void	testComparaison5();
-void	testComparaison6();
-void	testComparaison7();
-void	testComparaison8();
-void	testComparaison9();
-void	testComparaison10();
-void	testDerefence();
-void	testMultiPass();
+	void	testBegin();
+	void	testEnd();
+	void	testRbegin();
+	void	testConstRbegin();
+	void	testRend();
+	void	testConstRend();
+	void	testAddition1();
+	void	testAddition2();
+	void	testAddition3();
+	void	testSubstarction1();
+	void	testSubstarction2();
+	void	testPostIncrementation();
+	void	testPreIncrementation();
+	void	testPostDecrementation1();
+	void	testPostDecrementation2();
+	void	testComparaison1();
+	void	testComparaison2();
+	void	testComparaison3();
+	void	testComparaison4();
+	void	testComparaison5();
+	void	testComparaison6();
+	void	testComparaison7();
+	void	testComparaison8();
+	void	testComparaison9();
+	void	testComparaison10();
+	void	testDerefence();
+	void	testMultiPass();
 
 
-/* ----------------------------- capacity tests ----------------------------- */
+	/* ----------------------------- capacity tests ----------------------------- */
 
-void	displayCapacity();
+	void	displayCapacity();
 
-void	testSize();
-void	testMaxSize();
-void	testCapacity();
-void	testResize1();
-void	testResize2();
-void	testResize3();
-void	testResize4();
-void	testEmpty1();
-void	testEmpty2();
-void	testReserve1();
-void	testReserve2();
+	void	testSize();
+	void	testMaxSize();
+	void	testCapacity();
+	void	testResize1();
+	void	testResize2();
+	void	testResize3();
+	void	testResize4();
+	void	testEmpty1();
+	void	testEmpty2();
+	void	testReserve1();
+	void	testReserve2();
 
-/* --------------------------- Element acess tests -------------------------- */
+	/* --------------------------- Element acess tests -------------------------- */
 
-void	displayElementAcess();
+	void	displayElementAcess();
 
-void	testAt1();
-void	testAt2();
-void	testAt3();
-void	testFront();
-void	testBack();
-void	testOperatorAcess();
+	void	testAt1();
+	void	testAt2();
+	void	testAt3();
+	void	testFront();
+	void	testBack();
+	void	testOperatorAcess();
 
-/* ----------------------------- Modifiers tests ---------------------------- */
+	/* ----------------------------- Modifiers tests ---------------------------- */
 
-void	displayModifiers();
+	void	displayModifiers();
 
-void	testAssign1();
-void	testAssign2();
-void	testAssign3();
-void	testAssign4();
-void	testPushBack1();
-void	testPopBack1();
-void	testPopBack2();
-void	testInsert1();
-void	testInsert2();
-void	testInsert3();
-void	testInsert4();
-void	testInsert5();
-void	testErase1();
-void	testErase2();
-void	testErase3();
-void	testSwap1();
-void	testSwap2();
-void	testSwap3();
-void	testClear1();
-void	testClear2();
+	void	testAssign1();
+	void	testAssign2();
+	void	testAssign3();
+	void	testAssign4();
+	void	testPushBack1();
+	void	testPopBack1();
+	void	testPopBack2();
+	void	testInsert1();
+	void	testInsert2();
+	void	testInsert3();
+	void	testInsert4();
+	void	testInsert5();
+	void	testErase1();
+	void	testErase2();
+	void	testErase3();
+	void	testSwap1();
+	void	testSwap2();
+	void	testSwap3();
+	void	testClear1();
+	void	testClear2();
 
-/* ---------------------------- Non members tests --------------------------- */
+	/* ---------------------------- Non members tests --------------------------- */
 
-void	displayNonMembers();
+	void	displayNonMembers();
 
-void	testComparison1();
-void	testComparison2();
-void	testComparison3();
-void	testSwap4();
+	void	testComparison1();
+	void	testComparison2();
+	void	testComparison3();
+	void	testSwap4();
+
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                    Stack                                   */
 /* -------------------------------------------------------------------------- */
 
+
 void	addStackFunctions(Register *list);
+
+namespace stack {
 
 /* --------------------------- Constructors tests --------------------------- */
 
-void	testEmptyConstructor();
+void	testEmptyParamConstructor();
+
+}
 
 #endif

@@ -1,7 +1,7 @@
 #include "ft_containers_tester.hpp"
 #include "error_test_defines_vector.hpp"
 
-void	displayElementAcess() {
+void	vector::displayElementAcess() {
 	std::cout << "\n" << std::endl;
 	std::cout << "[Element Access]: ";
 }
@@ -15,7 +15,7 @@ std::stringstream		getVectorContent(T &instance) {
 
 /* -------------------------- operator [] functions ------------------------- */
 
-void	testOperatorAcess() {
+void	vector::testOperatorAcess() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -41,7 +41,7 @@ std::stringstream		getAt(const T &instance) {
 	return (tmp);
 }
 
-void	testAt1() {
+void	vector::testAt1() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -57,7 +57,7 @@ void	testAt1() {
 /*
 **	test2
 */
-void	testAt2() {
+void	vector::testAt2() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -90,7 +90,7 @@ std::stringstream		getAtOutOfRange(const T &instance) {
 	return (tmp);
 }
 
-void	testAt3() {
+void	vector::testAt3() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -112,7 +112,7 @@ std::stringstream		getFront(const T &instance) {
 	return (tmp);
 }
 
-void	testFront() {
+void	vector::testFront() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
@@ -140,7 +140,7 @@ std::stringstream		getBack(const T &instance) {
 	return (tmp);
 }
 
-void	testBack() {
+void	vector::testBack() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
 
