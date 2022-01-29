@@ -12,12 +12,14 @@
 # include "../../includes/vector.hpp"
 # include "../../includes/stack.hpp"
 # include "../../includes/pair.hpp"
+# include "../../includes/map.hpp"
 
 /* -------------------------------------------------------------------------- */
 /*                               tester includes                              */
 /* -------------------------------------------------------------------------- */
 
 # include <cstring>
+# include <map>
 # include <vector>
 # include <stack>
 # include <iostream>
@@ -230,7 +232,27 @@ namespace stack {
 
 	/* --------------------------- Constructors tests --------------------------- */
 
+	void	addConstructor(Register *list);
+
 	void	testEmptyParamConstructor();
+
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Pair                                    */
+/* -------------------------------------------------------------------------- */
+
+	void	addPairFunctions(Register *list);
+
+namespace	pair {
+
+	/* --------------------------- Constructors tests --------------------------- */
+
+	void	addConstructor(Register *list);
+
+	void	testEmptyParamConstructor();
+	void	testValueConstructor();
+	void	testCopyConstructor();
 
 }
 

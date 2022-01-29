@@ -28,6 +28,8 @@ int	main(int ac, char **av) {
 			addVectorFunctions(&list);
 		if ((ac == 1) || (strcmp(av[1], "stack") == 0))
 			addStackFunctions(&list);
+		if ((ac == 1) || (strcmp(av[1], "pair") == 0))
+			addPairFunctions(&list);
 		list.runAllTests();
 	} else {
 		std::cout << "Error: Too many arguments" << std::endl;

@@ -6,12 +6,13 @@ void	displayStack() {
 	std::cout << std::endl;
 }
 
-void	addConstructor(Register *list) {
+void	stack::addConstructor(Register *list) {
 	list->pushTestFunction(NO_MESG, vector::displayConstructor);
 	list->pushTestFunction(NO_MESG, stack::testEmptyParamConstructor);
 }
 
 void	addStackFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayStack);
-	addConstructor(list);
+	stack::addConstructor(list);
+	list->pushTestFunction(NO_MESG, jumpNextLine);
 }
