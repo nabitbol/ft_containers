@@ -1,6 +1,7 @@
 #include <vector.hpp>
-#include <vector>
-
+#include "vector"
+#include <map>
+#include "map.hpp"
 
 using namespace NAMESPACE;
 
@@ -72,7 +73,7 @@ int	main(void) {
 
 	std::cout << a.capacity() << std::endl;
 	std::cout << b.capacity() << std::endl;
-	std::cout << c.capacity() << std::endl;
+	std::cout << c.capacity() << std::endl;	
 
 	iter< ::vector<int> >(c, c.size(), &display);
 
@@ -80,6 +81,22 @@ int	main(void) {
 
 	// iter< ::vector<int> >(a, a.size(), &display);
 	// iter< ::vector<int> >(b, b.size(), &display);
+
+	ft::pair<std::string, int> *ptr = new ft::pair<std::string, int>[8];
+
+	ptr[0] = {"toto", 2};
+	ptr[1] = {"coco", 3};
+	ptr[2] = {"zr", 19};
+	ptr[3] = {"atoi", 100};
+	ptr[4] = {"prout", 0};
+	ptr[5] = {"fuck", 10};
+	ptr[6] = {"this", -1};
+	ptr[7] = {"guy", 81};
+
+	ft::map<const std::string, int> toto;
+
+	toto.insert(reinterpret_cast<ft::pair<const std::string, int>*>(ptr), 8);
+	std::cout << toto.toString().str();
 
 	std::cout << std::endl;
 

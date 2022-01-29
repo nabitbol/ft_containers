@@ -73,16 +73,6 @@ namespace ft {
 			return (_allocator.max_size());
 		};
 
-		void	creatVisualize(value_type *value, int size) {
-			int count = 0;
-			while (count < size - 1) {
-				addNode(*value);
-				count++;
-				value++;
-			}
-			visualizer();
-		}
-
 	 private:
 
 		value_type	*allocateMemory(size_type n) {
@@ -159,47 +149,67 @@ namespace ft {
 			tmp->parent = node_data.node;
 		};
 
-		void	visualizer() {
-			rbt	*tmp = _tree;
+		public:
 
-			std::cout << std::endl;
-			printTree(tmp);
-			// printReverseTree(tmp);
+		void	insert(value_type *ptr, size_type size) {
+			size_type count = 0;
+
+			while (count < size) {
+				addNode(*ptr);
+				count++;
+				ptr++;
+			}
 		};
 
-		void	printTree(rbt *tree) {
-			if (!tree) return;
-
-			if (tree->left) printTree(tree->left);
-
-			display(tree);
-			std::cout << std::endl;
-
-			if (tree->right) printTree(tree->right);
-		}
-
-		void	printReverseTree(rbt *tree) {
-			if (!tree) return;
-
-			if (tree->right) printReverseTree(tree->right);
-
-			display(tree);
-			std::cout << std::endl;
-
-			if (tree->left) printReverseTree(tree->left);
-		}
-
-		static void	display(rbt *tree) {
-			if (tree->color == RED) {
-				std::cout.width(10); std::cout << std::internal << "\033[47;31m|" << tree->value.first << "|\033[0m" << std::flush;
-			} else if (tree->color == BLACK) {
-				std::cout.width(10); std::cout << std::internal << "\033[47;30m|" << tree->value.first << "|\033[0m" << std::flush;
-			} else
-				return;
+		std::stringstream	toString() {
+			return (toString(_tree, 0));
 		};
 
+		std::string getSpaces(int n) {
+			std::string spaces("");
+			while (--n >= 0) {
+				spaces += "  ";
+				spaces += ((n > 0) ? "│" : "└");
+			}
+			return spaces + "─ ";
+		}
+
+		std::string colorizeOutput(std::string ouput, rbt *tree) {
+			std::stringstream tmp;
+
+			if (tree->color == RED)
+				tmp << std::internal << "\033[0;31m" << tree->value.first << "\033[0m" << std::flush; 
+			if (tree->color == BLACK)
+				tmp << std::internal << "\033[47;30m" << tree->value.first << "\033[0m" << std::flush;
+			ouput += tmp.str();
+			return (ouput);
+			
+		}
+
+		std::stringstream	toString(rbt *tmp, int depth) {
+			std::stringstream 	output;
+
+			if (!tmp)
+				return (output);
+			output << colorizeOutput(getSpaces(depth) + output.str(), tmp) << std::endl;
+			if (tmp->left) output << toString(tmp->left, depth + 1).str();
+			if (tmp->right)  output << toString(tmp->right,depth + 1).str();
+			return (output);
+		};
+	};
+	
+
+	/* -------------------------- non-member attributs -------------------------- */
+
+	template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
+			typename _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
+	std::ostream  & operator<<(std::ostream  &outStream, const map<const _Key, _Tp, _Compare, _Alloc> &instance) {
+		outStream << instance.toString();
+		return (outStream);
 	};
 
 }
+
+
 
 #endif
