@@ -12,8 +12,13 @@ namespace ft {
 		BLACK = true
 	};
 
+	enum node_direction {
+		RIGHT = false,
+		LEFT = true
+	};
+
 	template <typename T>
-	class red_black_tree {
+	struct red_black_tree {
 
 	 public:
 
@@ -29,9 +34,25 @@ namespace ft {
 
 /* ------------------------------- constructor ------------------------------ */
 
-	red_black_tree(value_type &val): color(BLACK), value(val), right(NULL), left(NULL), parent(NULL) {};
+	red_black_tree(value_type &val): color(RED), value(val), right(NULL), left(NULL), parent(NULL) {};
+
+	~red_black_tree();
 
 	};
+
+
+	template <typename T>
+	struct node_data {
+		node_direction		direction;
+		red_black_tree<T>	*node;
+
+/* ------------------------------- constructor ------------------------------ */
+
+		node_data(const node_direction &dir, red_black_tree<T> *tree) : direction(dir), node(tree) {};
+
+		~node_data() {};
+	};
+
 
 }
 
