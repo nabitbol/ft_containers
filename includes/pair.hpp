@@ -30,6 +30,7 @@ namespace ft {
 		pair& operator= (const pair& pr) {
 			this->first = pr.first;
 			this->second = pr.second;
+			return (*this);
 		};
 
 	};
