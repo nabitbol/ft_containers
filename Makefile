@@ -1,147 +1,152 @@
-# ---------------------------------------------------------------------------- #
-#                                   variables                                  #
-# ---------------------------------------------------------------------------- #
+# #############################################################################
+#
+# Sources lists
+#
+# #############################################################################
 
-NAME			=	ft_container
+# CPP files
+FILENAME_LIST_SRCS= \
+	main.cpp \
 
-NAME1			=	std_container
+# #############################################################################
+#
+# Compiler options
+#
+# #############################################################################
 
-CXX				=	clang++
+COMPILER_EXECUTABLE=clang++
 
-CXXFLAGS		=	-Wall -Wextra -Werror #-std=c++98
+COMPILER_LIBS= \
 
-LDLIBS			=
+COMPILER_WARNING_FLAGS= \
+	-Wall \
+	-Wextra \
+	-Werror \
+	#-std=c++98 \
 
-TEST_DIR		=	ft_containers_tester/
+# #############################################################################
+#
+# Project configuration
+#
+# #############################################################################
 
-SRC_DIR			=	src/
+# Targets
+FILENAMELIST_TARGET= \
+	ft_container \
+	std_container
 
-INC_DIR			=	includes/
+# Directories names
+DIRNAME_BIN=bin
+DIRNAME_OBJ=obj
+DIRNAME_SRC=src
+DIRNAME_INC=includes
+DIRNAME_TEST=ft_containers_tester
 
-FT_OBJ_DIR		=	obj_ft/
+# Directory paths
+DIRPATH_OBJ=$(DIRNAME_BIN)/$(DIRNAME_OBJ)
 
-STD_OBJ_DIR		=	obj_std/
+# File path lists
+FILEPATHLIST_SRCS=$(addprefix $(DIRNAME_SRC)/, $(FILENAME_LIST_SRCS))
 
-FT_OBJ			=	$(addprefix $(FT_OBJ_DIR), $(SRC_FILES:.cpp=.o))
+# Merge all CPP lists in one
+FILEPATHLIST_CPP= \
+	$(FILEPATHLIST_SRCS) \
 
-STD_OBJ			=	$(addprefix $(STD_OBJ_DIR), $(SRC_FILES:.cpp=.o))
+FILEPATHLIST_OPP_FT=$(subst \
+		$(DIRNAME_SRC), \
+		$(DIRPATH_OBJ)/ft, \
+		$(FILEPATHLIST_CPP:.cpp=.opp) \
+	)
+FILEPATHLIST_OPP_STD=$(subst \
+		$(DIRNAME_SRC), \
+		$(DIRPATH_OBJ)/std, \
+		$(FILEPATHLIST_CPP:.cpp=.opp) \
+	)
 
-COUNT			=	0
-
-COUNT1			=	0
-
-# ------------------------- Multiple lines variables ------------------------- #
-
-define BRAND_FT
-\n
-# ----------------------------- Creating $(NAME) ----------------------------- #
-\n
-endef
-
-define BRAND_STD
-\n
-# ----------------------------- Creating $(NAME1) ----------------------------- #
-\n
-endef
-
-define DONE
-
-\033[0;32m
-'########:::'#######::'##::: ##:'########:
- ##.... ##:'##.... ##: ###:: ##: ##.....::
- ##:::: ##: ##:::: ##: ####: ##: ##:::::::
- ##:::: ##: ##:::: ##: ## ## ##: ######:::
- ##:::: ##: ##:::: ##: ##. ####: ##...::::
- ##:::: ##: ##:::: ##: ##:. ###: ##:::::::
- ########::. #######:: ##::. ##: ########:
-........::::.......:::..::::..::........::
-\033[0m
-
-endef
-
-define CLEAN
-
-\033[0;34m
-:'######::'##:::::::'########::::'###::::'##::: ##:'########:'########::
-'##... ##: ##::::::: ##.....::::'## ##::: ###:: ##: ##.....:: ##.... ##:
- ##:::..:: ##::::::: ##::::::::'##:. ##:: ####: ##: ##::::::: ##:::: ##:
- ##::::::: ##::::::: ######:::'##:::. ##: ## ## ##: ######::: ##:::: ##:
- ##::::::: ##::::::: ##...:::: #########: ##. ####: ##...:::: ##:::: ##:
- ##::: ##: ##::::::: ##::::::: ##.... ##: ##:. ###: ##::::::: ##:::: ##:
-. ######:: ########: ########: ##:::: ##: ##::. ##: ########: ########::
-:......:::........::........::..:::::..::..::::..::........::........:::
-\033[0m
-
-endef
-
-# ---------------------------------------------------------------------------- #
-#                                    souces                                    #
-# ---------------------------------------------------------------------------- #
-
-SRC_FILES		= main.cpp
-
-# ---------------------------------------------------------------------------- #
-#                        dynamic variables using sources                       #
-# ---------------------------------------------------------------------------- #
-
-FILES_COUNT		:= $(words $(SRC_FILES))
-
-# ---------------------------------------------------------------------------- #
-#                                    roules                                    #
-# ---------------------------------------------------------------------------- #
-
-export DONE
-export BRAND_STD
-export BRAND_FT
-export CLEAN
+# #############################################################################
+#
+# Rules
+#
+# #############################################################################
 
 .DEFAULT_GOAL = all
 
-$(STD_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
-	@echo "$${BRAND_STD}"
-	@mkdir -p $(STD_OBJ_DIR)
-	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS) -DNAMESPACE="std"
-	@$(eval COUNT1=$(shell echo $$(($(COUNT1)+1))))
-	@echo [$(COUNT1)/$(FILES_COUNT)] compiling $^ to $@
-	@echo "$${DONE}"
+# Build target
+ft_container: $(FILEPATHLIST_OPP_FT)
+	@mkdir -p $$(dirname $@)
+	@printf "$(COMPILING) TARGET --> $@ "
+	@$(COMPILER_EXECUTABLE) -o $(DIRNAME_BIN)/$@ \
+		$(COMPILER_LIBS) \
+		$(COMPILER_WARNING_FLAGS) \
+		$(FILEPATHLIST_OPP_FT) \
+			&& printf "$(SUCCESS)\n"
 
-$(FT_OBJ_DIR)%.o: $(SRC_DIR)%.cpp
-	@echo "$${BRAND_FT}"
-	@mkdir -p $(FT_OBJ_DIR)
-	@$(CXX) -c -o $@ $< -I $(INC_DIR) $(CXXFLAGS) -DNAMESPACE="ft"
-	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
-	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
-	@echo "$${DONE}"
+# Build obj binaries
+$(DIRPATH_OBJ)/ft/%.opp: $(DIRNAME_SRC)/%.cpp
+	@mkdir -p $$(dirname $@)
+	@printf "$(COMPILING) $< "
+	@$(COMPILER_EXECUTABLE) -c $< -o $@ -DNAMESPACE="ft" \
+		-I $(DIRNAME_INC) \
+		$(COMPILER_WARNING_FLAGS) \
+			&& printf "$(SUCCESS)\n"
 
-$(NAME1): $(STD_OBJ)
-	@$(CXX) -o $(NAME1) $(STD_OBJ) $(CXXFLAGS)
+# Build target
+std_container: $(FILEPATHLIST_OPP_STD)
+	@mkdir -p $$(dirname $@)
+	@printf "$(COMPILING) TARGET --> $@ "
+	@$(COMPILER_EXECUTABLE) -o $(DIRNAME_BIN)/$@ \
+		$(COMPILER_LIBS) \
+		$(COMPILER_WARNING_FLAGS) \
+		$(FILEPATHLIST_OPP_STD) \
+			&& printf "$(SUCCESS)\n"
 
-$(NAME): $(FT_OBJ)
-	@$(CXX) -o $(NAME) $(FT_OBJ) $(CXXFLAGS)
+# Build obj binaries
+$(DIRPATH_OBJ)/std/%.opp: $(DIRNAME_SRC)/%.cpp
+	@mkdir -p $$(dirname $@)
+	@printf "$(COMPILING) $< "
+	@$(COMPILER_EXECUTABLE) -c $< -o $@ -DNAMESPACE="std" \
+		-I $(DIRNAME_INC) \
+		$(COMPILER_WARNING_FLAGS) \
+			&& printf "$(SUCCESS)\n"
 
-print_clean:
-	@echo "$${CLEAN}"
+# Build all targets
+all: $(FILENAMELIST_TARGET)
 
-all: $(NAME1) $(NAME) ## Create the executable
+## Run tester
+test:
+	@make -sC $(DIRNAME_TEST) test
 
-# Command help shows all makefile roules (thanks to Grafikart for his tutorial https://grafikart.fr/tutoriels/makefile-953)
-help:
-	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-10s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+# Remove objects
+clean:
+	@make -sC $(DIRNAME_TEST) clean
+	@rm -rf $(DIRPATH_OBJ)
 
-test:	## Run tests
-	@make -sC $(TEST_DIR) test
+# Remove every built binary
+fclean:
+	@make -sC $(DIRNAME_TEST) fclean
+	@rm -rf $(DIRNAME_BIN)
 
-clean: print_clean ## Delete all obj
-	@make -sC $(TEST_DIR) clean
-	@rm -rf $(STD_OBJ_DIR)
-	@rm -rf $(FT_OBJ_DIR)
-
-fclean: clean ## Delete all obj and the executable
-	@make -sC $(TEST_DIR) fclean
-	@rm -f $(NAME1)
-	@rm -f $(NAME)
-
-re: fclean all ## Delete using fclean and recompile using all
+# Remove and rebuild everything
+re: fclean all
 
 .PHONY: all clean fclean re
 
+.ONESHELL:
+
+# #############################################################################
+#
+# Makefile misc
+#
+# #############################################################################
+
+# Colors
+RED=\033[1;31m
+GREEN=\033[1;32m
+BLUE=\033[1;34m
+NC=\033[0m
+
+# Colored messages
+SUCCESS=$(GREEN)SUCCESS$(NC)
+COMPILING=$(BLUE)COMPILING$(NC)
+
+# #############################################################################
