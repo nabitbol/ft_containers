@@ -96,7 +96,7 @@ int	main(void) {
 	ft::map<const std::string, int> toto;
 
 	toto.insert(reinterpret_cast<ft::pair<const std::string, int>*>(ptr), 8);
-	std::cout << toto.toString().str();
+	std::cout << toto;
 
 	std::cout << std::endl;
 

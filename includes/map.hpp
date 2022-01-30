@@ -9,8 +9,8 @@
 
 namespace ft {
 
-	template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
-			typename _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
+	template <typename _Key, typename _Tp, class _Compare = std::less<_Key>,
+			class _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
 	class map {
 
 	 public:
@@ -178,9 +178,9 @@ namespace ft {
 			std::stringstream tmp;
 
 			if (tree->color == RED)
-				tmp << std::internal << "\033[0;31m" << tree->value.first << "\033[0m" << std::flush; 
+				tmp << std::internal << Format(tree->value.first).red().bold(); 
 			if (tree->color == BLACK)
-				tmp << std::internal << "\033[47;30m" << tree->value.first << "\033[0m" << std::flush;
+				tmp << std::internal << Format(tree->value.first).black().bold();
 			ouput += tmp.str();
 			return (ouput);
 			
@@ -193,7 +193,7 @@ namespace ft {
 				return (output);
 			output << colorizeOutput(getSpaces(depth) + output.str(), tmp) << std::endl;
 			if (tmp->left) output << toString(tmp->left, depth + 1).str();
-			if (tmp->right)  output << toString(tmp->right,depth + 1).str();
+			if (tmp->right) output << toString(tmp->right,depth + 1).str();
 			return (output);
 		};
 	};
@@ -201,15 +201,13 @@ namespace ft {
 
 	/* -------------------------- non-member attributs -------------------------- */
 
-	template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
-			typename _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
-	std::ostream  & operator<<(std::ostream  &outStream, const map<const _Key, _Tp, _Compare, _Alloc> &instance) {
-		outStream << instance.toString();
+	template <typename _Key, typename _Tp, class _Compare = std::less<_Key>,
+			class _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
+	std::ostream  & operator<<(std::ostream  &outStream, map< const _Key, _Tp, _Compare, _Alloc> &instance) {
+		outStream << instance.toString().str();
 		return (outStream);
 	};
 
 }
-
-
 
 #endif

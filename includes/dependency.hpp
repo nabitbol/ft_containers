@@ -16,6 +16,7 @@
 #include "equal.hpp"
 #include "make_pair.hpp"
 #include "red_black_tree.hpp"
+#include "class.format.hpp"
 
 
 #endif
