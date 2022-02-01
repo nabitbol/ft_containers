@@ -38,6 +38,15 @@ namespace ft {
 
 	~red_black_tree();
 
+	red_black_tree	&operator=(const red_black_tree &instance) {
+		color = instance.color;
+		value = instance.value;
+		right = instance.right;
+		left = instance.left;
+		parent = instance.parent;
+		return (*this);
+	}
+
 	};
 
 

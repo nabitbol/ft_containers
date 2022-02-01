@@ -6,6 +6,7 @@
 # define MAP_HPP
 
 #include "dependency.hpp"
+#include "class.format.hpp"
 
 namespace ft {
 
@@ -96,10 +97,8 @@ namespace ft {
 				_tree = createNode(value);
 			} else {
 				node_data<value_type> node_data = findNewNodeLocation(value);
-				// std::cout << std::endl << "--node data--" << std::endl;
-				// std::cout << node_data.direction << std::endl;
-				// std::cout << node_data.node->value.first << std::endl;
 				linkNode(node_data, createNode(value));
+				checkRb(node_data);
 			}
 			_size += 1;
 		};
@@ -149,6 +148,105 @@ namespace ft {
 			tmp->parent = node_data.node;
 		};
 
+		void checkRb(node_data<value_type> node_data) {
+			rbt *tmp;
+
+			if (node_data.direction == RIGHT) {
+				tmp = node_data.node->right;
+				checkUncle(tmp);
+			}
+			if (node_data.direction == LEFT) {
+				tmp = node_data.node->left;
+				checkRbViolation(tmp);
+				checkUncle(tmp);
+			}
+			rebalance(tmp);
+		};
+
+
+		void checkUncle(rbt *node) {
+			rbt 			*tmp;
+
+			if (!node->parent || !node->parent->parent) {
+				return;
+			}
+			tmp = node->parent->parent;
+			if (tmp->right != NULL && tmp->right->color == RED) {
+				tmp->right->color = BLACK;
+			}
+			if (tmp->left != NULL && tmp->left->color == RED) {
+				tmp->left->color = BLACK;
+			}
+			tmp->color = RED;
+			if (tmp->value == _tree->value)
+				tmp->color = BLACK;
+			std::cout << toString().str() << std::endl;
+		};
+
+		void checkRbViolation(rbt *node) {
+			if (node->color == RED) {
+				if (node->parent->color == RED) {
+					node->parent->color = BLACK;
+				}
+			}
+		};
+
+		void rebalance(rbt *node) {
+			node_direction	dir;
+
+			if (!node->parent || !node->parent->parent || !node->parent->parent->parent)
+				return ;
+			if (node->color == RED && node->parent->color == BLACK &&
+			node->parent->parent->color == RED && node->parent->parent->parent->color == RED) {
+				if (node->parent->parent->parent->parent->right->value == node->parent->parent->parent->value)
+					dir = RIGHT;
+				else
+					dir = LEFT;
+				if (dir == LEFT) {
+					leftRotate(node->parent->parent);
+					dir = RIGHT;
+				}
+				if (dir == RIGHT)
+					rightRotate(node->parent->parent);
+				_tree = getParent(_tree);
+			}
+		};
+
+		void rightRotate(rbt *node) {
+			rbt *tmp;
+
+			if (!node->parent)
+				return;
+			tmp = node->parent;
+			node->color = BLACK;
+			tmp->color = RED;
+			tmp->left = node->right;
+			node->right = tmp;
+			node->parent = NULL;
+			tmp->parent = node;
+		};
+
+		void leftRotate(rbt *node) {
+			rbt *tmp;
+			rbt *tmp2;
+
+			if (!node->parent || !node->parent->parent)
+				return;
+			tmp = node->parent;
+			tmp2 = tmp->parent->parent;
+			tmp->parent->left = tmp->right;
+			tmp->right = node->left;
+			node->left = tmp;
+			node->parent = tmp->parent;
+			tmp->parent = node;
+		};
+
+		rbt	*getParent(rbt *node) {
+			while (node->parent)
+				node = node->parent;
+			return (node);
+		} 
+
 		public:
 
 		void	insert(value_type *ptr, size_type size) {
@@ -194,7 +292,7 @@ namespace ft {
 			output << colorizeOutput(getSpaces(depth) + output.str(), tmp) << std::endl;
 			if (tmp->left) output << toString(tmp->left, depth + 1).str();
 			if (tmp->right) output << toString(tmp->right,depth + 1).str();
-			return (output);
+			return (output); 
 		};
 	};
 	
