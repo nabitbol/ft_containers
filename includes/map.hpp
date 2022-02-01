@@ -33,10 +33,11 @@ namespace ft {
 
 		typedef	red_black_tree<value_type>						rbt;
 
-		rbt							*_tree;
-		size_type					_size;
-		allocator_type				_allocator;
-		key_compare					_comp;
+		rbt												*_tree;
+		size_type										_size;
+		allocator_type									_allocator;
+		typename _Alloc::template rebind<rbt>::other	_allocatorNode;
+		key_compare										_comp;
 
 /* ------------------------------ constructors ------------------------------ */
 
@@ -106,7 +107,8 @@ namespace ft {
 		rbt	*createNode(value_type &value) {
 			value_type *tmp = allocateMemory(1);
 			saveData(tmp, value);
-			rbt	*node = new rbt(*tmp);
+			rbt	*node = _allocatorNode.allocate(1);
+			_allocatorNode.construct(node, *tmp);
 			return (node);
 		};
 
@@ -116,7 +118,6 @@ namespace ft {
 			return (findNewNodeLocation(value, tmp));
 		};
 
-		
 		node_data<value_type>	findNewNodeLocation(value_type &value, rbt *tree) {
 			while (tree->right != NULL || tree->left != NULL) {
 				if (tree->value < value && tree->right != NULL) {tree = tree->right;}
@@ -162,7 +163,6 @@ namespace ft {
 			}
 			rebalance(tmp);
 		};
-
 
 		void checkUncle(rbt *node) {
 			rbt 			*tmp;
