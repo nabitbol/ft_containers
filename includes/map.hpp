@@ -7,6 +7,7 @@
 
 #include "dependency.hpp"
 #include "class.format.hpp"
+#include "map_iterator.hpp"
 
 namespace ft {
 
@@ -25,6 +26,10 @@ namespace ft {
 		typedef	typename allocator_type::const_reference		const_reference;
 		typedef	typename allocator_type::pointer				pointer;
 		typedef	typename allocator_type::const_pointer			const_pointer;
+		typedef	typename ft::mapIterator<value_type>			iterator;
+		typedef	typename ft::mapIterator<const value_type>		const_iterator;
+		typedef	typename ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef	typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		typedef	std::size_t										size_type;
 		typedef	std::ptrdiff_t									difference_type;
 
@@ -33,7 +38,10 @@ namespace ft {
 
 		typedef	red_black_tree<value_type>						rbt;
 
+	 public:
 		rbt												*_tree;
+		rbt												*_begin;
+		rbt												*_end;
 		size_type										_size;
 		allocator_type									_allocator;
 		typename _Alloc::template rebind<rbt>::other	_allocatorNode;
@@ -44,7 +52,7 @@ namespace ft {
 	 public:
 
 		explicit map(const key_compare& comp = key_compare(),
-			const allocator_type& alloc = allocator_type()): _tree(NULL), _size(0), _allocator(alloc), _comp(comp) {};
+			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _end(NULL), _size(0), _allocator(alloc), _comp(comp) {};
 
 		// template <class InputIterator>
 		// map (InputIterator first, InputIterator last,
@@ -96,6 +104,7 @@ namespace ft {
 		void	addNode(value_type &value) {
 			if (_tree == NULL) {
 				_tree = createNode(value);
+				_begin = _tree;
 			} else {
 				node_data<value_type> node_data = findNewNodeLocation(value);
 				linkNode(node_data, createNode(value));
@@ -208,7 +217,7 @@ namespace ft {
 				}
 				if (dir == RIGHT)
 					rightRotate(node->parent->parent);
-				_tree = getParent(_tree);
+				_begin = getParent(_tree);
 			}
 		};
 
@@ -245,7 +254,11 @@ namespace ft {
 			while (node->parent)
 				node = node->parent;
 			return (node);
-		} 
+		}
+
+		// rbt *clearNodes(rbt *node) {
+
+		// } 
 
 		public:
 
@@ -260,7 +273,7 @@ namespace ft {
 		};
 
 		std::stringstream	toString() {
-			return (toString(_tree, 0));
+			return (toString(_begin, 0));
 		};
 
 		std::string getSpaces(int n) {
