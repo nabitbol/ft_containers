@@ -126,6 +126,51 @@ namespace ft {
 			clear(tmp);
 		};
 
+/* ------------------------------- operations ------------------------------- */
+
+	iterator lower_bound (const key_type& k) {
+		iterator ite = this->end();
+
+		for (iterator itb = this->begin(); itb != ite; itb++) {
+			if (!this->_comp(itb->first, k))
+				return (itb);
+		}
+		return (ite);
+	}
+
+	const_iterator lower_bound (const key_type& k) const {
+		const_iterator ite = this->end();
+
+		for (const_iterator itb = this->begin(); itb != ite; itb++) {
+			if (!this->_comp(itb->first, k))
+				return (itb);
+		}
+		return (ite);
+	}
+
+	iterator	upper_bound (const key_type& k) {
+		iterator ite = this->end();
+
+		for (iterator itb = this->begin(); itb != ite; itb++) {
+			if (this->_comp(k, itb->first)) {
+				return (itb);
+			}
+		}
+		return (ite);
+	}
+
+	const_iterator	upper_bound (const key_type& k) const {
+		const_iterator ite = this->end();
+
+		for (const_iterator itb = this->begin(); itb != ite; itb++) {
+			if (this->_comp(k, itb->first)) {
+				itb++;
+				return (itb);
+			}
+		}
+		return (ite);
+	}
+
 	private:
 
 		void clear(rbt *node) {
@@ -164,8 +209,10 @@ namespace ft {
 					_size += 1;
 				}
 				node_data<value_type> node_data = findNewNodeLocation(value);
-				linkNode(node_data, createNode(value));
-				checkRb(node_data);
+				if (node_data.direction != NONE) {
+					linkNode(node_data, createNode(value));
+					checkRb(node_data);
+				}
 			}
 			_size += 1;
 		};
@@ -177,24 +224,23 @@ namespace ft {
 		};
 
 		node_data<value_type>	findNewNodeLocation(value_type &value) {
-			rbt	*tmp = _tree;
+			rbt	*tmp = _begin;
 
 			return (findNewNodeLocation(value, tmp));
 		};
 
 		node_data<value_type>	findNewNodeLocation(value_type &value, rbt *tree) {
 			while (tree->right != NULL || tree->left != NULL) {
-				if (tree->value < value && tree->right != NULL) {tree = tree->right;}
+				if (tree->value.first == value.first) {return (node_data<value_type>(NONE, tree));}
+				else if (tree->value < value && tree->right != NULL) {tree = tree->right;}
 				else if (tree->value > value && tree->left != NULL)  {tree =tree->left;}
 				else
 					break;
 			}
-			if (tree->value < value && tree->right == NULL) {
+			if (tree->value < value && tree->right == NULL)
 				return (node_data<value_type>(RIGHT, tree));
-			}
-			if (tree->value > value && tree->left == NULL) {
+			if (tree->value > value && tree->left == NULL)
 				return (node_data<value_type>(LEFT, tree));
-			}
 			tree = (tree->value < value) ? tree->right : tree->left;
 			findNewNodeLocation(value, tree);
 			return (node_data<value_type>(LEFT, tree));

@@ -87,11 +87,11 @@ int	main(void) {
 	ptr[0] = {"toto", 2};
 	ptr[1] = {"coco", 3};
 	ptr[2] = {"zr", 19};
-	ptr[3] = {"atoi", 100};
-	ptr[4] = {"prout", 0};
-	ptr[5] = {"fuck", 10};
+	ptr[3] = {"yoyo", 100};
+	ptr[4] = {"sout", 0};
+	ptr[5] = {"toto", 10};
 	ptr[6] = {"this", -1};
-	ptr[7] = {"guy", 81};
+	ptr[7] = {"go", 81};
 
 	ft::map<const std::string, int> toto;
 

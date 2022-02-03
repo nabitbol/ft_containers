@@ -16,8 +16,9 @@ namespace ft
 
 	enum node_direction
 	{
-		RIGHT = false,
-		LEFT = true
+		NONE = 0,
+		RIGHT = 1,
+		LEFT = 2
 	};
 
 	template <typename T>
