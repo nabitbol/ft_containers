@@ -128,31 +128,58 @@ namespace ft {
 
 /* ------------------------------- operations ------------------------------- */
 
-	iterator lower_bound (const key_type& k) {
-		iterator ite = this->end();
+	iterator	find(const key_type& k) {
+		iterator ite = end();
+		
+		for (iterator itb = begin(); itb != ite; itb++) {
+			if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
+				return (itb);
+			}
+		}
+	;	return (ite);
+	}
 
-		for (iterator itb = this->begin(); itb != ite; itb++) {
-			if (!this->_comp(itb->first, k))
+	const_iterator	find(const key_type& k) const {
+		const_iterator ite = end();
+
+		for (const_iterator itb = begin(); itb != ite; itb++) {
+			if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
+				return (itb);
+			}
+		}
+		return (ite);
+	};
+
+	size_type count(const key_type& k) const {
+		return (find(k) != end() ? 1 : 0);
+	}
+
+
+	iterator lower_bound (const key_type& k) {
+		iterator ite = end();
+
+		for (iterator itb = begin(); itb != ite; itb++) {
+			if (!_comp(itb->first, k))
 				return (itb);
 		}
 		return (ite);
 	}
 
 	const_iterator lower_bound (const key_type& k) const {
-		const_iterator ite = this->end();
+		const_iterator ite = end();
 
-		for (const_iterator itb = this->begin(); itb != ite; itb++) {
-			if (!this->_comp(itb->first, k))
+		for (const_iterator itb = begin(); itb != ite; itb++) {
+			if (!_comp(itb->first, k))
 				return (itb);
 		}
 		return (ite);
 	}
 
 	iterator	upper_bound (const key_type& k) {
-		iterator ite = this->end();
+		iterator ite = end();
 
-		for (iterator itb = this->begin(); itb != ite; itb++) {
-			if (this->_comp(k, itb->first)) {
+		for (iterator itb = begin(); itb != ite; itb++) {
+			if (_comp(k, itb->first)) {
 				return (itb);
 			}
 		}
@@ -160,15 +187,31 @@ namespace ft {
 	}
 
 	const_iterator	upper_bound (const key_type& k) const {
-		const_iterator ite = this->end();
+		const_iterator ite = end();
 
-		for (const_iterator itb = this->begin(); itb != ite; itb++) {
-			if (this->_comp(k, itb->first)) {
+		for (const_iterator itb = begin(); itb != ite; itb++) {
+			if (_comp(k, itb->first)) {
 				itb++;
 				return (itb);
 			}
 		}
 		return (ite);
+	}
+
+	ft::pair<iterator,iterator>	equal_range (const key_type& k) {
+		ft::pair<iterator, iterator> ret;
+
+		ret.first = lower_bound(k);
+		ret.second = upper_bound(k);
+		return (ret);
+	}
+
+	ft::pair<const_iterator,const_iterator>	equal_range (const key_type& k) const {
+		ft::pair<const_iterator, const_iterator> ret;
+
+		ret.first = lower_bound(k);
+		ret.second = upper_bound(k);
+		return (ret);
 	}
 
 	private:
