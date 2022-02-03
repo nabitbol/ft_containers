@@ -71,17 +71,17 @@ namespace ft {
 		return (false);
 	};
 
-		/*
+	/*
 	**	incrementation/decrementation
 	*/
 
 	mapIterator   &operator++(void) {
-		element->_tree->next();
+		element = element->next(element);
 		return (*this);
 	};
 
 	mapIterator   &operator--(void) {
-		element->_tree->previous();
+		element = element->previous(element);
 		return (*this);
 	};
 
@@ -101,12 +101,12 @@ namespace ft {
 	**	dereferencing
 	*/
 
-	reference	operator*(void) const {
-		return (element->_tree->value);
+	typename T::value_type	&operator*(void) const {
+		return (element->value);
 	};
 
-	Pointer		operator->(void) const {
-		return (element);
+	typename T::value_type	*operator->(void) const {
+		return (&(element->value));
 	};
 
 	};
