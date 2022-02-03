@@ -85,19 +85,31 @@ int	main(void) {
 	ft::pair<std::string, int> *ptr = new ft::pair<std::string, int>[8];
 
 	ptr[0] = {"toto", 2};
-	ptr[1] = {"coco", 3};
+	ptr[1] = {"coco", 3}; 
 	ptr[2] = {"zr", 19};
 	ptr[3] = {"yoyo", 100};
 	ptr[4] = {"sout", 0};
-	ptr[5] = {"toto", 10};
+	ptr[5] = {"og", 10};
 	ptr[6] = {"this", -1};
 	ptr[7] = {"go", 81};
 
 	ft::map<const std::string, int> toto;
+	std::map<const std::string, int> pop;
+
+	pop.insert({"toto", 2});
+	pop.insert({"zr", 19});
+	pop.insert({"yoyo", 100});
+	pop.insert({"coco", 3});
+	pop.insert({"sout", 0});
+	pop.insert({"og", 10});
+	pop.insert({"this", -1});
+	pop.insert({"go", 81});
 
 	toto.insert(reinterpret_cast<ft::pair<const std::string, int>*>(ptr), 8);
-	ft::map<const std::string, int>::iterator it = toto.end();
-	std::cout << it->first;
+	ft::map<const std::string, int>::iterator itf = toto.begin();
+	std::map<const std::string, int>::iterator it = pop.begin();
+	std::cout << itf->first << std::endl;
+	std::cout << it->first << std::endl;
 	std::cout << toto.toString().str();
 
 	delete [] ptr;

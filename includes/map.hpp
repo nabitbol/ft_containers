@@ -80,11 +80,11 @@ namespace ft {
 /* -------------------------------- iterators ------------------------------- */
 
 		iterator begin() {
-			return (iterator(_begin));
+			return (iterator(_tree->min(_begin)));
 		};
 
 		const_iterator begin() const {
-			return (const_iterator(_begin));
+			return (const_iterator(_tree->const_min(_begin)));
 		};
 
 		iterator end() {
@@ -301,17 +301,28 @@ namespace ft {
 			}
 		};
 
+		bool rebalanceConditions(rbt *node) {
+			bool condition = false;
+			condition = node->color == RED && node->parent->color == BLACK &&
+				node->parent->parent->color == RED && node->parent->parent->parent->color == RED;
+			if (condition == false)
+				condition = node->color == RED && node->parent->color == RED &&
+					node->parent->parent->color == BLACK && node->parent->parent->parent->color == BLACK;
+			return (condition);
+		}
+
 		void rebalance(rbt *node) {
 			node_direction	dir;
 
 			if (!node->parent || !node->parent->parent || !node->parent->parent->parent)
 				return ;
-			if (node->color == RED && node->parent->color == BLACK &&
-			node->parent->parent->color == RED && node->parent->parent->parent->color == RED) {
-				if (node->parent->parent->parent->parent->right->value == node->parent->parent->parent->value)
+			if (rebalanceConditions(node) == true) {
+				if (!node->parent->parent->parent->parent ||
+					(node->parent->parent->parent->parent->right->value == node->parent->parent->parent->value))
 					dir = RIGHT;
 				else
 					dir = LEFT;
+				std::cout << "totem" << std::endl;
 				if (dir == LEFT) {
 					leftRotate(node->parent->parent);
 					dir = RIGHT;
