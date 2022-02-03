@@ -37,9 +37,9 @@ namespace ft
 
 		/* ------------------------------- constructor ------------------------------ */
 
-		red_black_tree(value_type &val) : color(RED), value(val), right(NULL), left(NULL), parent(NULL){};
+		red_black_tree(value_type &val = value_type()) : color(RED), value(val), right(NULL), left(NULL), parent(NULL){};
 
-		~red_black_tree();
+		~red_black_tree() {};
 
 		red_black_tree &operator=(const red_black_tree &instance)
 		{
@@ -49,6 +49,38 @@ namespace ft
 			left = instance.left;
 			parent = instance.parent;
 			return (*this);
+		};
+
+		static ptr min(ptr node)
+		{
+			ptr tmp = node;
+			while (tmp->left != NULL)
+				tmp = tmp->left;
+			return tmp;
+		};
+
+		static const ptr const_min(const ptr node)
+		{
+			ptr tmp = node;
+			while (tmp->left != NULL)
+				tmp = tmp->left;
+			return tmp;
+		};
+
+		static ptr max(ptr node)
+		{
+			ptr tmp = node;
+			while (tmp->right != NULL)
+				tmp = tmp->right;
+			return tmp;
+		};
+
+		static const ptr const_max(const ptr node)
+		{
+			ptr tmp = node;
+			while (tmp->right != NULL)
+				tmp = tmp->right;
+			return tmp;
 		};
 
 		static ptr next(ptr node)
@@ -70,7 +102,7 @@ namespace ft
 				if (node->right != tmp)
 					node = tmp;
 			}
-			return (node);
+			return node;
 		};
 
 		static ptr previous(ptr node)
@@ -96,20 +128,19 @@ namespace ft
 			}
 			return node;
 		};
-
 	};
 
 	template <typename T>
 	struct node_data
 	{
-	node_direction direction;
-	red_black_tree<T> *node;
+		node_direction direction;
+		red_black_tree<T> *node;
 
-	/* ------------------------------- constructor ------------------------------ */
+		/* ------------------------------- constructor ------------------------------ */
 
-	node_data(const node_direction &dir, red_black_tree<T> *tree) : direction(dir), node(tree){};
+		node_data(const node_direction &dir, red_black_tree<T> *tree) : direction(dir), node(tree){};
 
-	~node_data(){};
+		~node_data(){};
 	};
 }
 
