@@ -17,21 +17,21 @@ namespace ft {
 
 	 public:
 
-		typedef  _Key											key_type;
-		typedef  _Tp											mapped_type;
-		typedef  ft::pair<const _Key, _Tp>						value_type;
-		typedef  _Compare										key_compare;
-		typedef  _Alloc											allocator_type;
-		typedef	typename allocator_type::reference				reference;
-		typedef	typename allocator_type::const_reference		const_reference;
-		typedef	typename allocator_type::pointer				pointer;
-		typedef	typename allocator_type::const_pointer			const_pointer;
-		typedef	typename ft::mapIterator<value_type>			iterator;
-		typedef	typename ft::mapIterator<const value_type>		const_iterator;
-		typedef	typename ft::reverse_iterator<iterator>			reverse_iterator;
-		typedef	typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
-		typedef	std::size_t										size_type;
-		typedef	std::ptrdiff_t									difference_type;
+		typedef  _Key															key_type;
+		typedef  _Tp															mapped_type;
+		typedef  ft::pair<const _Key, _Tp>										value_type;
+		typedef  _Compare														key_compare;
+		typedef  _Alloc															allocator_type;
+		typedef	typename allocator_type::reference								reference;
+		typedef	typename allocator_type::const_reference						const_reference;
+		typedef	typename allocator_type::pointer								pointer;
+		typedef	typename allocator_type::const_pointer							const_pointer;
+		typedef	typename ft::mapIterator<red_black_tree<value_type>>			iterator;
+		typedef	typename ft::mapIterator<const red_black_tree<value_type>>		const_iterator;
+		typedef	typename ft::reverse_iterator<iterator>							reverse_iterator;
+		typedef	typename ft::reverse_iterator<const_iterator>					const_reverse_iterator;
+		typedef	std::size_t														size_type;
+		typedef	std::ptrdiff_t													difference_type;
 
 
 	 private:
@@ -41,7 +41,7 @@ namespace ft {
 	 public:
 		rbt												*_tree;
 		rbt												*_begin;
-		rbt												*_end;
+		rbt												*_sentinal;
 		size_type										_size;
 		allocator_type									_allocator;
 		typename _Alloc::template rebind<rbt>::other	_allocatorNode;
@@ -52,7 +52,7 @@ namespace ft {
 	 public:
 
 		explicit map(const key_compare& comp = key_compare(),
-			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _end(NULL), _size(0), _allocator(alloc), _comp(comp) {};
+			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _size(0), _allocator(alloc), _comp(comp) {};
 
 		// template <class InputIterator>
 		// map (InputIterator first, InputIterator last,
@@ -61,15 +61,50 @@ namespace ft {
 
 		// map (const map& x);
 
-		~map() {};
+		~map() {
+			clear();
+		};
 
 /* -------------------------------- operators ------------------------------- */
 
  		map &operator=(const map &instance) {
+			 clear();
+			 _tree = instance._tree;
+			 _begin = instance.begin;
+			 _sentinal = instance.end;
 			 _size = instance._size;
 			 _allocator = instance._allocator;
 			_comp = instance._comp;
 		 };
+
+/* -------------------------------- iterators ------------------------------- */
+
+		iterator begin() {
+			return (iterator(_begin));
+		};
+
+		const_iterator begin() const {
+			return (const_iterator(_begin));
+		};
+
+		iterator end() {
+			value_type tmp;
+			rbt *sentinal = createNode(tmp);
+			node_data<value_type> node_data(RIGHT, _tree->max(_begin));
+			linkNode(node_data, sentinal);
+			_sentinal = sentinal;
+			return (iterator(sentinal));
+		};
+
+		const_iterator end() const {
+			rbt *sentinal = createNode(NULL);
+			node_data<value_type> node_data(RIGHT, _tree->const_max(_begin));
+			linkNode(node_data, sentinal);
+			_sentinal = sentinal;
+			return (const_iterator(sentinal));
+		};
+
+/* -------------------------------- capacity -------------------------------- */
 
 		bool empty() const {
 			return (_size == 0);
@@ -81,6 +116,24 @@ namespace ft {
 
 		size_type max_size() const {
 			return (_allocator.max_size());
+		};
+
+/* -------------------------------- modifiers ------------------------------- */
+
+		void clear() {
+			rbt *tmp = _begin;
+
+			clear(tmp);
+		};
+
+	private:
+
+		void clear(rbt *node) {
+			if (!node)
+				return;
+			if (node->left) clear(node->left);
+			if (node->right) clear(node->right);
+			clearNode(node);
 		};
 
 	 private:
@@ -106,6 +159,10 @@ namespace ft {
 				_tree = createNode(value);
 				_begin = _tree;
 			} else {
+				if (_tree->min(_begin) == _sentinal || _tree->max(_begin) == _sentinal) {
+					clearNode(_sentinal);
+					_size += 1;
+				}
 				node_data<value_type> node_data = findNewNodeLocation(value);
 				linkNode(node_data, createNode(value));
 				checkRb(node_data);
@@ -114,10 +171,8 @@ namespace ft {
 		};
 
 		rbt	*createNode(value_type &value) {
-			value_type *tmp = allocateMemory(1);
-			saveData(tmp, value);
-			rbt	*node = _allocatorNode.allocate(1);
-			_allocatorNode.construct(node, *tmp);
+			rbt	*node = _allocatorNode.allocate(sizeof(node) * 1);
+			_allocatorNode.construct(node, value);
 			return (node);
 		};
 
@@ -256,9 +311,11 @@ namespace ft {
 			return (node);
 		}
 
-		// rbt *clearNodes(rbt *node) {
-
-		// } 
+		void clearNode(rbt *node) {
+			_allocatorNode.destroy(node);
+			_allocatorNode.deallocate(node, sizeof(node) * 1);
+			_size -= 1;
+		}
 
 		public:
 
@@ -312,12 +369,12 @@ namespace ft {
 
 	/* -------------------------- non-member attributs -------------------------- */
 
-	template <typename _Key, typename _Tp, class _Compare = std::less<_Key>,
-			class _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
-	std::ostream  & operator<<(std::ostream  &outStream, map< const _Key, _Tp, _Compare, _Alloc> &instance) {
-		outStream << instance.toString().str();
-		return (outStream);
-	};
+	// template <typename _Key, typename _Tp, class _Compare = std::less<_Key>,
+	// 		class _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
+	// std::ostream  & operator<<(std::ostream  &outStream, map< const _Key, _Tp, _Compare, _Alloc> &instance) {
+	// 	outStream << instance.toString().str();
+	// 	return (outStream);
+	// };
 
 }
 
