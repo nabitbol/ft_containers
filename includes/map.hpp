@@ -71,10 +71,12 @@ namespace ft {
 		explicit map(const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {};
 
-		// template <class InputIterator>
-		// map (InputIterator first, InputIterator last,
-		// const key_compare& comp = key_compare(),
-		// const allocator_type& alloc = allocator_type());
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last,
+		const key_compare& comp = key_compare(),
+		const allocator_type& alloc = allocator_type()) : _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {
+			insert(first, last);
+		};
 
 		map (const map& x) {
 			*this = x;
@@ -88,13 +90,12 @@ namespace ft {
 
  		map &operator=(const map &instance) {
 			 clear();
-			 _tree = instance._tree;
-			 _begin = instance.begin;
-			 _sentinal = instance.end;
 			 _nodeColorMemory = instance._nodeColorMemory;
 			 _size = instance._size;
 			 _allocator = instance._allocator;
 			_comp = instance._comp;
+
+			insert(instance.begin(), instance.end());
 		 };
 
 		mapped_type& operator[] (const key_type& k) {
@@ -139,12 +140,12 @@ namespace ft {
 				return (ft::make_pair(find(val.first), false));
 			}
 			return (ft::make_pair(find(val.first), true));
-		}
+		};
 
 		iterator insert(iterator position, const value_type& val) {
 			(void)position;
 			return insert(val).first;
-		}
+		};
 
 		template <class InputIterator>
 		void insert(InputIterator first, InputIterator last) {
@@ -152,7 +153,7 @@ namespace ft {
 				insert(*first);
 				first++;
 			}
-		}
+		};
 
 
 		void	erase(iterator position) {
@@ -180,7 +181,7 @@ namespace ft {
 				return (1);
 			}
 			return (0);
-		}
+		};
 
 		void clear() {
 			rbt *tmp = _begin;
