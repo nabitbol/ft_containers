@@ -107,7 +107,7 @@ int	main(void) {
 	std::map<const std::string, int>::iterator it = pop.begin();
 	std::cout << itf->first << std::endl;
 	std::cout << it->first << std::endl;
-	std::cout << toto.toString().str();
+	// std::cout << toto.toString().str();
 
 	std::cout << std::endl;
 

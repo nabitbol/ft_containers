@@ -119,6 +119,22 @@ namespace ft {
 			return (const_iterator(_sentinal));
 		};
 
+		reverse_iterator rbegin() {
+			return (reverse_iterator(_tree->max(_begin)));
+		};
+
+		const_reverse_iterator rbegin() const {
+			return (const_reverse_iterator(_tree->const_max(_begin)));
+		};
+
+		reverse_iterator rend() {
+			return (reverse_iterator(_tree->min(_begin)));
+		};
+
+		const_reverse_iterator rend() const {
+			return (const_reverse_iterator(_tree->const_min(_begin)));
+		};
+
 /* -------------------------------- capacity -------------------------------- */
 
 		bool empty() const {
@@ -200,11 +216,11 @@ namespace ft {
 
 		key_compare key_comp() const {
 			return (key_compare());
-		}
+		};
 
 		value_compare value_comp() const {
 			return (value_compare(key_compare()));
-		}
+		};
 
 /* ------------------------------- operations ------------------------------- */
 
@@ -292,6 +308,14 @@ namespace ft {
 			ret.second = upper_bound(k);
 			return (ret);
 		}
+
+/* -------------------------------- allocator ------------------------------- */
+
+		allocator_type get_allocator() const {
+			return (this->_alloc);
+		};
+
+/* --------------------------------- private -------------------------------- */
 
 	private:
 
