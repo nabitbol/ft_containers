@@ -42,6 +42,7 @@ namespace ft {
 		rbt												*_tree;
 		rbt												*_begin;
 		rbt												*_sentinal;
+		node_color										_nodeColorMemory;
 		size_type										_size;
 		allocator_type									_allocator;
 		typename _Alloc::template rebind<rbt>::other	_allocatorNode;
@@ -52,14 +53,16 @@ namespace ft {
 	 public:
 
 		explicit map(const key_compare& comp = key_compare(),
-			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _size(0), _allocator(alloc), _comp(comp) {};
+			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {};
 
 		// template <class InputIterator>
 		// map (InputIterator first, InputIterator last,
 		// const key_compare& comp = key_compare(),
 		// const allocator_type& alloc = allocator_type());
 
-		// map (const map& x);
+		map (const map& x) {
+			*this = x;
+		}
 
 		~map() {
 			clear();
@@ -72,11 +75,15 @@ namespace ft {
 			 _tree = instance._tree;
 			 _begin = instance.begin;
 			 _sentinal = instance.end;
+			 _nodeColorMemory = instance._nodeColorMemory;
 			 _size = instance._size;
 			 _allocator = instance._allocator;
 			_comp = instance._comp;
 		 };
 
+		mapped_type& operator[] (const key_type& k) {
+			return ((*((this->insert(make_pair(k,mapped_type()))).first)).second);
+		};
 /* -------------------------------- iterators ------------------------------- */
 
 		iterator begin() {
@@ -120,6 +127,34 @@ namespace ft {
 
 /* -------------------------------- modifiers ------------------------------- */
 
+		void	erase(iterator position) {
+
+			this->erase(position->_node->first);
+		}
+
+		size_type erase(const key_type& k) {
+
+			iterator itKey = find(k);
+
+			if (itKey != end()) {
+				rbt *replace = itKey.element;
+				
+				if (replace->parent) {
+					node_direction dir;
+					
+					if (replace == replace->parent->right)
+						dir = RIGHT;
+					else
+						dir = LEFT;
+					eraseNode(node_data<value_type>(dir, replace->parent), replace);
+				} else
+					eraseNode(replace);
+				clearNode(replace);
+				return (1);
+			}
+			return (0);
+		}
+
 		void clear() {
 			rbt *tmp = _begin;
 
@@ -128,91 +163,90 @@ namespace ft {
 
 /* ------------------------------- operations ------------------------------- */
 
-	iterator	find(const key_type& k) {
-		iterator ite = end();
-		
-		for (iterator itb = begin(); itb != ite; itb++) {
-			if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
-				return (itb);
+		iterator	find(const key_type& k) {
+			iterator ite = end();
+
+			for (iterator itb = begin(); itb != ite; itb++) {
+				if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
+					return (itb);
+				}
 			}
-		}
-	;	return (ite);
-	}
+			return (ite);
+		};
 
-	const_iterator	find(const key_type& k) const {
-		const_iterator ite = end();
+		const_iterator	find(const key_type& k) const {
+			const_iterator ite = end();
 
-		for (const_iterator itb = begin(); itb != ite; itb++) {
-			if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
-				return (itb);
+			for (const_iterator itb = begin(); itb != ite; itb++) {
+				if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
+					return (itb);
+				}
 			}
+			return (ite);
+		};
+
+		size_type count(const key_type& k) const {
+			return (find(k) != end() ? 1 : 0);
 		}
-		return (ite);
-	};
 
-	size_type count(const key_type& k) const {
-		return (find(k) != end() ? 1 : 0);
-	}
+		iterator lower_bound (const key_type& k) {
+			iterator ite = end();
 
-
-	iterator lower_bound (const key_type& k) {
-		iterator ite = end();
-
-		for (iterator itb = begin(); itb != ite; itb++) {
-			if (!_comp(itb->first, k))
-				return (itb);
-		}
-		return (ite);
-	}
-
-	const_iterator lower_bound (const key_type& k) const {
-		const_iterator ite = end();
-
-		for (const_iterator itb = begin(); itb != ite; itb++) {
-			if (!_comp(itb->first, k))
-				return (itb);
-		}
-		return (ite);
-	}
-
-	iterator	upper_bound (const key_type& k) {
-		iterator ite = end();
-
-		for (iterator itb = begin(); itb != ite; itb++) {
-			if (_comp(k, itb->first)) {
-				return (itb);
+			for (iterator itb = begin(); itb != ite; itb++) {
+				if (!_comp(itb->first, k))
+					return (itb);
 			}
+			return (ite);
 		}
-		return (ite);
-	}
 
-	const_iterator	upper_bound (const key_type& k) const {
-		const_iterator ite = end();
+		const_iterator lower_bound (const key_type& k) const {
+			const_iterator ite = end();
 
-		for (const_iterator itb = begin(); itb != ite; itb++) {
-			if (_comp(k, itb->first)) {
-				itb++;
-				return (itb);
+			for (const_iterator itb = begin(); itb != ite; itb++) {
+				if (!_comp(itb->first, k))
+					return (itb);
 			}
+			return (ite);
 		}
-		return (ite);
-	}
 
-	ft::pair<iterator,iterator>	equal_range (const key_type& k) {
-		ft::pair<iterator, iterator> ret;
+		iterator	upper_bound (const key_type& k) {
+			iterator ite = end();
 
-		ret.first = lower_bound(k);
-		ret.second = upper_bound(k);
-		return (ret);
-	}
+			for (iterator itb = begin(); itb != ite; itb++) {
+				if (_comp(k, itb->first)) {
+					return (itb);
+				}
+			}
+			return (ite);
+		}
 
-	ft::pair<const_iterator,const_iterator>	equal_range (const key_type& k) const {
-		ft::pair<const_iterator, const_iterator> ret;
+		const_iterator	upper_bound (const key_type& k) const {
+			const_iterator ite = end();
 
-		ret.first = lower_bound(k);
-		ret.second = upper_bound(k);
-		return (ret);
-	}
+			for (const_iterator itb = begin(); itb != ite; itb++) {
+				if (_comp(k, itb->first)) {
+					itb++;
+					return (itb);
+				}
+			}
+			return (ite);
+		}
+
+		ft::pair<iterator,iterator>	equal_range (const key_type& k) {
+			ft::pair<iterator, iterator> ret;
+
+			ret.first = lower_bound(k);
+			ret.second = upper_bound(k);
+			return (ret);
+		}
+
+		ft::pair<const_iterator,const_iterator>	equal_range (const key_type& k) const {
+			ft::pair<const_iterator, const_iterator> ret;
+
+			ret.first = lower_bound(k);
+			ret.second = upper_bound(k);
+			return (ret);
+		}
 
 	private:
 
@@ -223,24 +257,6 @@ namespace ft {
 			if (node->right) clear(node->right);
 			clearNode(node);
 		};
-
-	 private:
-
-		value_type	*allocateMemory(size_type n) {
-				return(_allocator.allocate(n));
-		};
-
-		void	deallocateMemory(value_type *ptr, size_type size) {
-			_allocator.deallocate(ptr, size);
-		};
-
-		void	saveData(value_type *ptr, value_type value) {
-			_allocator.construct(ptr, value);
-		};
-
-		void	deleteData(value_type *ptr, size_type index) {
-			_allocator.destroy((ptr + index));
-		}
 
 		void	addNode(value_type &value) {
 			if (_tree == NULL) {
@@ -318,7 +334,7 @@ namespace ft {
 		};
 
 		void checkUncle(rbt *node) {
-			rbt 			*tmp;
+			rbt *tmp;
 
 			if (!node->parent || !node->parent->parent) {
 				return;
@@ -365,7 +381,6 @@ namespace ft {
 					dir = RIGHT;
 				else
 					dir = LEFT;
-				std::cout << "totem" << std::endl;
 				if (dir == LEFT) {
 					leftRotate(node->parent->parent);
 					dir = RIGHT;
@@ -405,19 +420,66 @@ namespace ft {
 			tmp->parent = node;
 		};
 
+
 		rbt	*getParent(rbt *node) {
 			while (node->parent)
 				node = node->parent;
 			return (node);
-		}
+		};
+
+		void eraseNode(node_data<value_type> node_data, rbt *node) {
+			if (is2Child(node)) {
+				linkNode(node_data, node->right);
+				node->right->left = node->left;
+				node->right->color = node->color;
+			} else if (!isChild(node)) {
+				if (node->color == BLACK)
+					_nodeColorMemory = BLACK;
+			} else {
+				if (node->left)
+					linkNode(node_data, node->left);
+				if (node->right)
+					linkNode(node_data, node->right);
+			}
+		};
+
+		void eraseNode(rbt *node) {
+			if (is2Child(node)) {
+				node->right->parent = node->parent;
+				node->right->left = node->left;
+				node->right->color = node->color;
+			} else if (!isChild(node)) {
+				if (node->color == BLACK)
+					_nodeColorMemory = BLACK;
+			} else {
+				if (node->left)
+					node->left->parent = node->parent;
+				if (node->right)
+					node->right->parent = node->parent;
+			}
+		};
+
+		bool is2Child(rbt *node) {
+			if (node->right != NULL && node->left != NULL) {
+					return (true);
+			}
+			return (false);
+		};
+
+		bool isChild(rbt *node) {
+			if (node->right != NULL || node->left != NULL) {
+					return (true);
+			}
+			return (false);
+		};
 
 		void clearNode(rbt *node) {
 			_allocatorNode.destroy(node);
 			_allocatorNode.deallocate(node, sizeof(node) * 1);
 			_size -= 1;
-		}
+		};
 
-		public:
+	public:
 
 		void	insert(value_type *ptr, size_type size) {
 			size_type count = 0;
