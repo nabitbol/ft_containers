@@ -136,9 +136,8 @@ namespace ft {
 /* -------------------------------- modifiers ------------------------------- */
 
 		ft::pair<iterator, bool> insert(const value_type& val) {
-			if (addNode(val) == false) {
+			if (addNode(val) == false)
 				return (ft::make_pair(find(val.first), false));
-			}
 			return (ft::make_pair(find(val.first), true));
 		};
 
@@ -181,6 +180,14 @@ namespace ft {
 				return (1);
 			}
 			return (0);
+		};
+
+		void swap (map& x) {
+			rbt *tmp;
+
+			tmp->_begin = x._begin;
+			x._begin = _begin;
+			_begin = tmp->_begin;
 		};
 
 		void clear() {
