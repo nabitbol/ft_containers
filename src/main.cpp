@@ -82,19 +82,17 @@ int	main(void) {
 	// iter< ::vector<int> >(a, a.size(), &display);
 	// iter< ::vector<int> >(b, b.size(), &display);
 
-	ft::pair<std::string, int> *ptr = new ft::pair<std::string, int>[8];
-
-	ptr[0] = {"toto", 2};
-	ptr[1] = {"coco", 3}; 
-	ptr[2] = {"zr", 19};
-	ptr[3] = {"yoyo", 100};
-	ptr[4] = {"sout", 0};
-	ptr[5] = {"og", 10};
-	ptr[6] = {"this", -1};
-	ptr[7] = {"go", 81};
-
 	ft::map<const std::string, int> toto;
 	std::map<const std::string, int> pop;
+
+	toto.insert({"toto", 2});
+	toto.insert({"zr", 19});
+	toto.insert({"yoyo", 100});
+	toto.insert({"coco", 3});
+	toto.insert({"sout", 0});
+	toto.insert({"og", 10});
+	toto.insert({"this", -1});
+	toto.insert({"go", 81});
 
 	pop.insert({"toto", 2});
 	pop.insert({"zr", 19});
@@ -105,14 +103,12 @@ int	main(void) {
 	pop.insert({"this", -1});
 	pop.insert({"go", 81});
 
-	toto.insert(reinterpret_cast<ft::pair<const std::string, int>*>(ptr), 8);
 	ft::map<const std::string, int>::iterator itf = toto.begin();
 	std::map<const std::string, int>::iterator it = pop.begin();
 	std::cout << itf->first << std::endl;
 	std::cout << it->first << std::endl;
 	std::cout << toto.toString().str();
 
-	delete [] ptr;
 	std::cout << std::endl;
 
 }

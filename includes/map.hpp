@@ -26,8 +26,8 @@ namespace ft {
 		typedef	typename allocator_type::const_reference						const_reference;
 		typedef	typename allocator_type::pointer								pointer;
 		typedef	typename allocator_type::const_pointer							const_pointer;
-		typedef	typename ft::mapIterator<red_black_tree<value_type>>			iterator;
-		typedef	typename ft::mapIterator<const red_black_tree<value_type>>		const_iterator;
+		typedef	typename ft::mapIterator<red_black_tree<value_type> >			iterator;
+		typedef	typename ft::mapIterator<const red_black_tree<value_type> >		const_iterator;
 		typedef	typename ft::reverse_iterator<iterator>							reverse_iterator;
 		typedef	typename ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 		typedef	std::size_t														size_type;
@@ -51,6 +51,22 @@ namespace ft {
 /* ------------------------------ constructors ------------------------------ */
 
 	 public:
+
+	class value_compare : public std::binary_function<value_type, value_type, bool> {
+
+			// friend class map<Key, T, Compare, Alloc>;//remove friend here
+		public:
+			_Compare		comp;
+
+			value_compare(_Compare __c = key_compare()) : comp(__c) {
+
+			}
+
+			bool operator()(const value_type& __x, const value_type& __y) const {
+
+				return comp(__x.first, __y.first);
+			}
+	};
 
 		explicit map(const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {};
@@ -95,20 +111,11 @@ namespace ft {
 		};
 
 		iterator end() {
-			value_type tmp;
-			rbt *sentinal = createNode(tmp);
-			node_data<value_type> node_data(RIGHT, _tree->max(_begin));
-			linkNode(node_data, sentinal);
-			_sentinal = sentinal;
-			return (iterator(sentinal));
+			return (iterator(_sentinal));
 		};
 
 		const_iterator end() const {
-			rbt *sentinal = createNode(NULL);
-			node_data<value_type> node_data(RIGHT, _tree->const_max(_begin));
-			linkNode(node_data, sentinal);
-			_sentinal = sentinal;
-			return (const_iterator(sentinal));
+			return (const_iterator(_sentinal));
 		};
 
 /* -------------------------------- capacity -------------------------------- */
@@ -127,8 +134,28 @@ namespace ft {
 
 /* -------------------------------- modifiers ------------------------------- */
 
-		void	erase(iterator position) {
+		ft::pair<iterator, bool> insert(const value_type& val) {
+			if (addNode(val) == false) {
+				return (ft::make_pair(find(val.first), false));
+			}
+			return (ft::make_pair(find(val.first), true));
+		}
 
+		iterator insert(iterator position, const value_type& val) {
+			(void)position;
+			return insert(val).first;
+		}
+
+		template <class InputIterator>
+		void insert(InputIterator first, InputIterator last) {
+			while (first != last) {
+				insert(*first);
+				first++;
+			}
+		}
+
+
+		void	erase(iterator position) {
 			this->erase(position->_node->first);
 		}
 
@@ -160,6 +187,16 @@ namespace ft {
 
 			clear(tmp);
 		};
+
+/* -------------------------------- observes -------------------------------- */
+
+		key_compare key_comp() const {
+			return (key_compare());
+		}
+
+		value_compare value_comp() const {
+			return (value_compare(key_compare()));
+		}
 
 /* ------------------------------- operations ------------------------------- */
 
@@ -258,12 +295,14 @@ namespace ft {
 			clearNode(node);
 		};
 
-		void	addNode(value_type &value) {
+		bool	addNode(value_type value) {
 			if (_tree == NULL) {
 				_tree = createNode(value);
 				_begin = _tree;
+				addSentinal();
 			} else {
 				if (_tree->min(_begin) == _sentinal || _tree->max(_begin) == _sentinal) {
+					_tree->max(_begin)->parent->right = NULL;
 					clearNode(_sentinal);
 					_size += 1;
 				}
@@ -271,8 +310,10 @@ namespace ft {
 				if (node_data.direction != NONE) {
 					linkNode(node_data, createNode(value));
 					checkRb(node_data);
+					addSentinal();
 				}
 			}
+			return (true);
 			_size += 1;
 		};
 
@@ -304,6 +345,14 @@ namespace ft {
 			findNewNodeLocation(value, tree);
 			return (node_data<value_type>(LEFT, tree));
 		};
+
+		void addSentinal(void) {
+			value_type	tmp;
+			rbt *sentinal = createNode(tmp);
+			node_data<value_type> node_data(RIGHT, _tree->max(_begin));
+			linkNode(node_data, sentinal);
+			_sentinal = sentinal;
+		}
 
 		void	linkNode(node_data<value_type> &node_data, rbt *node) {
 			rbt	*tmp;
@@ -349,7 +398,6 @@ namespace ft {
 			tmp->color = RED;
 			if (tmp->value == _tree->value)
 				tmp->color = BLACK;
-			std::cout << toString().str() << std::endl;
 		};
 
 		void checkRbViolation(rbt *node) {
@@ -480,16 +528,6 @@ namespace ft {
 		};
 
 	public:
-
-		void	insert(value_type *ptr, size_type size) {
-			size_type count = 0;
-
-			while (count < size) {
-				addNode(*ptr);
-				count++;
-				ptr++;
-			}
-		};
 
 		std::stringstream	toString() {
 			return (toString(_begin, 0));
