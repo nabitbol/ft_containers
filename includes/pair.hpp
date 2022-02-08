@@ -19,15 +19,17 @@ namespace ft {
 		pair() : first(), second() {};
 
 		template<class U, class V>
-		pair (const pair<U,V>& pr) {
-			*this = pr;
-		};
+		pair (const pair<U,V>& pr): first(pr.first), second(pr.second) {};
 
 		pair (const T1& a, const T2& b): first(a), second(b) {};
 
 		~pair() {};
 
 /* -------------------------------- operators ------------------------------- */
+
+		operator	pair<const T1, const T2>() const {
+			return (pair<const T1, const T2>(first, second));
+		};
 
 		pair& operator= (const pair& pr) {
 			this->first = pr.first;

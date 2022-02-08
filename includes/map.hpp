@@ -17,21 +17,21 @@ namespace ft {
 
 	 public:
 
-		typedef  _Key															key_type;
-		typedef  _Tp															mapped_type;
-		typedef  ft::pair<const _Key, _Tp>										value_type;
-		typedef  _Compare														key_compare;
-		typedef  _Alloc															allocator_type;
-		typedef	typename allocator_type::reference								reference;
-		typedef	typename allocator_type::const_reference						const_reference;
-		typedef	typename allocator_type::pointer								pointer;
-		typedef	typename allocator_type::const_pointer							const_pointer;
-		typedef	typename ft::mapIterator<red_black_tree<value_type> >			iterator;
-		typedef	typename ft::mapIterator<const red_black_tree<value_type> >		const_iterator;
-		typedef	typename ft::reverse_iterator<iterator>							reverse_iterator;
-		typedef	typename ft::reverse_iterator<const_iterator>					const_reverse_iterator;
-		typedef	std::size_t														size_type;
-		typedef	std::ptrdiff_t													difference_type;
+		typedef  _Key																				key_type;
+		typedef  _Tp																				mapped_type;
+		typedef  ft::pair<const _Key, _Tp>															value_type;
+		typedef  _Compare																			key_compare;
+		typedef  _Alloc																				allocator_type;
+		typedef	typename allocator_type::reference													reference;
+		typedef	typename allocator_type::const_reference											const_reference;
+		typedef	typename allocator_type::pointer													pointer;
+		typedef	typename allocator_type::const_pointer												const_pointer;
+		typedef	typename ft::mapIterator<value_type, red_black_tree<value_type> >					iterator;
+		typedef	typename ft::mapIterator<const value_type, const red_black_tree<value_type> >		const_iterator;
+		typedef	typename ft::reverse_iterator<iterator>												reverse_iterator;
+		typedef	typename ft::reverse_iterator<const_iterator>										const_reverse_iterator;
+		typedef	std::size_t																			size_type;
+		typedef	std::ptrdiff_t																		difference_type;
 
 
 	 private:
@@ -42,7 +42,7 @@ namespace ft {
 		rbt												*_tree;
 		rbt												*_begin;
 		rbt												*_sentinal;
-		node_color										_nodeColorMemory;
+		int										_nodeColorMemory;
 		size_type										_size;
 		allocator_type									_allocator;
 		typename _Alloc::template rebind<rbt>::other	_allocatorNode;
@@ -78,7 +78,7 @@ namespace ft {
 			insert(first, last);
 		};
 
-		map (const map& x) {
+		map (const map& x) : _tree(NULL), _begin(NULL), _sentinal(NULL), _size(0) {
 			*this = x;
 		}
 
@@ -91,47 +91,64 @@ namespace ft {
  		map &operator=(const map &instance) {
 			 clear();
 			 _nodeColorMemory = instance._nodeColorMemory;
-			 _size = instance._size;
 			 _allocator = instance._allocator;
+			 _allocatorNode = instance._allocatorNode;
 			_comp = instance._comp;
 
 			insert(instance.begin(), instance.end());
+			return (*this);
 		 };
 
 		mapped_type& operator[] (const key_type& k) {
-			return ((*((this->insert(make_pair(k,mapped_type()))).first)).second);
+			return ((*((this->insert(ft::make_pair(k,mapped_type()))).first)).second);
 		};
 /* -------------------------------- iterators ------------------------------- */
 
 		iterator begin() {
+			if (!_begin)
+				return (NULL);
 			return (iterator(_tree->min(_begin)));
 		};
 
 		const_iterator begin() const {
+			if (!_begin)
+				return (NULL);
 			return (const_iterator(_tree->const_min(_begin)));
 		};
 
 		iterator end() {
+			if (!_sentinal)
+				return (NULL);
 			return (iterator(_sentinal));
 		};
 
 		const_iterator end() const {
+			if (!_sentinal)
+				return (NULL);
 			return (const_iterator(_sentinal));
 		};
 
 		reverse_iterator rbegin() {
+			if (!_begin)
+				return (NULL);
 			return (reverse_iterator(_tree->max(_begin)));
 		};
 
 		const_reverse_iterator rbegin() const {
+			if (!_begin)
+				return (NULL);
 			return (const_reverse_iterator(_tree->const_max(_begin)));
 		};
 
 		reverse_iterator rend() {
+			if (!_begin)
+				return (NULL);
 			return (reverse_iterator(_tree->min(_begin)));
 		};
 
 		const_reverse_iterator rend() const {
+			if (!_begin)
+				return (NULL);
 			return (const_reverse_iterator(_tree->const_min(_begin)));
 		};
 
@@ -146,7 +163,7 @@ namespace ft {
 		};
 
 		size_type max_size() const {
-			return (_allocator.max_size());
+			return (_allocatorNode.max_size());
 		};
 
 /* -------------------------------- modifiers ------------------------------- */
@@ -170,10 +187,9 @@ namespace ft {
 			}
 		};
 
-
-		void	erase(iterator position) {
-			this->erase(position->_node->first);
-		}
+		void erase(iterator position) {
+			erase(position->first);
+		};
 
 		size_type erase(const key_type& k) {
 
@@ -193,9 +209,18 @@ namespace ft {
 				} else
 					eraseNode(replace);
 				clearNode(replace);
+				_size -= 1;
 				return (1);
 			}
 			return (0);
+		};
+
+		void erase(iterator first, iterator last) {
+			while (first != last)  {
+				first = find(first->first);
+				erase(first); 
+				first++;
+			}
 		};
 
 		void swap (map& x) {
@@ -210,6 +235,10 @@ namespace ft {
 			rbt *tmp = _begin;
 
 			clear(tmp);
+			_tree = NULL;
+			_begin = NULL;
+			_sentinal = NULL;
+			_size = 0;
 		};
 
 /* -------------------------------- observes -------------------------------- */
@@ -286,7 +315,6 @@ namespace ft {
 
 			for (const_iterator itb = begin(); itb != ite; itb++) {
 				if (_comp(k, itb->first)) {
-					itb++;
 					return (itb);
 				}
 			}
@@ -325,6 +353,7 @@ namespace ft {
 			if (node->left) clear(node->left);
 			if (node->right) clear(node->right);
 			clearNode(node);
+			_size  -= 1;
 		};
 
 		bool	addNode(value_type value) {
@@ -333,20 +362,20 @@ namespace ft {
 				_begin = _tree;
 				addSentinal();
 			} else {
-				if (_tree->min(_begin) == _sentinal || _tree->max(_begin) == _sentinal) {
+				if (_tree->max(_begin) == _sentinal && _sentinal != NULL) {
 					_tree->max(_begin)->parent->right = NULL;
 					clearNode(_sentinal);
-					_size += 1;
 				}
 				node_data<value_type> node_data = findNewNodeLocation(value);
 				if (node_data.direction != NONE) {
 					linkNode(node_data, createNode(value));
 					checkRb(node_data);
 					addSentinal();
-				}
+				} else
+					return (false);
 			}
+			_size++;
 			return (true);
-			_size += 1;
 		};
 
 		rbt	*createNode(value_type &value) {
@@ -411,7 +440,7 @@ namespace ft {
 				checkRbViolation(tmp);
 				checkUncle(tmp);
 			}
-			rebalance(tmp);
+			// rebalance(tmp);
 		};
 
 		void checkUncle(rbt *node) {
@@ -509,7 +538,7 @@ namespace ft {
 
 		void eraseNode(node_data<value_type> node_data, rbt *node) {
 			if (is2Child(node)) {
-				linkNode(node_data, node->right);
+				linkNode(node_data, node->right );
 				node->right->left = node->left;
 				node->right->color = node->color;
 			} else if (!isChild(node)) {
@@ -527,15 +556,21 @@ namespace ft {
 			if (is2Child(node)) {
 				node->right->parent = node->parent;
 				node->right->left = node->left;
+				node->left->parent = node->right;
 				node->right->color = node->color;
+				_begin = node->right;
 			} else if (!isChild(node)) {
 				if (node->color == BLACK)
 					_nodeColorMemory = BLACK;
 			} else {
-				if (node->left)
+				if (node->left) {
 					node->left->parent = node->parent;
-				if (node->right)
+					_begin = node->left;
+				}
+				if (node->right) {
 					node->right->parent = node->parent;
+					_begin = node->right;
+				}
 			}
 		};
 
@@ -556,7 +591,6 @@ namespace ft {
 		void clearNode(rbt *node) {
 			_allocatorNode.destroy(node);
 			_allocatorNode.deallocate(node, sizeof(node) * 1);
-			_size -= 1;
 		};
 
 	public:

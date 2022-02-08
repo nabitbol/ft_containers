@@ -26,8 +26,9 @@ namespace ft
 	{
 
 	public:
-		typedef red_black_tree *ptr;
-		typedef const red_black_tree *const_ptr;
+
+		typedef red_black_tree * ptr;
+		typedef const red_black_tree * const_ptr;
 		typedef T value_type;
 
 		node_color color;
@@ -41,6 +42,10 @@ namespace ft
 		red_black_tree(value_type &val = value_type()) : color(RED), value(val), right(NULL), left(NULL), parent(NULL){};
 
 		~red_black_tree() {};
+
+		operator	red_black_tree<const value_type>() const {
+			return (red_black_tree<const value_type>(value));
+		};
 
 		red_black_tree &operator=(const red_black_tree &instance)
 		{
@@ -71,8 +76,9 @@ namespace ft
 		static ptr max(ptr node)
 		{
 			ptr tmp = node;
-			while (tmp->right != NULL)
+			while (tmp->right != NULL) {
 				tmp = tmp->right;
+			}
 			return tmp;
 		};
 
@@ -82,52 +88,6 @@ namespace ft
 			while (tmp->right != NULL)
 				tmp = tmp->right;
 			return tmp;
-		};
-
-		static ptr next(ptr node)
-		{
-			if (node->right != NULL)
-			{
-				node = node->right;
-				while (node->left != NULL)
-					node = node->left;
-			}
-			else
-			{
-				ptr tmp = node->parent;
-				while (node == tmp->right)
-				{
-					node = tmp;
-					tmp = tmp->parent;
-				}
-				if (node->right != tmp)
-					node = tmp;
-			}
-			return node;
-		};
-
-		static ptr previous(ptr node)
-		{
-			if (node->color == RED && node->parent->parent == node)
-				node = node->right;
-			else if (node->left != NULL)
-			{
-				ptr tmp = node->left;
-				while (tmp->right != NULL)
-					tmp = tmp->right;
-				node = tmp;
-			}
-			else
-			{
-				ptr tmp = node->parent;
-				while (node == tmp->left)
-				{
-					node = tmp;
-					tmp = tmp->parent;
-				}
-				node = tmp;
-			}
-			return node;
 		};
 	};
 
