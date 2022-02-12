@@ -27,7 +27,7 @@ namespace ft {
 		typedef	typename allocator_type::pointer													pointer;
 		typedef	typename allocator_type::const_pointer												const_pointer;
 		typedef	typename ft::mapIterator<value_type, red_black_tree<value_type> >					iterator;
-		typedef	typename ft::mapIterator<const value_type, const red_black_tree<value_type> >				const_iterator;
+		typedef	typename ft::mapIterator<const value_type, const red_black_tree<value_type> >			const_iterator;
 		typedef	typename ft::reverse_iterator<iterator>												reverse_iterator;
 		typedef	typename ft::reverse_iterator<const_iterator>										const_reverse_iterator;
 		typedef	std::size_t																			size_type;
@@ -107,6 +107,7 @@ namespace ft {
 		mapped_type& operator[] (const key_type& k) {
 			return ((*((this->insert(ft::make_pair(k,mapped_type()))).first)).second);
 		};
+
 /* -------------------------------- iterators ------------------------------- */
 
 		iterator begin() {
