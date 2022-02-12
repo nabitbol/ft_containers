@@ -21,7 +21,7 @@ namespace ft
 		LEFT = 2
 	};
 
-	template <typename T>
+	template <class T>
 	struct red_black_tree
 	{
 
@@ -31,15 +31,15 @@ namespace ft
 		typedef const red_black_tree * const_ptr;
 		typedef T value_type;
 
-		node_color color;
 		value_type value;
 		ptr right;
 		ptr left;
 		ptr parent;
+		node_color color;
 
 		/* ------------------------------- constructor ------------------------------ */
 
-		red_black_tree(value_type &val = value_type()) : color(RED), value(val), right(NULL), left(NULL), parent(NULL){};
+		red_black_tree(value_type &val = value_type()) : value(val), right(NULL), left(NULL), parent(NULL), color(RED) {};
 
 		~red_black_tree() {};
 

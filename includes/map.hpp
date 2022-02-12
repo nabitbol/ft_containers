@@ -27,7 +27,7 @@ namespace ft {
 		typedef	typename allocator_type::pointer													pointer;
 		typedef	typename allocator_type::const_pointer												const_pointer;
 		typedef	typename ft::mapIterator<value_type, red_black_tree<value_type> >					iterator;
-		typedef	typename ft::mapIterator<const value_type, const red_black_tree<value_type> >		const_iterator;
+		typedef	typename ft::mapIterator<const value_type, const red_black_tree<value_type> >				const_iterator;
 		typedef	typename ft::reverse_iterator<iterator>												reverse_iterator;
 		typedef	typename ft::reverse_iterator<const_iterator>										const_reverse_iterator;
 		typedef	std::size_t																			size_type;
@@ -69,12 +69,17 @@ namespace ft {
 	};
 
 		explicit map(const key_compare& comp = key_compare(),
-			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {};
+			const allocator_type& alloc = allocator_type()): _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {
+				value_type	tmp;
+				_sentinal = createNode(tmp);
+			};
 
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last,
 		const key_compare& comp = key_compare(),
 		const allocator_type& alloc = allocator_type()) : _tree(NULL), _begin(NULL), _sentinal(NULL), _nodeColorMemory(RED), _size(0), _allocator(alloc), _comp(comp) {
+			value_type	tmp;
+			_sentinal = createNode(tmp);
 			insert(first, last);
 		};
 
@@ -129,26 +134,18 @@ namespace ft {
 		};
 
 		reverse_iterator rbegin() {
-			if (!_begin)
-				return (NULL);
 			return (reverse_iterator(_tree->max(_begin)));
 		};
 
 		const_reverse_iterator rbegin() const {
-			if (!_begin)
-				return (NULL);
 			return (const_reverse_iterator(_tree->const_max(_begin)));
 		};
 
 		reverse_iterator rend() {
-			if (!_begin)
-				return (NULL);
 			return (reverse_iterator(_tree->min(_begin)));
 		};
 
 		const_reverse_iterator rend() const {
-			if (!_begin)
-				return (NULL);
 			return (const_reverse_iterator(_tree->const_min(_begin)));
 		};
 
@@ -224,11 +221,25 @@ namespace ft {
 		};
 
 		void swap (map& x) {
-			rbt *tmp;
+			rbt *tmp_begin;
+			rbt *tmp_sentinal;
+			rbt *tmp_tree;
+			size_type tmp_size;
 
-			tmp->_begin = x._begin;
+			tmp_begin = x._begin;
+			tmp_sentinal = x._sentinal;
+			tmp_tree = x._tree;
+			tmp_size = x._size;
+
 			x._begin = _begin;
-			_begin = tmp->_begin;
+			x._sentinal = _sentinal;
+			x._tree = _tree;
+			x._size = _size;
+
+			_begin = tmp_begin;
+			_sentinal = tmp_sentinal;
+			_tree = tmp_tree;
+			_size = tmp_size;
 		};
 
 		void clear() {
@@ -257,9 +268,8 @@ namespace ft {
 			iterator ite = end();
 
 			for (iterator itb = begin(); itb != ite; itb++) {
-				if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
+				if (!_comp(itb->first, k) && !_comp(k, itb->first))
 					return (itb);
-				}
 			}
 			return (ite);
 		};
@@ -268,16 +278,15 @@ namespace ft {
 			const_iterator ite = end();
 
 			for (const_iterator itb = begin(); itb != ite; itb++) {
-				if (!_comp(itb->first, k) && !_comp(k, itb->first)) {
+				if (!_comp(itb->first, k) && !_comp(k, itb->first))
 					return (itb);
-				}
 			}
 			return (ite);
 		};
 
 		size_type count(const key_type& k) const {
-			return (find(k) != end() ? 1 : 0);
-		}
+			return (find(k) != end());
+		};
 
 		iterator lower_bound (const key_type& k) {
 			iterator ite = end();
@@ -287,7 +296,7 @@ namespace ft {
 					return (itb);
 			}
 			return (ite);
-		}
+		};
 
 		const_iterator lower_bound (const key_type& k) const {
 			const_iterator ite = end();
@@ -297,7 +306,7 @@ namespace ft {
 					return (itb);
 			}
 			return (ite);
-		}
+		};
 
 		iterator	upper_bound (const key_type& k) {
 			iterator ite = end();
@@ -308,7 +317,7 @@ namespace ft {
 				}
 			}
 			return (ite);
-		}
+		};
 
 		const_iterator	upper_bound (const key_type& k) const {
 			const_iterator ite = end();
@@ -319,7 +328,7 @@ namespace ft {
 				}
 			}
 			return (ite);
-		}
+		};
 
 		ft::pair<iterator,iterator>	equal_range (const key_type& k) {
 			ft::pair<iterator, iterator> ret;
@@ -327,7 +336,7 @@ namespace ft {
 			ret.first = lower_bound(k);
 			ret.second = upper_bound(k);
 			return (ret);
-		}
+		};
 
 		ft::pair<const_iterator,const_iterator>	equal_range (const key_type& k) const {
 			ft::pair<const_iterator, const_iterator> ret;
@@ -335,7 +344,7 @@ namespace ft {
 			ret.first = lower_bound(k);
 			ret.second = upper_bound(k);
 			return (ret);
-		}
+		};
 
 /* -------------------------------- allocator ------------------------------- */
 
@@ -360,19 +369,19 @@ namespace ft {
 			if (_tree == NULL) {
 				_tree = createNode(value);
 				_begin = _tree;
-				addSentinal();
+				mooveSentinal(_begin);
 			} else {
-				if (_tree->max(_begin) == _sentinal && _sentinal != NULL) {
-					_tree->max(_begin)->parent->right = NULL;
-					clearNode(_sentinal);
-				}
+				rbt *parentSentinalNode = _tree->max(_begin)->parent;
+				parentSentinalNode->right = NULL;
 				node_data<value_type> node_data = findNewNodeLocation(value);
 				if (node_data.direction != NONE) {
 					linkNode(node_data, createNode(value));
 					checkRb(node_data);
-					addSentinal();
-				} else
+					mooveSentinal(parentSentinalNode);
+				} else {
+					mooveSentinal(parentSentinalNode);
 					return (false);
+				}
 			}
 			_size++;
 			return (true);
@@ -393,16 +402,17 @@ namespace ft {
 		node_data<value_type>	findNewNodeLocation(value_type &value, rbt *tree) {
 			while (tree->right != NULL || tree->left != NULL) {
 				if (tree->value.first == value.first) {return (node_data<value_type>(NONE, tree));}
-				else if (tree->value < value && tree->right != NULL) {tree = tree->right;}
-				else if (tree->value > value && tree->left != NULL)  {tree =tree->left;}
+				else if (_comp(tree->value.first, value.first) && tree->right != NULL) {tree = tree->right;}
+				else if (!_comp(tree->value.first, value.first) && tree->left != NULL)  {tree =tree->left;}
 				else
 					break;
 			}
-			if (tree->value < value && tree->right == NULL)
+			if (tree->value.first == value.first) {return (node_data<value_type>(NONE, tree));}
+			if (_comp(tree->value.first, value.first) && tree->right == NULL)
 				return (node_data<value_type>(RIGHT, tree));
-			if (tree->value > value && tree->left == NULL)
+			if (!_comp(tree->value.first, value.first) && tree->left == NULL)
 				return (node_data<value_type>(LEFT, tree));
-			tree = (tree->value < value) ? tree->right : tree->left;
+			tree = (_comp(tree->value.first, value.first)) ? tree->right : tree->left;
 			findNewNodeLocation(value, tree);
 			return (node_data<value_type>(LEFT, tree));
 		};
@@ -413,7 +423,19 @@ namespace ft {
 			node_data<value_type> node_data(RIGHT, _tree->max(_begin));
 			linkNode(node_data, sentinal);
 			_sentinal = sentinal;
-		}
+		};
+
+		void	mooveSentinal(rbt *node) {
+			if (node != NULL && _sentinal != NULL) {
+				if (node->right != NULL)
+					node = node->right;
+				node_data<value_type> node_data(RIGHT, node);
+				linkNode(node_data, _sentinal); 
+			} else if (_sentinal == NULL && node != NULL)
+				addSentinal();
+			else
+				return;
+		};
 
 		void	linkNode(node_data<value_type> &node_data, rbt *node) {
 			rbt	*tmp;
@@ -440,7 +462,7 @@ namespace ft {
 				checkRbViolation(tmp);
 				checkUncle(tmp);
 			}
-			// rebalance(tmp);
+			rebalance(tmp);
 		};
 
 		void checkUncle(rbt *node) {
@@ -450,22 +472,26 @@ namespace ft {
 				return;
 			}
 			tmp = node->parent->parent;
-			if (tmp->right != NULL && tmp->right->color == RED) {
+			if (tmp->right != NULL && tmp->right->color == RED && tmp->left != NULL && tmp->left->color == RED) {
 				tmp->right->color = BLACK;
 			}
-			if (tmp->left != NULL && tmp->left->color == RED) {
+			if (tmp->left != NULL && tmp->left->color == RED && tmp->right != NULL && tmp->right->color == RED) {
 				tmp->left->color = BLACK;
 			}
 			tmp->color = RED;
-			if (tmp->value == _tree->value)
+			if (tmp->value.first == _begin->value.first)
 				tmp->color = BLACK;
+			// checkRbViolation(node);
+			// if (node->parent) checkUncle(node->parent);
 		};
 
 		void checkRbViolation(rbt *node) {
 			if (node->color == RED) {
-				if (node->parent->color == RED) {
+				if (node->parent->color == RED)
 					node->parent->color = BLACK;
-				}
+			} if (node->color == BLACK) {
+				if (node->parent->color == BLACK)
+					node->parent->color = RED;
 			}
 		};
 
@@ -485,48 +511,69 @@ namespace ft {
 			if (!node->parent || !node->parent->parent || !node->parent->parent->parent)
 				return ;
 			if (rebalanceConditions(node) == true) {
-				if (!node->parent->parent->parent->parent ||
-					(node->parent->parent->parent->parent->right->value == node->parent->parent->parent->value))
+				if (!node->parent->parent->parent->parent || (node->parent->parent->parent->parent && node->parent->parent->parent->parent->right &&
+				(node->parent->parent->parent->parent->right->value.first == node->parent->parent->parent->value.first)))
 					dir = RIGHT;
 				else
 					dir = LEFT;
-				if (dir == LEFT) {
-					leftRotate(node->parent->parent);
-					dir = RIGHT;
-				}
-				if (dir == RIGHT)
-					rightRotate(node->parent->parent);
-				_begin = getParent(_tree);
+				// if (dir == LEFT) {
+				// 	leftRotate(node->parent->parent);
+				// 	dir = RIGHT;
+				// }
+				// if (dir == RIGHT)
+				// 	rightRotate(node->parent->parent);
+			_begin = getParent(_tree);
 			}
 		};
 
 		void rightRotate(rbt *node) {
 			rbt *tmp;
 
-			if (!node->parent)
+			if (!node || !node->parent)
 				return;
 			tmp = node->parent;
-			node->color = BLACK;
-			tmp->color = RED;
-			tmp->left = node->right;
-			node->right = tmp;
-			node->parent = NULL;
+			std::cout << toString().str() << std::endl;
+			tmp->right = node->left;
+			if (node->left != NULL)
+				node->left->parent = tmp;
+			node->left = tmp;
+			if (tmp->parent) {
+				if (tmp->parent->right && tmp->parent->right->value.first == tmp->value.first)
+					tmp->parent->right = node;
+				else
+					tmp->parent->left = node;
+				node->parent = tmp->parent;
+			} else
+				node->parent = NULL;
 			tmp->parent = node;
 		};
 
 		void leftRotate(rbt *node) {
+			rbt *p;
 			rbt *tmp;
-			rbt *tmp2;
+			rbt *gp;
 
 			if (!node->parent || !node->parent->parent)
 				return;
-			tmp = node->parent;
-			tmp2 = tmp->parent->parent;
-			tmp->parent->left = tmp->right;
-			tmp->right = node->left;
-			node->left = tmp;
-			node->parent = tmp->parent;
-			tmp->parent = node;
+			p = node->parent;
+			tmp = p->parent;
+			std::cout << toString().str() << std::endl;
+			gp = tmp->parent;
+			p->color = BLACK;
+			tmp->color = RED;
+			tmp->left = p->right;
+			p->right = tmp;
+			p->right->parent = p;
+			if (p->right->left)
+				p->right->left->parent = p->right;
+			if (gp) {
+				if (gp->right && gp->right->value.first == tmp->value.first)
+					gp->right = p;
+				else
+					gp->left = p;
+				tmp = gp;
+			} else
+				tmp = NULL;
 		};
 
 
@@ -538,10 +585,15 @@ namespace ft {
 
 		void eraseNode(node_data<value_type> node_data, rbt *node) {
 			if (is2Child(node)) {
-				linkNode(node_data, node->right );
-				node->right->left = node->left;
+				linkNode(node_data, node->right);
+				ft::node_data<value_type> node_data2(LEFT, _tree->min(node->right));
+				linkNode(node_data2, node->left);
 				node->right->color = node->color;
 			} else if (!isChild(node)) {
+				if (node_data.direction == RIGHT)
+					node_data.node->right = NULL;
+				else
+					node_data.node->left = NULL;
 				if (node->color == BLACK)
 					_nodeColorMemory = BLACK;
 			} else {
@@ -555,8 +607,8 @@ namespace ft {
 		void eraseNode(rbt *node) {
 			if (is2Child(node)) {
 				node->right->parent = node->parent;
-				node->right->left = node->left;
-				node->left->parent = node->right;
+				ft::node_data<value_type> node_data(LEFT, _tree->min(node->right));
+				linkNode(node_data, node->left);
 				node->right->color = node->color;
 				_begin = node->right;
 			} else if (!isChild(node)) {
@@ -599,6 +651,17 @@ namespace ft {
 			return (toString(_begin, 0));
 		};
 
+		std::stringstream	toString(rbt *tmp, int depth) {
+			std::stringstream 	output;
+
+			if (!tmp)
+				return (output);
+			output << colorizeOutput(getSpaces(depth) + output.str(), tmp) << std::endl;
+			if (tmp->left) output << toString(tmp->left, depth + 1).str();
+			if (tmp->right) output << toString(tmp->right,depth + 1).str();
+			return (output); 
+		};
+
 		std::string getSpaces(int n) {
 			std::string spaces("");
 			while (--n >= 0) {
@@ -610,30 +673,28 @@ namespace ft {
 
 		std::string colorizeOutput(std::string ouput, rbt *tree) {
 			std::stringstream tmp;
+			std::stringstream value_tmp;
 
+			value_tmp << tree->value.first;
 			if (tree->color == RED)
-				tmp << std::internal << Format(tree->value.first).red().bold(); 
+				tmp << std::internal << Format(value_tmp.str()).red().bold(); 
 			if (tree->color == BLACK)
-				tmp << std::internal << Format(tree->value.first).black().bold();
+				tmp << std::internal << Format(value_tmp.str()).black().bold();
 			ouput += tmp.str();
 			return (ouput);
 			
-		}
-
-		std::stringstream	toString(rbt *tmp, int depth) {
-			std::stringstream 	output;
-
-			if (!tmp)
-				return (output);
-			output << colorizeOutput(getSpaces(depth) + output.str(), tmp) << std::endl;
-			if (tmp->left) output << toString(tmp->left, depth + 1).str();
-			if (tmp->right) output << toString(tmp->right,depth + 1).str();
-			return (output); 
 		};
+
 	};
-	
 
 	/* -------------------------- non-member attributs -------------------------- */
+
+	// template <typename _Key, typename _Tp, class _Compare = std::less<_Key>,
+	// 		class _Alloc = std::allocator<ft::pair<_Key, _Tp> > >
+	// std::ostream  & operator<<(std::ostream  &outStream, map<_Key, _Tp, _Compare, _Alloc> &instance) {
+	// 	outStream << instance.toString().str();
+	// 	return (outStream);
+	// };
 
 	// template <typename _Key, typename _Tp, class _Compare = std::less<_Key>,
 	// 		class _Alloc = std::allocator<ft::pair<const _Key, _Tp> > >
@@ -641,6 +702,55 @@ namespace ft {
 	// 	outStream << instance.toString().str();
 	// 	return (outStream);
 	// };
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs,
+				const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		if (lhs.size() == rhs.size()) {
+			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())); 
+		}
+		return (false);
+	};
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator!=( const ft::map<Key,T,Compare,Alloc>& lhs,
+				const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		return (!(lhs == rhs));
+	};
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator<( const ft::map<Key,T,Compare,Alloc>& lhs,
+				const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		if (lhs != rhs)
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		return (false);
+	};
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs,
+				const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		if (lhs == rhs)
+			return	(true);
+		return (lhs < rhs);
+	};
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator>( const ft::map<Key,T,Compare,Alloc>& lhs,
+			const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		if (lhs != rhs)
+			return (!(lhs < rhs));
+		return (false);
+	};
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs,
+			const ft::map<Key,T,Compare,Alloc>& rhs ) {
+		if (lhs == rhs)
+			return	(true);
+		return (!(lhs < rhs));
+	};
+	
+
 
 }
 

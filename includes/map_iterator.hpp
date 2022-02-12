@@ -10,8 +10,13 @@
 
 namespace ft {
 
-template<typename T, typename N>
-class mapIterator {
+template< typename T, typename N >
+class mapIterator : public iterator<ft::bidirectional_iterator_tag,
+						T,
+						std::ptrdiff_t,
+						T*,
+						T&> {
+
 
 	 public:
 
@@ -21,9 +26,10 @@ class mapIterator {
 	typedef value_type const * const_pointer;
 	typedef value_type& reference;
 	typedef value_type const & const_reference;
+	typedef std::ptrdiff_t difference_type;
 	typedef N node_type;
 	typedef node_type* node_pointer;
-	typedef std::ptrdiff_t difference_type;
+	typedef ft::bidirectional_iterator_tag iterator_category;
 
 	node_pointer	element;
 
