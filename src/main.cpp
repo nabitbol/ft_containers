@@ -79,35 +79,23 @@ int	main(void) {
 
 	std::cout << std::endl;
 
-	// iter< ::vector<int> >(a, a.size(), &display);
-	// iter< ::vector<int> >(b, b.size(), &display);
+	iter< ::vector<int> >(a, a.size(), &display);
+	iter< ::vector<int> >(b, b.size(), &display);
 
-	ft::map<const std::string, int> toto;
-	std::map<const std::string, int> pop;
+	ft::map<std::string, int> mp;
 
-	toto.insert({"toto", 2});
-	toto.insert({"zr", 19});
-	toto.insert({"yoyo", 100});
-	toto.insert({"coco", 3});
-	toto.insert({"sout", 0});
-	toto.insert({"og", 10});
-	toto.insert({"this", -1});
-	toto.insert({"go", 81});
 
-	pop.insert({"toto", 2});
-	pop.insert({"zr", 19});
-	pop.insert({"yoyo", 100});
-	pop.insert({"coco", 3});
-	pop.insert({"sout", 0});
-	pop.insert({"og", 10});
-	pop.insert({"this", -1});
-	pop.insert({"go", 81});
+	mp["toto"] = 2;
+	mp["zr"] = 19;
+	mp["yoyo"] = 0;
+	mp["coco"] = -4;
+	mp["sout"] = 190;
+	mp["og"] = 100;
+	mp["this"] = 1;
+	mp["go"] = 14;
 
-	ft::map<const std::string, int>::iterator itf = toto.begin();
-	std::map<const std::string, int>::iterator it = pop.begin();
-	std::cout << itf->first << std::endl;
-	std::cout << it->first << std::endl;
-	// std::cout << toto.toString().str();
+
+	std::cout << mp << std::endl;
 
 	std::cout << std::endl;
 
