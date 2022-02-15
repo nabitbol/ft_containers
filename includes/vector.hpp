@@ -52,7 +52,7 @@ class vector {
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
 				const allocator_type& alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL): _allocator(alloc) {
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL): _allocator(alloc), _ptr(NULL) {
 			int index;
 
 			index = 0;
@@ -66,24 +66,27 @@ class vector {
 			_size = index;
 		};
 
-		vector(const vector<value_type, allocator_type> &instance) {
+		vector(const vector<value_type, allocator_type> &instance): _ptr(NULL) {
 			*this = instance;
 		}
 
 /* ------------------------------- destructor ------------------------------- */
 
 		~vector() {
-			deallocateMemory(_ptr, _size);
+			deleteDataChunk(_ptr, 0, _size);
+			deallocateMemory(_ptr, _capacity);
 		};
 
 /* -------------------------------- operators ------------------------------- */
 
 		vector	&operator=(const vector<value_type, allocator_type> &instance) {
+			if (_ptr != NULL) {
+				deleteDataChunk(_ptr, 0, _size);
+				deallocateMemory(_ptr, _capacity);
+			}
 			_allocator = instance._allocator;
 			_size = instance._size;
 			_capacity = instance._capacity;
-			if (_ptr == NULL)
-				deallocateMemory(_ptr, _size);
 			_ptr = allocateMemory(_capacity);
 			copyData(_ptr, instance._ptr, _size);
 			return (*this);
