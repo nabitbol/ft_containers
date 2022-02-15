@@ -20,6 +20,8 @@ PAIR_SRC_DIR	=	src/pair/
 
 MAP_SRC_DIR		=	src/map/
 
+SET_SRC_DIR		=	src/set/
+
 LOG_FILE		=	fails.log
 
 ADD_INC_DIR		=	ft_container/includes/
@@ -36,6 +38,8 @@ PAIR_OBJ_DIR	=	obj_pair/
 
 MAP_OBJ_DIR		=	obj_map/
 
+SET_OBJ_DIR		=	obj_set/
+
 OBJ				=	$(addprefix $(OBJ_DIR), $(SRC_FILES:.cpp=.o))
 
 VECTOR_OBJ		=	$(addprefix $(VECTOR_OBJ_DIR), $(VECTOR_SRC_FILES:.cpp=.o))
@@ -45,6 +49,8 @@ STACK_OBJ		=	$(addprefix $(STACK_OBJ_DIR), $(STACK_SRC_FILES:.cpp=.o))
 PAIR_OBJ		=	$(addprefix $(PAIR_OBJ_DIR), $(PAIR_SRC_FILES:.cpp=.o))
 
 MAP_OBJ			=	$(addprefix $(MAP_OBJ_DIR), $(MAP_SRC_FILES:.cpp=.o))
+
+SET_OBJ			=	$(addprefix $(SET_OBJ_DIR), $(SET_SRC_FILES:.cpp=.o))
 
 COUNT			=	0
 
@@ -85,22 +91,41 @@ VECTOR_SRC_FILES = add_vector_functions.cpp  \
 				capacity.cpp \
 				element_access.cpp \
 				modifiers.cpp \
-				non_members.cpp
+				non_members.cpp \
+				performance.cpp \
 
 STACK_SRC_FILES = add_stack_functions.cpp \
 				constructor.cpp \
+				member_functions.cpp \
+				non_member_functions.cpp \
 
 PAIR_SRC_FILES = add_pair_functions.cpp \
 				constructor.cpp \
+				make_pair.cpp \
 
 MAP_SRC_FILES = add_map_functions.cpp \
 				constructor.cpp \
+				iterators.cpp \
+				capacity.cpp \
+				modifiers.cpp \
+				observers.cpp \
+				operations.cpp \
+				performance.cpp \
+
+SET_SRC_FILES = add_set_functions.cpp \
+				constructor.cpp \
+				iterators.cpp \
+				capacity.cpp \
+				modifiers.cpp \
+				observers.cpp \
+				operations.cpp \
+				performance.cpp \
 
 # ---------------------------------------------------------------------------- #
 #                        dynamic variables using sources                       #
 # ---------------------------------------------------------------------------- #
 
-FILES_COUNT		:= $(words $(SRC_FILES) $(VECTOR_SRC_FILES) $(STACK_SRC_FILES) $(PAIR_SRC_FILES) $(MAP_SRC_FILES))
+FILES_COUNT		:= $(words $(SRC_FILES) $(VECTOR_SRC_FILES) $(STACK_SRC_FILES) $(PAIR_SRC_FILES) $(MAP_SRC_FILES) $(SET_SRC_FILES))
 
 # ---------------------------------------------------------------------------- #
 #                                    roules                                    #
@@ -141,9 +166,15 @@ $(MAP_OBJ_DIR)%.o: $(MAP_SRC_DIR)%.cpp
 	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
 
+$(SET_OBJ_DIR)%.o: $(SET_SRC_DIR)%.cpp
+	@mkdir -p $(SET_OBJ_DIR)
+	@$(CXX) -c -o $@ $< -I $(TEST_INC_DIR) -I $(ADD_INC_DIR) $(CXXFLAGS)
+	@$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
+	@echo [$(COUNT)/$(FILES_COUNT)] compiling $^ to $@
 
-$(NAME): $(OBJ) $(VECTOR_OBJ) $(STACK_OBJ) $(PAIR_OBJ) $(MAP_OBJ)
-	@$(CXX) -o $(NAME) $(OBJ) $(VECTOR_OBJ) $(STACK_OBJ) $(PAIR_OBJ) $(MAP_OBJ $(CXXFLAGS)
+
+$(NAME): $(OBJ) $(VECTOR_OBJ) $(STACK_OBJ) $(PAIR_OBJ) $(MAP_OBJ) $(SET_OBJ)
+	@$(CXX) -o $(NAME) $(OBJ) $(VECTOR_OBJ) $(STACK_OBJ) $(PAIR_OBJ) $(MAP_OBJ) $(SET_OBJ) $(CXXFLAGS)
 
 print_brand:
 	@echo "$${BRAND}"
@@ -167,6 +198,7 @@ clean: ## Delete all obj
 	@rm -rf $(STACK_OBJ_DIR)
 	@rm -rf $(PAIR_OBJ_DIR)
 	@rm -rf $(MAP_OBJ_DIR)
+	@rm -rf $(SET_OBJ_DIR)
 
 fclean: clean ## Delete all obj and the executable
 	@rm -f $(NAME)

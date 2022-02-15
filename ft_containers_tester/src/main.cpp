@@ -13,12 +13,6 @@ void	displayBanner(void) {
 	std::cout << std::endl;
 }
 
-void	displayMap() {
-	std::cout << std::endl;
-	std::cout << "/* ------------------------------= Map tests ==------------------------------ */" << std::endl;
-	std::cout << std::endl;
-}
-
 int	main(int ac, char **av) {
 	if (ac < 3) {
 		displayBanner();
@@ -30,6 +24,10 @@ int	main(int ac, char **av) {
 			addStackFunctions(&list);
 		if ((ac == 1) || (strcmp(av[1], "pair") == 0))
 			addPairFunctions(&list);
+		if ((ac == 1) || (strcmp(av[1], "map") == 0))
+			addMapFunctions(&list);
+		if ((ac == 1) || (strcmp(av[1], "set") == 0))
+			addSetFunctions(&list);
 		list.runAllTests();
 	} else {
 		std::cout << "Error: Too many arguments" << std::endl;

@@ -27,3 +27,21 @@ void	jumpNextLine() {
 void	displayTitle(std::string title) {
 	std::cout.width(SETW);  std::cout << std::left << title;
 }
+
+void	testPerformance(void function(void), void function2(void)) {
+		const auto p1 = std::chrono::system_clock::now();
+		function();
+		const auto p2 = std::chrono::system_clock::now();
+		
+
+		const auto p3 = std::chrono::system_clock::now();
+		function2();
+		const auto p4 = std::chrono::system_clock::now();
+
+		size_t time = ((p1.time_since_epoch().count() - p2.time_since_epoch().count()) / (p3.time_since_epoch().count() - p4.time_since_epoch().count()) );
+		if (time > 20) {
+			std::cout.width(30); std::cout << "\n\n\n----- To slow you are " << "\033[0;31m" << time << "\033[0m" << " time slower than the std -----" << std::flush;
+		} else {
+			std::cout.width(30); std::cout << "\n\n\n----- Good your " << "\033[0;32m" << time << "\033[0m" << " time slower than the std -----" << std::flush;
+		}
+}

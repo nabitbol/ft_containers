@@ -8,13 +8,6 @@ void	vector::displayCapacity() {
 
 /* ----------------------------- size functions ----------------------------- */
 
-template <typename T>
-std::stringstream		getSize(const T &instance) {
-	std::stringstream tmp;
-	tmp << instance.size();
-	return (tmp);
-}
-
 void	vector::testSize() {
 	ft::vector<int> a(4, 100);
 	std::vector<int> b(4, 100);
@@ -29,13 +22,6 @@ void	vector::testSize() {
 }
 
 /* --------------------------- max_size functions --------------------------- */
-
-template <typename T>
-std::stringstream		getMaxSize(const T &instance) {
-	std::stringstream tmp;
-	tmp << instance.max_size();
-	return (tmp);
-}
 
 void	vector::testMaxSize() {
 	ft::vector<int> a(4, 100);
@@ -151,13 +137,6 @@ void	vector::testResize4() {
 }
 
 /* ----------------------------- empty functions ---------------------------- */
-
-template <typename T>
-std::stringstream		getEmpty(const T &instance) {
-	std::stringstream tmp;
-	tmp << instance.empty();
-	return (tmp);
-}
 
 /*
 ** test1

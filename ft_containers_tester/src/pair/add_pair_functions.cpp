@@ -13,7 +13,14 @@ void	pair::addConstructor(Register *list) {
 	list->pushTestFunction(NO_MESG, pair::testCopyConstructor);
 }
 
+void	pair::addMakePair(Register *list) {
+	list->pushTestFunction(NO_MESG, pair::displayMakePair);
+	list->pushTestFunction(NO_MESG, pair::testMakePair);
+}
+
 void	addPairFunctions(Register *list) {
 	list->pushTestFunction(NO_MESG, displayPair);
 	pair::addConstructor(list);
+	pair::addMakePair(list);
+	list->pushTestFunction(NO_MESG, jumpNextLine);
 }
