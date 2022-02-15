@@ -482,8 +482,8 @@ namespace ft {
 			tmp->color = RED;
 			if (tmp->value.first == _begin->value.first)
 				tmp->color = BLACK;
-			// checkRbViolation(node);
-			// if (node->parent) checkUncle(node->parent);
+			checkRbViolation(node);
+			if (node->parent) checkUncle(node->parent);
 		};
 
 		void checkRbViolation(rbt *node) {
@@ -517,13 +517,13 @@ namespace ft {
 					dir = RIGHT;
 				else
 					dir = LEFT;
-				// if (dir == LEFT) {
-				// 	leftRotate(node->parent->parent);
-				// 	dir = RIGHT;
-				// }
-				// if (dir == RIGHT)
-				// 	rightRotate(node->parent->parent);
-			_begin = getParent(_tree);
+				if (dir == LEFT) {
+					rightRotate(node->parent->parent);
+					dir = RIGHT;
+				}
+				if (dir == RIGHT)
+					leftRotate(node->parent->parent);
+				_begin = getParent(_tree);
 			}
 		};
 
@@ -533,7 +533,6 @@ namespace ft {
 			if (!node || !node->parent)
 				return;
 			tmp = node->parent;
-			std::cout << toString().str() << std::endl;
 			tmp->right = node->left;
 			if (node->left != NULL)
 				node->left->parent = tmp;
@@ -558,23 +557,22 @@ namespace ft {
 				return;
 			p = node->parent;
 			tmp = p->parent;
-			std::cout << toString().str() << std::endl;
 			gp = tmp->parent;
 			p->color = BLACK;
 			tmp->color = RED;
 			tmp->left = p->right;
 			p->right = tmp;
-			p->right->parent = p;
-			if (p->right->left)
-				p->right->left->parent = p->right;
+			tmp->parent = p;
+			if (tmp->right->left)
+				tmp->right->left->parent = tmp->right;
 			if (gp) {
 				if (gp->right && gp->right->value.first == tmp->value.first)
 					gp->right = p;
 				else
 					gp->left = p;
-				tmp = gp;
+				p->parent = gp;
 			} else
-				tmp = NULL;
+				p->parent = NULL;
 		};
 
 
@@ -645,8 +643,6 @@ namespace ft {
 			_allocatorNode.destroy(node);
 			_allocatorNode.deallocate(node, sizeof(node) * 1);
 		};
-
-	public:
 
 		std::stringstream	toString() {
 			return (toString(_begin, 0));

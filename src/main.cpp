@@ -1,7 +1,11 @@
 #include <vector.hpp>
 #include "vector"
+#include <stack.hpp>
+#include "stack"
 #include <map>
 #include "map.hpp"
+#include <set>
+#include "set.hpp"
 
 using namespace NAMESPACE;
 
@@ -82,7 +86,7 @@ int	main(void) {
 	iter< ::vector<int> >(a, a.size(), &display);
 	iter< ::vector<int> >(b, b.size(), &display);
 
-	ft::map<std::string, int> mp;
+	::map<std::string, int> mp;
 
 
 	mp["toto"] = 2;
@@ -95,7 +99,33 @@ int	main(void) {
 	mp["go"] = 14;
 
 
-	std::cout << mp << std::endl;
+	::map<std::string, int>::iterator itm = mp.begin();
+
+	itm++;
+
+	std::cout << std::endl;
+
+	std::cout << "first: " << itm->first << " second: " << itm->second << std::endl;
+
+	::set<double> set;
+
+	set.insert(22);
+	set.insert(41);
+	set.insert(23);
+	set.insert(16);
+
+	::set<double> set2(set);
+
+	::set<double>::iterator its = set.end();
+
+	its--;
+	its--;
+
+	std::cout << std::endl;
+
+	std::cout << *its << std::endl;
+
+	// std::cout << mp << std::endl;
 
 	std::cout << std::endl;
 
