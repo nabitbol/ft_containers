@@ -23,8 +23,6 @@ $> make
 ```c++
 #include <vector.hpp>
 
-using namespace NAMESPACE;
-
 int	main(void) {
 
 /* --------------------------------- vector --------------------------------- */
