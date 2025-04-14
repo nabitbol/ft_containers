@@ -343,7 +343,7 @@ namespace ft {
 /* -------------------------------- allocator ------------------------------- */
 
 		allocator_type get_allocator() const {
-			return (this->_alloc);
+			return (this->_allocator);
 		};
 
 /* --------------------------------- private -------------------------------- */

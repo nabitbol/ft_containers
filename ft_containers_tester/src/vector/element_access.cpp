@@ -83,7 +83,7 @@ template <typename T>
 std::stringstream		getAtOutOfRange(const T &instance) {
 	std::stringstream tmp;
 	try {
-		instance.at(5);
+		(void)instance.at(5);
 	} catch (std::out_of_range &e) {
 		tmp << e.what();
 	}
